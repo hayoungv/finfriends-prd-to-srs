@@ -1,0 +1,19 @@
+# 참고 문서 / 원본 — 저장소에 올리지 않는다 (로컬 보관)
+29148-2018-ISOIECIEEE.pdf
+SRS_문서_AD-Core-Platform_(한글).md
+9. PRD_핀프렌즈_v0_2.md
+PRD_v1_0_최종검토.md
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Temp
+*.tmp
+~$*
