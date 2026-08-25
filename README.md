@@ -12,11 +12,12 @@
 | 단계 | 산출물 문서 | 버전 | 주요 내용 |
 |:---:|---|:---:|---|
 | **01. 기획** | [`finfriends-prd-v1_0.md`](finfriends-prd-v1_0.md) | `v1.0` | **제품 요구사항 정의서 (PRD)**<br>• 북극성 지표(WPA), 8대 사용자 스토리, 기능/비기능 요구사항<br>• 외부 제휴사 책임 경계 및 ADR 8건 |
-| **02. 요구사항** | [`SRS_문서_핀프렌즈_v1.1_검토반영본.md`](SRS_문서_핀프렌즈_v1.1_검토반영본.md) | `v1.1` | **소프트웨어 요구사항 명세서 (SRS 보강본)**<br>• ISO/IEC/IEEE 29148:2018 준수<br>• REQ-FUNC 18건, REQ-NF 24건, REG 9건<br>• 7개 핵심 Sequence Diagram & Logical DB/ERD/클래스 다이어그램 |
-| **03. 기술 설계** | [`FinFriends_Technical_Design_Specification.md`](FinFriends_Technical_Design_Specification.md) | `v1.0` | **기술 설계 문서 (TDS)**<br>• 도메인 아키텍처, 멱등성 및 원장 불변식 설계<br>• 제휴사 Gateway 연동, 이벤트 버스, 배치 스케줄러 명세 |
-| **04. 개발 태스크** | [`FinFriends_Development_Task_List.md`](FinFriends_Development_Task_List.md) | `v1.1` | **개발 상세 태스크 리스트 (50건)**<br>• Must-Have(33건) / Should-Have(9건) / Deferred(8건)<br>• 0.5~2일 단위 공수 산정 및 선후행 의존 관계 다이어그램 |
+| **02. 개정 계획** | [`plans/srs_revision_plan.md`](plans/srs_revision_plan.md) | `v1.2` | **SRS 개정 계획서**<br>• Next.js 단일 풀스택, Prisma + Supabase PG, Gemini AI 연동 계획<br>• $0 무료 인프라 완화 전략 |
+| **03. 요구사항 (최신)** | [`SRS_문서_핀프렌즈_v1.2.md`](SRS_문서_핀프렌즈_v1.2.md) | `v1.2` | **소프트웨어 요구사항 명세서 (SRS v1.2 AI-Native 최적화본)**<br>• ISO/IEC/IEEE 29148:2018 준수<br>• Next.js Server Actions / Prisma Schema / Gemini AI 연동 명세<br>• REQ-FUNC 18건, NFR 24건, Mock Sandbox, ADR 13건 |
+| **04. 기술 설계** | [`FinFriends_Technical_Design_Specification.md`](FinFriends_Technical_Design_Specification.md) | `v1.0` | **기술 설계 문서 (TDS)**<br>• 도메인 아키텍처, 멱등성 및 원장 불변식 설계<br>• 제휴사 Gateway 연동, 이벤트 버스, 배치 스케줄러 명세 |
+| **05. 개발 태스크** | [`FinFriends_Development_Task_List.md`](FinFriends_Development_Task_List.md) | `v1.1` | **개발 상세 태스크 리스트 (50건)**<br>• Must-Have(33건) / Should-Have(9건) / Deferred(8건)<br>• 0.5~2일 단위 공수 산정 및 선후행 의존 관계 다이어그램 |
 
-> 💡 *참고: 초기 버전인 [`SRS_문서_핀프렌즈_(한글).md`](SRS_문서_핀프렌즈_(한글).md)는 기준선 보존용이며, 실제 구현 및 검증 기준선은 **v1.1 검토반영본**을 따릅니다.*
+> 💡 *참고: 실제 구현 및 검증 기준선은 AI-Native 단일 풀스택 기술 스택이 반영된 **v1.2 최신 명세서**([`SRS_문서_핀프렌즈_v1.2.md`](SRS_문서_핀프렌즈_v1.2.md))를 따릅니다.*
 
 ---
 
