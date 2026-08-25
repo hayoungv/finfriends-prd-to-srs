@@ -24,6 +24,7 @@
 
 | 단계 | 산출물 문서 | 버전 | 주요 내용 |
 |:---:|---|:---:|---|
+| **00. 총괄 로드맵** | [`docs/00_PROJECT_DAG_ROADMAP.md`](docs/00_PROJECT_DAG_ROADMAP.md) | `v1.2` | **개발 총괄 DAG 로드맵 & 실행 전략 (신규)**<br>• 4대 도메인 병렬 트랙(Gantt 차트) 및 5일 완주 전략<br>• Alpha/Beta/General 릴리즈 게이트 통과 프로토콜 |
 | **01. 기획** | [`docs/01_PRD/finfriends-prd-v1_0.md`](docs/01_PRD/finfriends-prd-v1_0.md) | `v1.0` | **제품 요구사항 정의서 (PRD)**<br>• 북극성 지표(WPA), 8대 사용자 스토리, 기능/비기능 요구사항<br>• 선불업 책임 경계 및 ADR 8건 |
 | **02. 개정 계획** | [`plans/srs_revision_plan.md`](plans/srs_revision_plan.md) | `v1.2` | **SRS 개정 계획서**<br>• Next.js 단일 풀스택 + Prisma + Gemini AI 전환 전략<br>• $0 무료 인프라 완화(Mitigation) 전략 수립 |
 | **03. 요구사항** | [`docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md`](docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md) | `v1.2` | **소프트웨어 요구사항 명세서 (SRS v1.2 최신본)**<br>• **ISO/IEC/IEEE 29148:2018 준수**<br>• REQ-FUNC 18건, NFR 24건, REG 9건<br>• Server Actions, Prisma 스키마, 7개 시퀀스 다이어그램, 신규 ADR 13건 |
