@@ -24,13 +24,13 @@
 
 | 단계 | 산출물 문서 | 버전 | 주요 내용 |
 |:---:|---|:---:|---|
-| **01. 기획** | [`finfriends-prd-v1_0.md`](finfriends-prd-v1_0.md) | `v1.0` | **제품 요구사항 정의서 (PRD)**<br>• 북극성 지표(WPA), 8대 사용자 스토리, 기능/비기능 요구사항<br>• 선불업 책임 경계 및 ADR 8건 |
+| **01. 기획** | [`docs/01_PRD/finfriends-prd-v1_0.md`](docs/01_PRD/finfriends-prd-v1_0.md) | `v1.0` | **제품 요구사항 정의서 (PRD)**<br>• 북극성 지표(WPA), 8대 사용자 스토리, 기능/비기능 요구사항<br>• 선불업 책임 경계 및 ADR 8건 |
 | **02. 개정 계획** | [`plans/srs_revision_plan.md`](plans/srs_revision_plan.md) | `v1.2` | **SRS 개정 계획서**<br>• Next.js 단일 풀스택 + Prisma + Gemini AI 전환 전략<br>• $0 무료 인프라 완화(Mitigation) 전략 수립 |
-| **03. 요구사항** | [`SRS_문서_핀프렌즈_v1.2.md`](SRS_문서_핀프렌즈_v1.2.md) | `v1.2` | **소프트웨어 요구사항 명세서 (SRS v1.2 최신본)**<br>• **ISO/IEC/IEEE 29148:2018 준수**<br>• REQ-FUNC 18건, NFR 24건, REG 9건<br>• Server Actions, Prisma 스키마, 7개 시퀀스 다이어그램, 신규 ADR 13건 |
-| **04. 기술 설계** | [`FinFriends_Technical_Design_Specification.md`](FinFriends_Technical_Design_Specification.md) | `v1.0` | **기술 설계 문서 (TDS)**<br>• 도메인 모델, 별 원장 멱등성 및 불변식 설계<br>• Mock Sandbox 결제 대조 및 스케줄러 명세 |
-| **05. 개발 태스크** | [`FinFriends_Development_Task_List.md`](FinFriends_Development_Task_List.md) | `v1.1` | **개발 상세 태스크 리스트 (50건)**<br>• Must-Have(33건) / Should-Have(9건) / Deferred(8건)<br>• 0.5~2일 단위 공수 산정 및 선후행 의존 관계도 |
+| **03. 요구사항** | [`docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md`](docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md) | `v1.2` | **소프트웨어 요구사항 명세서 (SRS v1.2 최신본)**<br>• **ISO/IEC/IEEE 29148:2018 준수**<br>• REQ-FUNC 18건, NFR 24건, REG 9건<br>• Server Actions, Prisma 스키마, 7개 시퀀스 다이어그램, 신규 ADR 13건 |
+| **04. 기술 설계** | [`docs/03_TDS/FinFriends_Technical_Design_Specification.md`](docs/03_TDS/FinFriends_Technical_Design_Specification.md) | `v1.0` | **기술 설계 문서 (TDS)**<br>• 도메인 모델, 별 원장 멱등성 및 불변식 설계<br>• Mock Sandbox 결제 대조 및 스케줄러 명세 |
+| **05. 개발 태스크** | [`docs/04_Tasks/FinFriends_Development_Task_List.md`](docs/04_Tasks/FinFriends_Development_Task_List.md) | `v1.2` | **개발 상세 태스크 리스트 (30건)**<br>• 4단계 원칙(Contract ➔ Logic ➔ Test ➔ NFR) 기반 의존성 다이어그램<br>• 0.5~1일 단위 공수 산정 및 세부 GitHub Issue([`tasks/`](tasks/)) 연동 |
 
-> 💡 *기준선 안내: 과거 v1.0/v1.1 문서는 이력 보존용이며, 실제 구현 및 검증 기준선은 **v1.2 최신 명세서**([`SRS_문서_핀프렌즈_v1.2.md`](SRS_문서_핀프렌즈_v1.2.md))를 따릅니다.*
+> 💡 *기준선 안내: 과거 v1.0/v1.1 문서는 [`docs/archive/`](docs/archive/)에 보존되어 있으며, 실제 구현 및 검증 기준선은 **v1.2 최신 명세서**([`docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md`](docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md))를 따릅니다.*
 
 ---
 
