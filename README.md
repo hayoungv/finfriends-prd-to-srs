@@ -30,7 +30,8 @@
 | **01. 기획** | [`docs/01_PRD/finfriends-prd-v1_0.md`](docs/01_PRD/finfriends-prd-v1_0.md) | `v1.0` | **제품 요구사항 정의서 (PRD)**<br>• 북극성 지표(WPA), 8대 사용자 스토리, 기능/비기능 요구사항, 선불업 경계 ADR 8건 |
 | **02. 요구사항** | [`docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md`](docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md) | `v1.2` | **소프트웨어 요구사항 명세서 (SRS v1.2 최신본)**<br>• REQ-FUNC 18건, NFR 24건, REG 9건, Server Actions 및 Prisma 스키마, ADR 13건 |
 | **03. 기술 설계** | [`docs/03_TDS/FinFriends_Technical_Design_Specification.md`](docs/03_TDS/FinFriends_Technical_Design_Specification.md) | `v1.0` | **기술 설계 문서 (TDS)**<br>• 도메인 모델, 별 원장 멱등성/불변식 설계, Mock Sandbox 3단계 대조 엔진 |
-| **04. 개발 태스크** | [`docs/04_Tasks/FinFriends_Development_Task_List.md`](docs/04_Tasks/FinFriends_Development_Task_List.md) | `v1.2` | **개발 상세 태스크 리스트 (30건)**<br>• 4단계 원칙(Contract ➔ Logic ➔ Test ➔ NFR) 및 세부 이슈 명세([`tasks/`](tasks/)) 연동 |
+| **04. 개발 태스크** | [`tasks/`](tasks/) | `v1.2` | **개발 상세 태스크 리스트 (30건) — 실행 SSOT**<br>• [`tasks/00_TASK_LIST.md`](tasks/00_TASK_LIST.md) 4단계 원칙(Contract ➔ Logic ➔ Test ➔ NFR)·공수·REQ 매핑<br>• [`tasks/step-N/TASK-XXX.md`](tasks/) 개별 명세 30건 (Target Files · GWT · 검증 명령어) |
+| **05. 프로토타이핑** | [`docs/prototype-suggestion.md`](docs/prototype-suggestion.md) | `v1.0` | **시각 프로토타이핑 선별안 (제안 · 미승인)**<br>• 30건 중 UI 표면 소유 태스크 선별(Tier 1 9건 / Tier 2 5건), 13 라우트 화면 맵, fixture 승격 규약 |
 
 ---
 
@@ -107,13 +108,29 @@ flowchart TB
 
 Antigravity, Cursor, Claude Code, OpenAI Codex가 공통 SSOT 하에서 충돌 없이 개발할 수 있도록 Harness가 구성되어 있습니다.
 
+**원본은 한 곳뿐입니다.** 같은 내용이 두 경로에 있으면 한쪽은 반드시 기계 생성 파생본이며, 파생본을 직접 편집하면 다음 동기화에서 소실됩니다 ([`AGENTS.md`](AGENTS.md) §3.1).
+
 ```
-├── .agents/                 # Antigravity & AI Agent 공통 커스터마이징 루트 (rules, skills)
-├── .cursor/                 # Cursor IDE 연동 디렉토리 (rules, skills)
-├── .claude/                 # Claude Code 연동 디렉토리 (agents, commands)
-├── AGENTS.md                # [SSOT] 모든 AI 에이전트 공통 행동 규칙 및 불변식
-└── CLAUDE.md                # Claude Code 전용 라우팅 및 서브에이전트 정의
+├── AGENTS.md                # [원본] 모든 AI 에이전트 공통 행동 규칙 및 불변식
+├── CLAUDE.md                # [원본] Claude Code 전용 라우팅
+├── .claude/
+│   ├── skills/              # [원본] 도메인 스킬 12건 — Claude Code 가 로드
+│   ├── agents/              # [원본] 4트랙 서브에이전트
+│   └── commands/            # [원본] 슬래시 커맨드 3건
+├── .cursor/
+│   ├── rules/               # [파생] AGENTS.md 를 Cursor .mdc 형식으로 반영 (수동)
+│   └── skills/              # [파생] scripts/sync-skills.sh 가 생성 — 직접 편집 금지
+└── scripts/sync-skills.sh   # 스킬 동기화 및 드리프트 검사 (--check)
 ```
+
+| 자산 | 원본 | 파생본 | 동기화 |
+|---|---|---|---|
+| 프로젝트 규칙 | `AGENTS.md` | `.cursor/rules/*.mdc` | 수동 |
+| 도메인 스킬 12건 | `.claude/skills/` | `.cursor/skills/` | `bash scripts/sync-skills.sh` |
+| 서브에이전트 · 커맨드 | `.claude/{agents,commands}/` | — | Claude Code 전용 |
+
+> Codex · Antigravity 용 `.agents/` 는 `.cursor/` 와 100% 중복이라 제거했습니다.
+> 되살리려면 파생본으로 추가하고 `sync-skills.sh` 에 등록하십시오.
 
 ### 🎯 4개 병렬 트랙 소유권 분리
 - **Track A (Core · Auth · Consent):** `prisma/schema.prisma`, `lib/auth/**`, `actions/onboarding.ts`, `middleware.ts`, `scripts/verify-compliance.ts`

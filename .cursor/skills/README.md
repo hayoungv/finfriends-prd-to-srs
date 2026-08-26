@@ -1,6 +1,7 @@
 # Skills Index
 
-`.cursor/skills/*/SKILL.md` — Cursor · Claude Code 가 스킬로 로드한다.
+`.claude/skills/*/SKILL.md` 가 **원본**이다. Claude Code 가 이 경로를 스킬로 로드한다.
+Cursor 용 파생본 `.cursor/skills/` 는 `bash scripts/sync-skills.sh` 로 생성한다 (직접 편집 금지).
 
 ## 100번대 — 프로세스
 | 스킬 | 적용 시점 |
@@ -40,6 +41,6 @@ npx skills add mattpocock/skills      # code-review, diagnosing-bugs, domain-mod
 npx skills add anthropics/skills      # webapp-testing
 ```
 
-> ⚠️ 설치 전 확인 — 외부 스킬이 본 저장소의 `.cursor/rules/004-regulatory-invariants.mdc` 와 충돌하면
+> ⚠️ 설치 전 확인 — 외부 스킬이 본 저장소의 [`AGENTS.md`](../../AGENTS.md) §4 절대 불변식과 충돌하면
 > **로컬 규칙이 우선**한다. 특히 Prisma·Supabase 공식 스킬의 일반적인 CRUD 예제는
 > 별 원장의 멱등성·트랜잭션 요구를 만족하지 않는다. `303` 스킬이 상위 규칙이다.

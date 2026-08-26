@@ -1,7 +1,7 @@
 # FinFriends — Agent Instructions (SSOT)
 
-> 크로스툴 전역 규칙 파일. Cursor · Claude Code · Antigravity · Codex 가 공통으로 로드한다.
-> Claude Code 전용 라우팅은 [`CLAUDE.md`](CLAUDE.md), 상세 규칙은 [`.cursor/rules/`](.cursor/rules/), 절차는 [`.cursor/skills/`](.cursor/skills/) 를 따른다.
+> 크로스툴 전역 규칙 파일. Cursor · Claude Code 가 공통으로 로드하는 **규칙의 원본(SSOT)** 이다.
+> Claude Code 전용 라우팅은 [`CLAUDE.md`](CLAUDE.md), 스킬 원본은 [`.claude/skills/`](.claude/skills/), 도구별 배치 규약은 아래 §3.1 을 따른다.
 
 ---
 
@@ -62,11 +62,54 @@ components/     # ui/**(shadcn), parent/**, child/**
 prisma/         # schema.prisma, migrations/**, seed.ts
 data/           # curriculum.json, wardrobe_items.json — Seed 원본
 tests/          # unit/**, integration/**, e2e/**
-scripts/        # verify-compliance.ts
+scripts/        # verify-compliance.ts, sync-skills.sh
 ```
 
 **레이어 호출 방향** — `app → actions → services → lib/prisma`. 역방향 호출 금지.
 Server Action 에서 Prisma 를 직접 호출하지 않는다. 반드시 `services/*.service.ts` 를 경유한다.
+
+---
+
+## 3.1 저장소 배치 — 원본과 파생 (중복 금지)
+
+같은 내용이 두 곳에 있으면 **반드시 한쪽이 원본이고 다른 쪽은 기계 생성 파생본**이다.
+원본이 아닌 곳을 편집하면 다음 동기화에서 소실된다.
+
+### 지식 계층 — 각 축은 한 곳에만 산다
+
+| 축 | 소유 위치 | 답하는 질문 | 여기에 없어야 할 것 |
+|---|---|---|---|
+| **제품·요구사항·설계** | `docs/01_PRD` · `docs/02_SRS` · `docs/03_TDS` | 왜 · 무엇을 만드는가 | 실행 순서, 담당, 파일 경로 |
+| **실행 계획** | `docs/00_PROJECT_DAG_ROADMAP.md` | 누가 · 언제 · 어떤 순서로 | 개별 태스크 구현 상세 |
+| **태스크** | `tasks/` | 어떤 단위로 · 어떻게 구현하는가 | 요구사항 정의 원문 |
+| **에이전트 규칙** | `AGENTS.md` (본 문서) | 모든 도구가 지켜야 할 것 | 도구 전용 설정 |
+| **도구 라우팅** | `CLAUDE.md` | Claude Code 가 무엇을 언제 부르는가 | 공통 규칙 재서술 |
+
+`tasks/` 내부 역할 경계:
+
+| 파일 | 소유 속성 |
+|---|---|
+| `tasks/README.md` | 30건 인덱스 · 명세 파일 링크 |
+| `tasks/00_TASK_LIST.md` | 4단계 원칙 · 태스크별 설명 · 공수 · REQ 매핑 |
+| `tasks/00_PARALLEL_GANTT.md` | 병렬 간트 · 동시 실행 보드 |
+| `tasks/step-N/TASK-XXX.md` | **개별 태스크 SSOT** — Target Files · GWT · 검증 명령어 |
+
+> 값이 충돌하면 **`tasks/step-N/TASK-XXX.md` → `docs/00_PROJECT_DAG_ROADMAP.md` → 나머지** 순으로 신뢰한다.
+
+### 하네스 계층 — 원본 1곳 + 파생
+
+| 자산 | 원본 | 파생본 | 생성 방법 |
+|---|---|---|---|
+| 프로젝트 규칙 | `AGENTS.md` | `.cursor/rules/*.mdc` | 수동 반영 (Cursor 전용 frontmatter 때문) |
+| 도메인 스킬 12건 | `.claude/skills/` | `.cursor/skills/` | `bash scripts/sync-skills.sh` |
+| 서브에이전트 4건 | `.claude/agents/` | — | Claude Code 전용 |
+| 슬래시 커맨드 3건 | `.claude/commands/` | — | Claude Code 전용 |
+
+**드리프트 검사** — 커밋 전 `bash scripts/sync-skills.sh --check` 가 통과해야 한다.
+
+> ⚠️ `.claude/skills/` 가 스킬 원본이다. Claude Code 는 `.cursor/skills/` 를 **읽지 않는다.**
+> `.agents/` 는 `.cursor/` 와 100% 중복이라 제거했다. Codex·Antigravity 지원을 되살리려면
+> `.agents/{rules,skills}/` 를 파생본으로 추가하고 위 표와 `sync-skills.sh` 에 등록한다.
 
 ---
 
@@ -159,4 +202,6 @@ Server Action 에서 Prisma 를 직접 호출하지 않는다. 반드시 `servic
 | [`docs/02_SRS/`](docs/02_SRS/) | 요구사항 ID(`REQ-*`·`REG-*`) · ADR |
 | [`docs/03_TDS/`](docs/03_TDS/) | ERD · 시퀀스 · 알고리즘 · 무결성 규칙 |
 | [`docs/00_PROJECT_DAG_ROADMAP.md`](docs/00_PROJECT_DAG_ROADMAP.md) | 트랙·웨이브·임계경로·게이트 |
+| [`docs/prototype-suggestion.md`](docs/prototype-suggestion.md) | 시각 프로토타이핑 선별안 (제안, 미승인) |
 | [`tasks/`](tasks/) | 태스크 30건 구현 명세 (SSOT) |
+| [`.claude/skills/README.md`](.claude/skills/README.md) | 도메인 스킬 12건 색인 · 적용 시점 |

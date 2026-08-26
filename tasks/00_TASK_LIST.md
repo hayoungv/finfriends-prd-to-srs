@@ -3,7 +3,7 @@
 - **문서 ID:** TASK-FINFRIENDS-MVP-002
 - **버전:** 1.2 (AI-Native Next.js 단일 풀스택 최적화 개편본)
 - **작성일:** 2026-08-25
-- **기준 문서:** [`SRS_문서_핀프렌즈_v1.2.md`](SRS_문서_핀프렌즈_v1.2.md)
+- **기준 문서:** [`docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md`](../docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md)
 - **적용 기술 스택:** Next.js (App Router), Prisma ORM, Supabase PostgreSQL, Tailwind CSS + shadcn/ui, Vercel AI SDK + Google Gemini 1.5 Flash, Vercel ($0 무료 인프라)
 
 ---

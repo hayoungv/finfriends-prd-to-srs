@@ -6,7 +6,7 @@ allowed-tools: Bash, Read, Grep, Glob, Edit
 
 # Fix Error — $ARGUMENTS
 
-`.cursor/skills/100-error-fixing-process/SKILL.md` 절차를 따른다.
+`.claude/skills/100-error-fixing-process/SKILL.md` 절차를 따른다.
 
 1. **재현** — 정확한 명령어와 입력을 기록한다. 재현 안 되면 아직 고칠 단계가 아니다.
 2. **원문 확보** — 스택트레이스 전문을 읽는다. Prisma 는 에러 코드가 핵심 (`P2002`/`P2003`/`P2025`).

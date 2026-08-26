@@ -1,19 +1,55 @@
-# 참고 문서 / 원본 — 저장소에 올리지 않는다 (로컬 보관)
-docs/references/29148-2018-ISOIECIEEE.pdf
-docs/references/SRS_문서_AD-Core-Platform_(한글).md
-docs/archive/9. PRD_핀프렌즈_v0_2.md
-docs/archive/PRD_v1_0_최종검토.md
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
 
-# OS
+# Next.js Build & Outputs
+.next/
+out/
+build/
+dist/
+
+# Environment Variables (Secrets)
+.env
+.env*.local
+.env.production
+.env.staging
+!.env.example
+
+# Testing & Coverage
+coverage/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS Files
 Thumbs.db
 Desktop.ini
 .DS_Store
+.Spotlight-V100
+.Trashes
 
-# Editor
-.vscode/
+# Editor & IDE
 .idea/
 *.swp
+*.swo
+*~
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 
-# Temp
+# Temporary & Scratch
 *.tmp
 ~$*
+scratch/

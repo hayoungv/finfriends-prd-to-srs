@@ -52,17 +52,26 @@
 
 ---
 
-## 5. 스킬 (`.cursor/skills/`)
+## 5. 스킬 (`.claude/skills/`)
 
-Claude Code 는 `.cursor/skills/*/SKILL.md` 를 스킬로 로드한다. 목록과 적용 시점은 [`.cursor/skills/README.md`](.cursor/skills/README.md) 참조.
+Claude Code 는 **`.claude/skills/*/SKILL.md`** 를 스킬로 로드한다. 목록과 적용 시점은 [`.claude/skills/README.md`](.claude/skills/README.md) 참조.
+
+`.cursor/skills/` 는 Cursor 용 **파생본**이다. 직접 편집하지 말고 원본을 고친 뒤 동기화한다.
+
+```bash
+bash scripts/sync-skills.sh          # .claude/skills → .cursor/skills
+bash scripts/sync-skills.sh --check  # 드리프트 검사
+```
 
 ---
 
 ## 6. 새 규칙을 추가할 때
 
-| 성격 | 위치 |
-|---|---|
-| 항상 적용되는 프로젝트 규칙 | `AGENTS.md` (+ `.cursor/rules/*.mdc` 동기화) |
-| 특정 기술 스택의 도메인 지식 | `.cursor/skills/3XX-*/SKILL.md` |
-| 반복 실행되는 절차 | `.claude/commands/*.md` |
-| 트랙별 작업 전문성 | `.claude/agents/track-*.md` |
+**원본에만 쓴다.** 파생본은 스크립트가 만든다 (AGENTS.md §3.1).
+
+| 성격 | 원본 위치 | 파생본 |
+|---|---|---|
+| 항상 적용되는 프로젝트 규칙 | `AGENTS.md` | `.cursor/rules/*.mdc` (수동 반영) |
+| 특정 기술 스택의 도메인 지식 | `.claude/skills/3XX-*/SKILL.md` | `.cursor/skills/` (`sync-skills.sh`) |
+| 반복 실행되는 절차 | `.claude/commands/*.md` | — |
+| 트랙별 작업 전문성 | `.claude/agents/track-*.md` | — |

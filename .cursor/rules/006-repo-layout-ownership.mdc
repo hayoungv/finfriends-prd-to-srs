@@ -1,0 +1,33 @@
+---
+description: 저장소 배치 규약 — 원본과 파생본 구분, 문서별 소유 속성
+globs:
+alwaysApply: true
+---
+# 006. 저장소 배치 — 원본과 파생
+
+> 원본은 [`AGENTS.md`](../../AGENTS.md) §3.1 이다. 본 규칙은 Cursor 용 요약이다.
+
+## ⚠️ 이 디렉토리는 파생본이다
+
+`.cursor/skills/` 는 **`bash scripts/sync-skills.sh` 가 생성**한다. 직접 편집하면 다음 동기화에서 소실된다.
+
+| 자산 | 원본 | 파생본 |
+|---|---|---|
+| 프로젝트 규칙 | `AGENTS.md` | `.cursor/rules/*.mdc` (이 파일 포함) |
+| 도메인 스킬 12건 | `.claude/skills/` | `.cursor/skills/` |
+
+스킬을 고치려면 `.claude/skills/<이름>/SKILL.md` 를 편집한 뒤 `bash scripts/sync-skills.sh` 를 실행한다.
+커밋 전 `bash scripts/sync-skills.sh --check` 가 통과해야 한다.
+
+## 지식 계층 — 같은 사실을 두 곳에 쓰지 않는다
+
+| 축 | 소유 위치 | 답하는 질문 |
+|---|---|---|
+| 제품·요구사항·설계 | `docs/01_PRD` · `docs/02_SRS` · `docs/03_TDS` | 왜 · 무엇을 |
+| 실행 계획 | `docs/00_PROJECT_DAG_ROADMAP.md` | 누가 · 언제 · 어떤 순서로 |
+| 태스크 | `tasks/` | 어떤 단위로 · 어떻게 |
+| 에이전트 규칙 | `AGENTS.md` | 모든 도구가 지켜야 할 것 |
+
+`tasks/` 내부: `README.md`(인덱스) · `00_TASK_LIST.md`(설명·공수·REQ) · `00_PARALLEL_GANTT.md`(간트) · `step-N/TASK-XXX.md`(**개별 SSOT**).
+
+값이 충돌하면 **`step-N/TASK-XXX.md` → 로드맵 → 나머지** 순으로 신뢰한다.
