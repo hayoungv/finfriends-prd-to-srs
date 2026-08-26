@@ -24,7 +24,7 @@
 ```
 
 **MVP 범위** — 30개 태스크(`TASK-101`~`TASK-405`), 20.5 MD, 4트랙 병렬 6.0 MD.
-근거 문서: [`docs/00_PROJECT_DAG_ROADMAP.md`](docs/00_PROJECT_DAG_ROADMAP.md)
+근거 문서: [`docs/00-plan/dag-roadmap.md`](docs/00-plan/dag-roadmap.md)
 
 ---
 
@@ -75,12 +75,28 @@ Server Action 에서 Prisma 를 직접 호출하지 않는다. 반드시 `servic
 같은 내용이 두 곳에 있으면 **반드시 한쪽이 원본이고 다른 쪽은 기계 생성 파생본**이다.
 원본이 아닌 곳을 편집하면 다음 동기화에서 소실된다.
 
+### 명명 규칙 (신규 파일 생성 시 강제)
+
+| 대상 | 규칙 | 예 |
+|---|---|---|
+| 디렉토리 | 소문자 kebab-case. 정렬이 필요하면 숫자를 접두 또는 접미하며 **자릿수는 디렉토리별로 일관** | `docs/00-plan/` · `tasks/step-1/` · `.claude/skills/100-error-fixing-process/` |
+| 문서 파일 | `kebab-case.md` — **ASCII 소문자만. 한글·공백·버전 표기 금지** | `dag-roadmap.md` · `srs.md` · `task-list.md` |
+| ID 파일 | ID 자체가 이름 | `TASK-101.md` |
+| 예외 | 도구·플랫폼이 이름을 고정하는 파일만 | `README.md` · `SKILL.md` · `AGENTS.md` · `CLAUDE.md` · `.github/ISSUE_TEMPLATE/` |
+
+- **버전을 파일명에 넣지 않는다.** 버전이 오를 때마다 인바운드 링크가 전부 깨진다.
+  버전은 문서 헤더의 `**버전:**` 줄이 소유한다.
+- **넘버링 체계는 하나만 쓴다.** 디렉토리 번호(`00-plan` ~ `03-tds`)가 유일한 순서 표기이며,
+  문서 안에서 "04. 개발 태스크" 같은 **별도 번호를 새로 만들지 않는다.**
+- 파일명에 한글을 쓰지 않는 이유 — git 이 경로를 8진 이스케이프로 인용하고(`"docs/02_SRS/SRS_\353\254..."`),
+  일부 CI·도구가 이를 처리하지 못한다.
+
 ### 지식 계층 — 각 축은 한 곳에만 산다
 
 | 축 | 소유 위치 | 답하는 질문 | 여기에 없어야 할 것 |
 |---|---|---|---|
-| **제품·요구사항·설계** | `docs/01_PRD` · `docs/02_SRS` · `docs/03_TDS` | 왜 · 무엇을 만드는가 | 실행 순서, 담당, 파일 경로 |
-| **실행 계획** | `docs/00_PROJECT_DAG_ROADMAP.md` | 누가 · 언제 · 어떤 순서로 | 개별 태스크 구현 상세 |
+| **제품·요구사항·설계** | `docs/01-prd` · `docs/02-srs` · `docs/03-tds` | 왜 · 무엇을 만드는가 | 실행 순서, 담당, 파일 경로 |
+| **실행 계획** | `docs/00-plan/dag-roadmap.md` | 누가 · 언제 · 어떤 순서로 | 개별 태스크 구현 상세 |
 | **태스크** | `tasks/` | 어떤 단위로 · 어떻게 구현하는가 | 요구사항 정의 원문 |
 | **에이전트 규칙** | `AGENTS.md` (본 문서) | 모든 도구가 지켜야 할 것 | 도구 전용 설정 |
 | **도구 라우팅** | `CLAUDE.md` | Claude Code 가 무엇을 언제 부르는가 | 공통 규칙 재서술 |
@@ -90,11 +106,11 @@ Server Action 에서 Prisma 를 직접 호출하지 않는다. 반드시 `servic
 | 파일 | 소유 속성 |
 |---|---|
 | `tasks/README.md` | 30건 인덱스 · 명세 파일 링크 |
-| `tasks/00_TASK_LIST.md` | 4단계 원칙 · 태스크별 설명 · 공수 · REQ 매핑 |
-| `tasks/00_PARALLEL_GANTT.md` | 병렬 간트 · 동시 실행 보드 |
+| `tasks/task-list.md` | 4단계 원칙 · 태스크별 설명 · 공수 · REQ 매핑 |
+| `tasks/parallel-gantt.md` | 병렬 간트 · 동시 실행 보드 |
 | `tasks/step-N/TASK-XXX.md` | **개별 태스크 SSOT** — Target Files · GWT · 검증 명령어 |
 
-> 값이 충돌하면 **`tasks/step-N/TASK-XXX.md` → `docs/00_PROJECT_DAG_ROADMAP.md` → 나머지** 순으로 신뢰한다.
+> 값이 충돌하면 **`tasks/step-N/TASK-XXX.md` → `docs/00-plan/dag-roadmap.md` → 나머지** 순으로 신뢰한다.
 
 ### 하네스 계층 — 원본 1곳 + 파생
 
@@ -198,10 +214,10 @@ Server Action 에서 Prisma 를 직접 호출하지 않는다. 반드시 `servic
 
 | 문서 | 용도 |
 |---|---|
-| [`docs/01_PRD/`](docs/01_PRD/) | 왜 만드는가 · KPI 정의 |
-| [`docs/02_SRS/`](docs/02_SRS/) | 요구사항 ID(`REQ-*`·`REG-*`) · ADR |
-| [`docs/03_TDS/`](docs/03_TDS/) | ERD · 시퀀스 · 알고리즘 · 무결성 규칙 |
-| [`docs/00_PROJECT_DAG_ROADMAP.md`](docs/00_PROJECT_DAG_ROADMAP.md) | 트랙·웨이브·임계경로·게이트 |
-| [`docs/prototype-suggestion.md`](docs/prototype-suggestion.md) | 시각 프로토타이핑 선별안 (제안, 미승인) |
+| [`docs/01-prd/`](docs/01-prd/) | 왜 만드는가 · KPI 정의 |
+| [`docs/02-srs/`](docs/02-srs/) | 요구사항 ID(`REQ-*`·`REG-*`) · ADR |
+| [`docs/03-tds/`](docs/03-tds/) | ERD · 시퀀스 · 알고리즘 · 무결성 규칙 |
+| [`docs/00-plan/dag-roadmap.md`](docs/00-plan/dag-roadmap.md) | 트랙·웨이브·임계경로·게이트 |
+| [`docs/00-plan/prototype-suggestion.md`](docs/00-plan/prototype-suggestion.md) | 시각 프로토타이핑 선별안 (제안, 미승인) |
 | [`tasks/`](tasks/) | 태스크 30건 구현 명세 (SSOT) |
 | [`.claude/skills/README.md`](.claude/skills/README.md) | 도메인 스킬 12건 색인 · 적용 시점 |

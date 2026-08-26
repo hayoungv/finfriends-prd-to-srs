@@ -17,7 +17,7 @@ gh issue view $ARGUMENTS
 gh issue view <각 blocker 번호> --json state,title --jq '"\(.state)\t\(.title)"'
 ```
 - 전부 `CLOSED` → 진행
-- 미완이 있으면 **임의 구현하지 않는다.** `docs/00_PROJECT_DAG_ROADMAP.md` §3.5 Stub-First 규약을 따르고 이슈에 코멘트로 남긴다.
+- 미완이 있으면 **임의 구현하지 않는다.** `docs/00-plan/dag-roadmap.md` §3.5 Stub-First 규약을 따르고 이슈에 코멘트로 남긴다.
 
 ## 3. 명세 정독
 `tasks/step-*/TASK-XXX.md` — **Target Files** · **Implementation Requirements** · **Acceptance Criteria (GWT)** · **Verification Commands**.

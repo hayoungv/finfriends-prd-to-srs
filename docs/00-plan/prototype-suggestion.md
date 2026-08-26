@@ -3,7 +3,7 @@
 - **문서 ID:** PROTO-FINFRIENDS-MVP-001
 - **버전:** 1.0
 - **작성일:** 2026-08-27
-- **기준 문서:** [`docs/00_PROJECT_DAG_ROADMAP.md`](00_PROJECT_DAG_ROADMAP.md) · [`tasks/00_TASK_LIST.md`](../tasks/00_TASK_LIST.md) · [`docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md`](02_SRS/SRS_문서_핀프렌즈_v1.2.md) · [`AGENTS.md`](../AGENTS.md)
+- **기준 문서:** [`docs/00-plan/dag-roadmap.md`](dag-roadmap.md) · [`tasks/task-list.md`](../../tasks/task-list.md) · [`docs/02-srs/srs.md`](../02-srs/srs.md) · [`AGENTS.md`](../../AGENTS.md)
 - **성격:** 제안서 (미승인). 승인 시 §5 실행 계획이 Wave 0 준비 작업으로 편입된다.
 
 ---
@@ -24,7 +24,7 @@
 
 ### 1.1 핵심 발견 — 30개 태스크에 화면 티켓이 없다
 
-`00_PROJECT_DAG_ROADMAP.md` §6 「태스크별 산출물 카탈로그」 30건 전수 대조 결과:
+`dag-roadmap.md` §6 「태스크별 산출물 카탈로그」 30건 전수 대조 결과:
 
 | 구분 | 건수 | 비고 |
 |---|:--:|---|

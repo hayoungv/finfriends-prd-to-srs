@@ -24,14 +24,28 @@
 
 모든 기획과 설계는 **ISO/IEC/IEEE 29148:2018** 표준 및 규제(만 14세 미만 동의, 위치정보 수집 0건)를 엄격히 준수합니다.
 
-| 단계 | 산출물 문서 | 버전 | 주요 내용 |
+번호는 **디렉토리 번호 하나만** 씁니다. `tasks/` 는 명세가 아니라 실행 트리라 번호를 갖지 않습니다.
+
+| 디렉토리 | 산출물 문서 | 버전 | 주요 내용 |
 |:---:|---|:---:|---|
-| **00. 총괄 실행 계획** | [`docs/00_PROJECT_DAG_ROADMAP.md`](docs/00_PROJECT_DAG_ROADMAP.md) | `v2.0` | **개발 총괄 실행 계획서 (Execution Master Plan) — 실행 SSOT**<br>• 태스크 30건 DAG · 7개 위상 웨이브 · CPM 임계경로 5.5 MD (4트랙 총 20.5 MD)<br>• 파일 배타 소유권 맵, 교차 계약 8건, 릴리즈 게이트 프로토콜 |
-| **01. 기획** | [`docs/01_PRD/finfriends-prd-v1_0.md`](docs/01_PRD/finfriends-prd-v1_0.md) | `v1.0` | **제품 요구사항 정의서 (PRD)**<br>• 북극성 지표(WPA), 8대 사용자 스토리, 기능/비기능 요구사항, 선불업 경계 ADR 8건 |
-| **02. 요구사항** | [`docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md`](docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md) | `v1.2` | **소프트웨어 요구사항 명세서 (SRS v1.2 최신본)**<br>• REQ-FUNC 18건, NFR 24건, REG 9건, Server Actions 및 Prisma 스키마, ADR 13건 |
-| **03. 기술 설계** | [`docs/03_TDS/FinFriends_Technical_Design_Specification.md`](docs/03_TDS/FinFriends_Technical_Design_Specification.md) | `v1.0` | **기술 설계 문서 (TDS)**<br>• 도메인 모델, 별 원장 멱등성/불변식 설계, Mock Sandbox 3단계 대조 엔진 |
-| **04. 개발 태스크** | [`tasks/`](tasks/) | `v1.2` | **개발 상세 태스크 리스트 (30건) — 실행 SSOT**<br>• [`tasks/00_TASK_LIST.md`](tasks/00_TASK_LIST.md) 4단계 원칙(Contract ➔ Logic ➔ Test ➔ NFR)·공수·REQ 매핑<br>• [`tasks/step-N/TASK-XXX.md`](tasks/) 개별 명세 30건 (Target Files · GWT · 검증 명령어) |
-| **05. 프로토타이핑** | [`docs/prototype-suggestion.md`](docs/prototype-suggestion.md) | `v1.0` | **시각 프로토타이핑 선별안 (제안 · 미승인)**<br>• 30건 중 UI 표면 소유 태스크 선별(Tier 1 9건 / Tier 2 5건), 13 라우트 화면 맵, fixture 승격 규약 |
+| **`docs/00-plan/`**<br>총괄 계획 | [`dag-roadmap.md`](docs/00-plan/dag-roadmap.md) | `v2.0` | **개발 총괄 실행 계획서 (Execution Master Plan) — 실행 SSOT**<br>• 태스크 30건 DAG · 7개 위상 웨이브 · CPM 임계경로 5.5 MD (4트랙 총 20.5 MD)<br>• 파일 배타 소유권 맵, 교차 계약 8건, 릴리즈 게이트 프로토콜 |
+| | [`prototype-suggestion.md`](docs/00-plan/prototype-suggestion.md) | `v1.0` | **시각 프로토타이핑 선별안 (제안 · 미승인)**<br>• 30건 중 UI 표면 소유 태스크 선별(Tier 1 9건 / Tier 2 5건), 13 라우트 화면 맵, fixture 승격 규약 |
+| **`docs/01-prd/`**<br>기획 | [`prd.md`](docs/01-prd/prd.md) | `v1.0` | **제품 요구사항 정의서 (PRD)**<br>• 북극성 지표(WPA), 8대 사용자 스토리, 기능/비기능 요구사항, 선불업 경계 ADR 8건 |
+| **`docs/02-srs/`**<br>요구사항 | [`srs.md`](docs/02-srs/srs.md) | `v1.2` | **소프트웨어 요구사항 명세서 (SRS)**<br>• REQ-FUNC 18건, NFR 24건, REG 9건, Server Actions 및 Prisma 스키마, ADR 13건 |
+| **`docs/03-tds/`**<br>기술 설계 | [`tds.md`](docs/03-tds/tds.md) | `v1.0` | **기술 설계 문서 (TDS)**<br>• 도메인 모델, 별 원장 멱등성/불변식 설계, Mock Sandbox 3단계 대조 엔진 |
+| **[`tasks/`](tasks/)**<br>실행 | [`task-list.md`](tasks/task-list.md)<br>[`parallel-gantt.md`](tasks/parallel-gantt.md)<br>[`step-N/TASK-XXX.md`](tasks/) | `v1.2` | **개발 태스크 30건 — 개별 명세가 구현 SSOT**<br>• 4단계 원칙(Contract ➔ Logic ➔ Test ➔ NFR)·공수·REQ 매핑<br>• 태스크별 Target Files · GWT 인수조건 · 검증 명령어 |
+
+### 파일·디렉토리 명명 규칙
+
+| 대상 | 규칙 | 예 |
+|---|---|---|
+| 디렉토리 | 소문자 kebab-case. 정렬이 필요하면 숫자를 접두 또는 접미하며 자릿수는 디렉토리별로 일관되게 | `00-plan/` · `step-1/` · `100-error-fixing-process/` |
+| 문서 파일 | `kebab-case.md` — ASCII 소문자만. **한글·버전 표기 금지** | `dag-roadmap.md` · `srs.md` |
+| ID 파일 | ID 자체가 이름 | `TASK-101.md` |
+| 예외 | 도구·플랫폼이 이름을 고정하는 파일 | `README.md` · `SKILL.md` · `AGENTS.md` · `CLAUDE.md` |
+
+> **버전을 파일명에 넣지 않는 이유** — 버전이 오를 때마다 인바운드 링크가 전부 깨진다.
+> 버전은 각 문서 헤더의 `**버전:**` 줄이 소유한다.
 
 ---
 

@@ -19,15 +19,27 @@ alwaysApply: true
 스킬을 고치려면 `.claude/skills/<이름>/SKILL.md` 를 편집한 뒤 `bash scripts/sync-skills.sh` 를 실행한다.
 커밋 전 `bash scripts/sync-skills.sh --check` 가 통과해야 한다.
 
+## 명명 규칙 (신규 파일 생성 시 강제)
+
+| 대상 | 규칙 | 예 |
+|---|---|---|
+| 디렉토리 | 소문자 kebab-case. 정렬 필요 시 숫자 접두/접미, 자릿수는 디렉토리별 일관 | `docs/00-plan/` · `tasks/step-1/` |
+| 문서 파일 | `kebab-case.md` — ASCII 소문자만. **한글·공백·버전 표기 금지** | `dag-roadmap.md` · `srs.md` |
+| ID 파일 | ID 자체가 이름 | `TASK-101.md` |
+| 예외 | 도구가 이름을 고정하는 파일만 | `README.md` · `SKILL.md` · `AGENTS.md` · `CLAUDE.md` |
+
+버전은 파일명이 아니라 **문서 헤더의 `**버전:**` 줄**이 소유한다.
+넘버링은 디렉토리 번호 하나만 쓰고 문서 안에서 별도 번호를 새로 만들지 않는다.
+
 ## 지식 계층 — 같은 사실을 두 곳에 쓰지 않는다
 
 | 축 | 소유 위치 | 답하는 질문 |
 |---|---|---|
-| 제품·요구사항·설계 | `docs/01_PRD` · `docs/02_SRS` · `docs/03_TDS` | 왜 · 무엇을 |
-| 실행 계획 | `docs/00_PROJECT_DAG_ROADMAP.md` | 누가 · 언제 · 어떤 순서로 |
+| 제품·요구사항·설계 | `docs/01-prd` · `docs/02-srs` · `docs/03-tds` | 왜 · 무엇을 |
+| 실행 계획 | `docs/00-plan/dag-roadmap.md` | 누가 · 언제 · 어떤 순서로 |
 | 태스크 | `tasks/` | 어떤 단위로 · 어떻게 |
 | 에이전트 규칙 | `AGENTS.md` | 모든 도구가 지켜야 할 것 |
 
-`tasks/` 내부: `README.md`(인덱스) · `00_TASK_LIST.md`(설명·공수·REQ) · `00_PARALLEL_GANTT.md`(간트) · `step-N/TASK-XXX.md`(**개별 SSOT**).
+`tasks/` 내부: `README.md`(인덱스) · `task-list.md`(설명·공수·REQ) · `parallel-gantt.md`(간트) · `step-N/TASK-XXX.md`(**개별 SSOT**).
 
 값이 충돌하면 **`step-N/TASK-XXX.md` → 로드맵 → 나머지** 순으로 신뢰한다.

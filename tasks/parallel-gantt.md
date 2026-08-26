@@ -2,7 +2,7 @@
 
 > **30개 태스크를 "무엇을 동시에 굴릴 수 있는가"만 남기고 압축한 시각 지도입니다.**
 > 총 공수 **20.5 MD** · 임계 경로 **5.5 MD** · 최대 동시 실행 **8개** · 완전 독립 레인 **2개**
-> 상세 근거·게이트 명령어·파일 소유권 → [`docs/00_PROJECT_DAG_ROADMAP.md`](../docs/00_PROJECT_DAG_ROADMAP.md)
+> 상세 근거·게이트 명령어·파일 소유권 → [`docs/00-plan/dag-roadmap.md`](../docs/00-plan/dag-roadmap.md)
 
 ---
 
@@ -225,7 +225,7 @@ gantt
 | 🚨 **Beta** | MD **5.5** | AI 회고(`306`) · Fallback(`402`) · 월간 숲(`213`) · 소급 정산(`304`) |
 | 🚀 **GA** | MD **6.0** | 컴플라이언스(`405`) · 미접속 알림(`404`) · $0 인프라 확인 |
 
-> 위 시점은 **자원 무제한 기준**입니다. 에이전트 4명 편성 시 Alpha는 그대로 MD 4.5, Beta는 MD 6.0, GA는 MD 6.5입니다 → [총괄 문서 §4.2.2](../docs/00_PROJECT_DAG_ROADMAP.md#422-에이전트-수별-완주-시점)
+> 위 시점은 **자원 무제한 기준**입니다. 에이전트 4명 편성 시 Alpha는 그대로 MD 4.5, Beta는 MD 6.0, GA는 MD 6.5입니다 → [총괄 문서 §4.2.2](../docs/00-plan/dag-roadmap.md#422-에이전트-수별-완주-시점)
 
 ---
 
@@ -235,5 +235,5 @@ gantt
 |---|---|
 | 태스크별 구현 명세 (GWT · 대상 파일 · 검증 명령어) | [`step-1/`](step-1/) · [`step-2/`](step-2/) · [`step-3/`](step-3/) · [`step-4/`](step-4/) |
 | 30건 전체 인덱스 | [`README.md`](README.md) |
-| 파일 소유권 맵 · 순환 의존 해소 · 리스크 · 게이트 명령어 | [`docs/00_PROJECT_DAG_ROADMAP.md`](../docs/00_PROJECT_DAG_ROADMAP.md) |
-| 에이전트 4명 실제 배정표 | [총괄 문서 §4.3](../docs/00_PROJECT_DAG_ROADMAP.md#43-4-에이전트-자원-평준화-실행-일정-권장-실행안--완주-60-md) |
+| 파일 소유권 맵 · 순환 의존 해소 · 리스크 · 게이트 명령어 | [`docs/00-plan/dag-roadmap.md`](../docs/00-plan/dag-roadmap.md) |
+| 에이전트 4명 실제 배정표 | [총괄 문서 §4.3](../docs/00-plan/dag-roadmap.md#43-4-에이전트-자원-평준화-실행-일정-권장-실행안--완주-60-md) |

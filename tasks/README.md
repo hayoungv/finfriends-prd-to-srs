@@ -1,7 +1,7 @@
 # FinFriends MVP 30개 개발 태스크 인덱스 및 실행 가이드
 
 > **AI 코딩 에이전트를 위한 단일 진실 공급원(SSOT) 태스크 명세 디렉토리**  
-> 본 디렉토리는 [`SRS_문서_핀프렌즈_v1.2.md`](../docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md)에 기반하여 4단계 원칙에 따라 분할된 **30개 세부 GitHub Issue 태스크 명세서**를 포함합니다.
+> 본 디렉토리는 [`docs/02-srs/srs.md`](../docs/02-srs/srs.md)에 기반하여 4단계 원칙에 따라 분할된 **30개 세부 GitHub Issue 태스크 명세서**를 포함합니다.
 
 ---
 
@@ -12,10 +12,10 @@
 | 파일 | 소유 속성 | 여기서 찾지 말 것 |
 |---|---|---|
 | **`README.md`** (본 문서) | 30건 인덱스 · 명세 파일 링크 · 우선순위 | 구현 상세, 실행 순서 |
-| [`00_TASK_LIST.md`](00_TASK_LIST.md) | 4단계 원칙 · 태스크별 설명 · 공수 · 선행 의존 · REQ 매핑 | 파일 경로, 검증 명령어 |
-| [`00_PARALLEL_GANTT.md`](00_PARALLEL_GANTT.md) | 병렬 간트 · 동시 실행 보드 · 착수 신호등 | 태스크 내용 |
+| [`task-list.md`](task-list.md) | 4단계 원칙 · 태스크별 설명 · 공수 · 선행 의존 · REQ 매핑 | 파일 경로, 검증 명령어 |
+| [`parallel-gantt.md`](parallel-gantt.md) | 병렬 간트 · 동시 실행 보드 · 착수 신호등 | 태스크 내용 |
 | **`step-N/TASK-XXX.md`** | **개별 태스크 SSOT** — Target Files · GWT 인수조건 · 검증 명령어 | 트랙 배정, 웨이브 |
-| [`docs/00_PROJECT_DAG_ROADMAP.md`](../docs/00_PROJECT_DAG_ROADMAP.md) | 트랙 · 웨이브 · 임계경로 · 파일 소유권 · 게이트 | 요구사항 정의 원문 |
+| [`docs/00-plan/dag-roadmap.md`](../docs/00-plan/dag-roadmap.md) | 트랙 · 웨이브 · 임계경로 · 파일 소유권 · 게이트 | 요구사항 정의 원문 |
 
 > ⚠️ 값이 충돌하면 **`step-N/TASK-XXX.md` → 로드맵 → 나머지** 순으로 신뢰합니다.
 > 알려진 충돌 5건은 로드맵 §1.3에 전수 기록돼 있습니다.
@@ -90,9 +90,9 @@
 >
 > | 필요한 것 | 참조 위치 |
 > |---|---|
-> | 내 트랙과 담당 태스크 | [§2.2 4개 병렬 에이전트 트랙](../docs/00_PROJECT_DAG_ROADMAP.md#22-4개-병렬-에이전트-트랙-정의) |
-> | 내가 건드려도 되는 파일 | [§2.3 파일 소유권 맵](../docs/00_PROJECT_DAG_ROADMAP.md#23-파일-소유권-맵-병렬-충돌-방지) |
-> | 지금 착수 가능한 태스크 | [§3.2 위상 정렬 웨이브](../docs/00_PROJECT_DAG_ROADMAP.md#32-위상-정렬-웨이브-wave-0--wave-6) · [§8 디스패치 매트릭스](../docs/00_PROJECT_DAG_ROADMAP.md#8-태스크-디스패치-매트릭스-30건-전수) |
-> | 절대 늦추면 안 되는 태스크 | [§3.3 임계 경로 및 Slack](../docs/00_PROJECT_DAG_ROADMAP.md#33-임계-경로-cpm-및-여유-시간-분석) |
-> | 선행 태스크가 아직 없을 때 | [§3.5 Stub-First 순환 해소 규약](../docs/00_PROJECT_DAG_ROADMAP.md#35-잠재-순환-의존-3건과-해소-규약-stub-first) |
-> | 게이트 통과 명령어 | [§5.4 게이트 일괄 실행 번들](../docs/00_PROJECT_DAG_ROADMAP.md#54-게이트-일괄-실행-번들) |
+> | 내 트랙과 담당 태스크 | [§2.2 4개 병렬 에이전트 트랙](../docs/00-plan/dag-roadmap.md#22-4개-병렬-에이전트-트랙-정의) |
+> | 내가 건드려도 되는 파일 | [§2.3 파일 소유권 맵](../docs/00-plan/dag-roadmap.md#23-파일-소유권-맵-병렬-충돌-방지) |
+> | 지금 착수 가능한 태스크 | [§3.2 위상 정렬 웨이브](../docs/00-plan/dag-roadmap.md#32-위상-정렬-웨이브-wave-0--wave-6) · [§8 디스패치 매트릭스](../docs/00-plan/dag-roadmap.md#8-태스크-디스패치-매트릭스-30건-전수) |
+> | 절대 늦추면 안 되는 태스크 | [§3.3 임계 경로 및 Slack](../docs/00-plan/dag-roadmap.md#33-임계-경로-cpm-및-여유-시간-분석) |
+> | 선행 태스크가 아직 없을 때 | [§3.5 Stub-First 순환 해소 규약](../docs/00-plan/dag-roadmap.md#35-잠재-순환-의존-3건과-해소-규약-stub-first) |
+> | 게이트 통과 명령어 | [§5.4 게이트 일괄 실행 번들](../docs/00-plan/dag-roadmap.md#54-게이트-일괄-실행-번들) |

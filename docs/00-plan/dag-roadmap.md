@@ -5,10 +5,10 @@
 - **작성일:** 2026-08-26
 - **문서 성격:** 개발 실행 총괄 (SSOT) — 실행 전략 · 의존성 구조(DAG) · 병렬 Gantt · 릴리즈 게이트
 - **기준 문서:**
-  - 요구사항: [`docs/02_SRS/SRS_문서_핀프렌즈_v1.2.md`](02_SRS/SRS_문서_핀프렌즈_v1.2.md)
-  - 기술설계: [`docs/03_TDS/FinFriends_Technical_Design_Specification.md`](03_TDS/FinFriends_Technical_Design_Specification.md)
-  - 태스크 목록: [`tasks/00_TASK_LIST.md`](../tasks/00_TASK_LIST.md)
-  - **태스크 본문 30건 (실측 원천):** [`tasks/`](../tasks/) — `step-1` 4건, `step-2` 15건, `step-3` 6건, `step-4` 5건
+  - 요구사항: [`docs/02-srs/srs.md`](../02-srs/srs.md)
+  - 기술설계: [`docs/03-tds/tds.md`](../03-tds/tds.md)
+  - 태스크 목록: [`tasks/task-list.md`](../../tasks/task-list.md)
+  - **태스크 본문 30건 (실측 원천):** [`tasks/`](../../tasks/) — `step-1` 4건, `step-2` 15건, `step-3` 6건, `step-4` 5건
 - **적용 기술 스택:** Next.js (App Router), Prisma ORM + Supabase PostgreSQL, Tailwind CSS + shadcn/ui, Vercel AI SDK + Google Gemini 1.5 Flash, Vercel ($0 무료 인프라)
 
 ---
@@ -17,14 +17,14 @@
 
 | 문서 | 답하는 질문 | 소비 주체 |
 |---|---|---|
-| `docs/02_SRS` | **무엇을** 만드는가 (요구사항) | 기획 / 검수 |
-| `docs/03_TDS` | **어떻게** 설계하는가 (구조) | 아키텍트 |
-| `tasks/00_TASK_LIST.md` | **어떤 단위로** 쪼개는가 (30건 목록) | 리드 |
+| `docs/02-srs` | **무엇을** 만드는가 (요구사항) | 기획 / 검수 |
+| `docs/03-tds` | **어떻게** 설계하는가 (구조) | 아키텍트 |
+| `tasks/task-list.md` | **어떤 단위로** 쪼개는가 (30건 목록) | 리드 |
 | **본 문서 (`00`)** | **누가 · 언제 · 어떤 순서로** 실행하는가 | **실행 오케스트레이터 / 각 개발 에이전트** |
 | `tasks/step-N/TASK-XXX.md` | 개별 태스크를 **정확히 어떻게** 구현·검증하는가 | 담당 에이전트 |
 
 > ⚠️ **우선순위 규칙:** 본 문서의 모든 수치·의존 관계는 **`tasks/` 하위 30개 태스크 본문을 실측 대조하여** 산출했습니다.
-> 상위 문서(`tasks/00_TASK_LIST.md`)와 값이 충돌하는 경우 **태스크 본문 → 본 문서 → 상위 문서** 순으로 신뢰합니다. 충돌 내역은 §1.3에 전수 기록했습니다.
+> 상위 문서(`tasks/task-list.md`)와 값이 충돌하는 경우 **태스크 본문 → 본 문서 → 상위 문서** 순으로 신뢰합니다. 충돌 내역은 §1.3에 전수 기록했습니다.
 
 ---
 
@@ -71,11 +71,11 @@ flowchart LR
 |:--:|---|---|---|---|
 | **C-1** | Step 3 공수 합계 | 4.0 MD | **3.5 MD** | `301`~`305` 각 0.5 + `306` 1.0 = 3.5 (본문 6건 실측 합계) |
 | **C-2** | 프로젝트 총 공수 | 21.5 MD | **20.5 MD** | C-1 반영 (3.0 + 11.5 + 3.5 + 2.5) |
-| **C-3** | `TASK-209` 선행 의존 | `TASK-103` (기존 Gantt 표기) | **`TASK-102`** | [`TASK-209.md`](../tasks/step-2/TASK-209.md) 본문 `Blockers: TASK-102`. 계획 카드 생성은 Zod 스키마만 필요하고 Sandbox는 불필요 → ES가 2.0 → **1.5 MD로 당겨짐** |
+| **C-3** | `TASK-209` 선행 의존 | `TASK-103` (기존 Gantt 표기) | **`TASK-102`** | [`TASK-209.md`](../../tasks/step-2/TASK-209.md) 본문 `Blockers: TASK-102`. 계획 카드 생성은 Zod 스키마만 필요하고 Sandbox는 불필요 → ES가 2.0 → **1.5 MD로 당겨짐** |
 | **C-4** | `TASK-210` 선행 의존 | `TASK-103`, `TASK-209` | **+ `TASK-204` 추가 필요** | 본문 구현요구 3항이 `grantStar(+1)`을 호출하는데 `TASK-204`가 Blocker에 누락. 방치 시 원장 미구현 상태로 착수하는 실패 경로 발생 (ES 변동은 없음) |
-| **C-5** | `TASK-304`의 게이트 귀속 | Alpha Gate (`301`~`305` 일괄) | **Beta Gate** | `TASK-304`는 `TASK-213`(월간 숲, Beta 범위)에 의존 → Alpha에 두면 **게이트 순서가 역전**됨. [`TASK-304.md`](../tasks/step-3/TASK-304.md) 본문도 `후행: Beta Gate 검증`으로 명시 |
+| **C-5** | `TASK-304`의 게이트 귀속 | Alpha Gate (`301`~`305` 일괄) | **Beta Gate** | `TASK-304`는 `TASK-213`(월간 숲, Beta 범위)에 의존 → Alpha에 두면 **게이트 순서가 역전**됨. [`TASK-304.md`](../../tasks/step-3/TASK-304.md) 본문도 `후행: Beta Gate 검증`으로 명시 |
 
-> 📌 C-3 · C-4는 원천 문서(`tasks/00_TASK_LIST.md`, `tasks/step-2/TASK-210.md`)에도 역반영이 필요합니다. §7 리스크 `R-05` 참조.
+> 📌 C-3 · C-4는 원천 문서(`tasks/task-list.md`, `tasks/step-2/TASK-210.md`)에도 역반영이 필요합니다. §7 리스크 `R-05` 참조.
 
 ---
 
@@ -663,7 +663,7 @@ npm run compliance \
 | **R-02** | `TASK-212` 3중 임계경로 수렴 — `206`·`207`·`210` 중 1건 지연 시 전체 1:1 지연 | 치명 | 중 | H-6·H-7 계약(§3.4)을 **MD 2.0 시점에 문서로 선확정**. 준임계 태스크 일일 점검 | Track D |
 | **R-03** | 잠재 순환 의존 3건(S-1·S-2·S-3) 미인지 시 트랙 간 상호 대기 | 높음 | **높음** | 원칙 P4 Stub-First 강제. 표준 스텁형 사전 배포 (§3.5) | 전 트랙 |
 | **R-04** | Step 2 검증 명령어가 Step 3 테스트 파일을 참조하는 순환 | 중 | **높음** | 구현-검증 페어 3쌍 규약 (§3.6) | Track B·C·D |
-| **R-05** | 상위 문서(`tasks/00_TASK_LIST.md`, `TASK-210.md`)에 C-3·C-4 미반영 → 에이전트가 잘못된 Blocker로 착수 | 중 | 중 | 본 문서 승인 즉시 원천 문서 역반영 커밋 | 오케스트레이터 |
+| **R-05** | 상위 문서(`tasks/task-list.md`, `TASK-210.md`)에 C-3·C-4 미반영 → 에이전트가 잘못된 Blocker로 착수 | 중 | 중 | 본 문서 승인 즉시 원천 문서 역반영 커밋 | 오케스트레이터 |
 | **R-06** | Gemini 1.5 Flash 무료 쿼터 429 → `211`·`306` 검증 불가 | 높음 | 중 | `402` Fallback을 `211`과 **동시 설계**. `306` E2E는 정상 경로 + Fallback 경로 **양방향 검증** | Track C |
 | **R-07** | `package.json` 다중 트랙 동시 편집 충돌 | 중 | 중 | Wave 0 일괄 선설치 프로토콜 (§2.4) | Track A |
 | **R-08** | Track C 유휴 0 MD 풀가동 — 지연 흡수 여력 없음 | 높음 | 중 | Slack 3.0인 `214`·`215` 담당(Track D)을 예비 인력으로 지정 | 오케스트레이터 |
@@ -678,36 +678,36 @@ npm run compliance \
 
 | Task | 트랙 | Wave | 명세서 경로 | 선행 (Blockers) | 공수 | ES → EF | Slack | P |
 |---|:---:|:---:|---|---|:---:|:---:|:---:|:---:|
-| `TASK-101` | A | W0 | [`tasks/step-1/TASK-101.md`](../tasks/step-1/TASK-101.md) | — | 1.0 | 0.0 → 1.0 | **0.0** ★ | P0 |
-| `TASK-102` | A | W1 | [`tasks/step-1/TASK-102.md`](../tasks/step-1/TASK-102.md) | `101` | 0.5 | 1.0 → 1.5 | **0.0** ★ | P0 |
-| `TASK-103` | C | W1 | [`tasks/step-1/TASK-103.md`](../tasks/step-1/TASK-103.md) | `101` | 1.0 | 1.0 → 2.0 | **0.0** ★ | P0 |
-| `TASK-104` | D | W1 | [`tasks/step-1/TASK-104.md`](../tasks/step-1/TASK-104.md) | `101` | 0.5 | 1.0 → 1.5 | 1.0 | P0 |
-| `TASK-204` | B | W1 | [`tasks/step-2/TASK-204.md`](../tasks/step-2/TASK-204.md) | `101` | 1.0 | 1.0 → 2.0 | **0.0** ★ | P0 |
-| `TASK-201` | A | W2 | [`tasks/step-2/TASK-201.md`](../tasks/step-2/TASK-201.md) | `102` | 1.0 | 1.5 → 2.5 | 1.5 | P0 |
-| `TASK-209` | C | W2 | [`tasks/step-2/TASK-209.md`](../tasks/step-2/TASK-209.md) | `102` | 0.5 | 1.5 → 2.0 | **0.0** ★ | P0 |
-| `TASK-205` | B | W2 | [`tasks/step-2/TASK-205.md`](../tasks/step-2/TASK-205.md) | `204` | 0.5 | 2.0 → 2.5 | 2.5 | P0 |
-| `TASK-206` | B | W2 | [`tasks/step-2/TASK-206.md`](../tasks/step-2/TASK-206.md) | `204`, `104` | 0.5 | 2.0 → 2.5 | 0.5 | P0 |
-| `TASK-207` | B | W2 | [`tasks/step-2/TASK-207.md`](../tasks/step-2/TASK-207.md) | `204` | 1.0 | 2.0 → 3.0 | **0.0** ★ | P0 |
-| `TASK-214` | D | W2 | [`tasks/step-2/TASK-214.md`](../tasks/step-2/TASK-214.md) | `204`, `104` | 0.5 | 2.0 → 2.5 | 3.0 | P1 |
-| `TASK-215` | D | W2 | [`tasks/step-2/TASK-215.md`](../tasks/step-2/TASK-215.md) | `204` | 0.5 | 2.0 → 2.5 | 3.0 | P1 |
-| `TASK-301` | B | W2 | [`tasks/step-3/TASK-301.md`](../tasks/step-3/TASK-301.md) | `204` | 0.5 | 2.0 → 2.5 | 3.0 | P0 |
-| `TASK-210` | C | W3 | [`tasks/step-2/TASK-210.md`](../tasks/step-2/TASK-210.md) | `103`, `209`, **`204`**† | 1.0 | 2.0 → 3.0 | **0.0** ★ | P0 |
-| `TASK-202` | A | W3 | [`tasks/step-2/TASK-202.md`](../tasks/step-2/TASK-202.md) | `201` | 0.5 | 2.5 → 3.0 | 1.5 | P0 |
-| `TASK-208` | B | W3 | [`tasks/step-2/TASK-208.md`](../tasks/step-2/TASK-208.md) | `207` | 1.0 | 3.0 → 4.0 | 1.0 | P0 |
-| `TASK-203` | A | W4 | [`tasks/step-2/TASK-203.md`](../tasks/step-2/TASK-203.md) | `202` | 0.5 | 3.0 → 3.5 | 1.5 | P0 |
-| `TASK-211` | C | W4 | [`tasks/step-2/TASK-211.md`](../tasks/step-2/TASK-211.md) | `210` | 1.0 | 3.0 → 4.0 | 0.5 | P0 |
-| `TASK-303` | C | W4 | [`tasks/step-3/TASK-303.md`](../tasks/step-3/TASK-303.md) | `210` | 0.5 | 3.0 → 3.5 | 2.0 | P0 |
-| `TASK-212` | D | W4 | [`tasks/step-2/TASK-212.md`](../tasks/step-2/TASK-212.md) | `206`, `207`, `210` | 1.0 | 3.0 → 4.0 | **0.0** ★ | P0 |
-| `TASK-305` | A | W5 | [`tasks/step-3/TASK-305.md`](../tasks/step-3/TASK-305.md) | `203` | 0.5 | 3.5 → 4.0 | 1.5 | P0 |
-| `TASK-213` | D | W5 | [`tasks/step-2/TASK-213.md`](../tasks/step-2/TASK-213.md) | `212` | 1.0 | 4.0 → 5.0 | **0.0** ★ | P0 |
-| `TASK-302` | D | W5 | [`tasks/step-3/TASK-302.md`](../tasks/step-3/TASK-302.md) | `212` | 0.5 | 4.0 → 4.5 | 1.0 | P0 |
-| `TASK-306` | C | W5 | [`tasks/step-3/TASK-306.md`](../tasks/step-3/TASK-306.md) | `211` | 1.0 | 4.0 → 5.0 | 0.5 | P0 |
-| `TASK-401` | D | W5 | [`tasks/step-4/TASK-401.md`](../tasks/step-4/TASK-401.md) | `212` | 0.5 | 4.0 → 4.5 | 0.5 | P0 |
-| `TASK-402` | C | W5 | [`tasks/step-4/TASK-402.md`](../tasks/step-4/TASK-402.md) | `211` | 0.5 | 4.0 → 4.5 | 1.0 | P0 |
-| `TASK-404` | A | W6 | [`tasks/step-4/TASK-404.md`](../tasks/step-4/TASK-404.md) | `201`, `401` | 0.5 | 4.5 → 5.0 | 0.5 | P1 |
-| `TASK-304` | B | W6 | [`tasks/step-3/TASK-304.md`](../tasks/step-3/TASK-304.md) | `208`, `213` | 0.5 | 5.0 → 5.5 | **0.0** ★ | P0 |
-| `TASK-403` | D | W6 | [`tasks/step-4/TASK-403.md`](../tasks/step-4/TASK-403.md) | `212`, `213` | 0.5 | 5.0 → 5.5 | **0.0** ★ | P0 |
-| `TASK-405` | A | W6 | [`tasks/step-4/TASK-405.md`](../tasks/step-4/TASK-405.md) | Step 2 전체 (실질 `213`) | 0.5 | 5.0 → 5.5 | **0.0** ★ | P0 |
+| `TASK-101` | A | W0 | [`tasks/step-1/TASK-101.md`](../../tasks/step-1/TASK-101.md) | — | 1.0 | 0.0 → 1.0 | **0.0** ★ | P0 |
+| `TASK-102` | A | W1 | [`tasks/step-1/TASK-102.md`](../../tasks/step-1/TASK-102.md) | `101` | 0.5 | 1.0 → 1.5 | **0.0** ★ | P0 |
+| `TASK-103` | C | W1 | [`tasks/step-1/TASK-103.md`](../../tasks/step-1/TASK-103.md) | `101` | 1.0 | 1.0 → 2.0 | **0.0** ★ | P0 |
+| `TASK-104` | D | W1 | [`tasks/step-1/TASK-104.md`](../../tasks/step-1/TASK-104.md) | `101` | 0.5 | 1.0 → 1.5 | 1.0 | P0 |
+| `TASK-204` | B | W1 | [`tasks/step-2/TASK-204.md`](../../tasks/step-2/TASK-204.md) | `101` | 1.0 | 1.0 → 2.0 | **0.0** ★ | P0 |
+| `TASK-201` | A | W2 | [`tasks/step-2/TASK-201.md`](../../tasks/step-2/TASK-201.md) | `102` | 1.0 | 1.5 → 2.5 | 1.5 | P0 |
+| `TASK-209` | C | W2 | [`tasks/step-2/TASK-209.md`](../../tasks/step-2/TASK-209.md) | `102` | 0.5 | 1.5 → 2.0 | **0.0** ★ | P0 |
+| `TASK-205` | B | W2 | [`tasks/step-2/TASK-205.md`](../../tasks/step-2/TASK-205.md) | `204` | 0.5 | 2.0 → 2.5 | 2.5 | P0 |
+| `TASK-206` | B | W2 | [`tasks/step-2/TASK-206.md`](../../tasks/step-2/TASK-206.md) | `204`, `104` | 0.5 | 2.0 → 2.5 | 0.5 | P0 |
+| `TASK-207` | B | W2 | [`tasks/step-2/TASK-207.md`](../../tasks/step-2/TASK-207.md) | `204` | 1.0 | 2.0 → 3.0 | **0.0** ★ | P0 |
+| `TASK-214` | D | W2 | [`tasks/step-2/TASK-214.md`](../../tasks/step-2/TASK-214.md) | `204`, `104` | 0.5 | 2.0 → 2.5 | 3.0 | P1 |
+| `TASK-215` | D | W2 | [`tasks/step-2/TASK-215.md`](../../tasks/step-2/TASK-215.md) | `204` | 0.5 | 2.0 → 2.5 | 3.0 | P1 |
+| `TASK-301` | B | W2 | [`tasks/step-3/TASK-301.md`](../../tasks/step-3/TASK-301.md) | `204` | 0.5 | 2.0 → 2.5 | 3.0 | P0 |
+| `TASK-210` | C | W3 | [`tasks/step-2/TASK-210.md`](../../tasks/step-2/TASK-210.md) | `103`, `209`, **`204`**† | 1.0 | 2.0 → 3.0 | **0.0** ★ | P0 |
+| `TASK-202` | A | W3 | [`tasks/step-2/TASK-202.md`](../../tasks/step-2/TASK-202.md) | `201` | 0.5 | 2.5 → 3.0 | 1.5 | P0 |
+| `TASK-208` | B | W3 | [`tasks/step-2/TASK-208.md`](../../tasks/step-2/TASK-208.md) | `207` | 1.0 | 3.0 → 4.0 | 1.0 | P0 |
+| `TASK-203` | A | W4 | [`tasks/step-2/TASK-203.md`](../../tasks/step-2/TASK-203.md) | `202` | 0.5 | 3.0 → 3.5 | 1.5 | P0 |
+| `TASK-211` | C | W4 | [`tasks/step-2/TASK-211.md`](../../tasks/step-2/TASK-211.md) | `210` | 1.0 | 3.0 → 4.0 | 0.5 | P0 |
+| `TASK-303` | C | W4 | [`tasks/step-3/TASK-303.md`](../../tasks/step-3/TASK-303.md) | `210` | 0.5 | 3.0 → 3.5 | 2.0 | P0 |
+| `TASK-212` | D | W4 | [`tasks/step-2/TASK-212.md`](../../tasks/step-2/TASK-212.md) | `206`, `207`, `210` | 1.0 | 3.0 → 4.0 | **0.0** ★ | P0 |
+| `TASK-305` | A | W5 | [`tasks/step-3/TASK-305.md`](../../tasks/step-3/TASK-305.md) | `203` | 0.5 | 3.5 → 4.0 | 1.5 | P0 |
+| `TASK-213` | D | W5 | [`tasks/step-2/TASK-213.md`](../../tasks/step-2/TASK-213.md) | `212` | 1.0 | 4.0 → 5.0 | **0.0** ★ | P0 |
+| `TASK-302` | D | W5 | [`tasks/step-3/TASK-302.md`](../../tasks/step-3/TASK-302.md) | `212` | 0.5 | 4.0 → 4.5 | 1.0 | P0 |
+| `TASK-306` | C | W5 | [`tasks/step-3/TASK-306.md`](../../tasks/step-3/TASK-306.md) | `211` | 1.0 | 4.0 → 5.0 | 0.5 | P0 |
+| `TASK-401` | D | W5 | [`tasks/step-4/TASK-401.md`](../../tasks/step-4/TASK-401.md) | `212` | 0.5 | 4.0 → 4.5 | 0.5 | P0 |
+| `TASK-402` | C | W5 | [`tasks/step-4/TASK-402.md`](../../tasks/step-4/TASK-402.md) | `211` | 0.5 | 4.0 → 4.5 | 1.0 | P0 |
+| `TASK-404` | A | W6 | [`tasks/step-4/TASK-404.md`](../../tasks/step-4/TASK-404.md) | `201`, `401` | 0.5 | 4.5 → 5.0 | 0.5 | P1 |
+| `TASK-304` | B | W6 | [`tasks/step-3/TASK-304.md`](../../tasks/step-3/TASK-304.md) | `208`, `213` | 0.5 | 5.0 → 5.5 | **0.0** ★ | P0 |
+| `TASK-403` | D | W6 | [`tasks/step-4/TASK-403.md`](../../tasks/step-4/TASK-403.md) | `212`, `213` | 0.5 | 5.0 → 5.5 | **0.0** ★ | P0 |
+| `TASK-405` | A | W6 | [`tasks/step-4/TASK-405.md`](../../tasks/step-4/TASK-405.md) | Step 2 전체 (실질 `213`) | 0.5 | 5.0 → 5.5 | **0.0** ★ | P0 |
 
 † `TASK-210`의 `TASK-204` 의존은 §1.3 C-4에 따라 본 문서가 추가 확정한 항목입니다 (본문 미기재).
 
@@ -720,7 +720,7 @@ npm run compliance \
 - [ ] 리드가 SRS §10의 11개 테이블 DDL 초안을 리뷰하고 `TASK-101` 스키마를 사전 승인 (R-01)
 - [ ] 4개 에이전트 트랙 배정 확정 및 §2.3 파일 소유권 맵 배포
 - [ ] §3.5 Stub-First 표준 스텁 3건 형태 합의
-- [ ] §1.3 C-3 · C-4 정정을 `tasks/00_TASK_LIST.md` 및 `tasks/step-2/TASK-210.md`에 역반영 (R-05)
+- [ ] §1.3 C-3 · C-4 정정을 `tasks/task-list.md` 및 `tasks/step-2/TASK-210.md`에 역반영 (R-05)
 - [ ] `.env` 시크릿 준비 — `DATABASE_URL`, `GOOGLE_GENERATIVE_AI_API_KEY`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`
 
 ### 9.2 Wave 0 (MD 0.0~1.0) 동시 수행

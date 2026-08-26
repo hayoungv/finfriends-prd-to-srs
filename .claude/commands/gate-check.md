@@ -7,7 +7,7 @@ allowed-tools: Bash, Read, Grep
 # Release Gate Check — $ARGUMENTS
 
 > 게이트는 **자동 명령어 결과로만 판정**한다. 하나라도 실패하면 다음 웨이브를 착수하지 않는다 (원칙 P5).
-> 근거: `docs/00_PROJECT_DAG_ROADMAP.md` §5
+> 근거: `docs/00-plan/dag-roadmap.md` §5
 
 ## Alpha Gate (MD 4.5) — 규제 · 원장 · 나무
 ```bash

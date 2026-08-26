@@ -4,7 +4,7 @@
 - **문서 ID:** TDS-FINFRIENDS-MVP-001
 - **버전:** 1.0
 - **작성일:** 2026-08-25
-- **기준 문서:** [SRS 문서 - 핀프렌즈(FinFriends)](https://github.com/hayoungv/finfriends-prd-to-srs/blob/main/SRS_%EB%AC%B8%EC%84%9C_%ED%95%80%ED%94%84%EB%A0%8C%EC%A6%88_%28%ED%95%9C%EA%B8%80%29.md)
+- **기준 문서:** [`docs/02-srs/srs.md`](../02-srs/srs.md)
 - **설계 원칙:** SRS에 명시된 요구사항·제약·ADR을 구현 가능한 구조로 구체화하되, SRS에 없는 세부 구현은 본 문서에서 `설계 제안`으로 구분한다.
 
 ---

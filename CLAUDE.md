@@ -11,7 +11,7 @@
 
 1. [`AGENTS.md`](AGENTS.md) — 스택 · 디렉토리 규약 · 불변식 · 파일 소유권
 2. 담당 태스크 명세 — `tasks/step-*/TASK-XXX.md`
-3. 필요 시 [`docs/00_PROJECT_DAG_ROADMAP.md`](docs/00_PROJECT_DAG_ROADMAP.md) §3.4 인터페이스 계약
+3. 필요 시 [`docs/00-plan/dag-roadmap.md`](docs/00-plan/dag-roadmap.md) §3.4 인터페이스 계약
 
 **이 저장소에는 아직 코드가 없다.** 첫 스캐폴딩은 `TASK-101` 담당(Track A)이 수행하며, 그 전까지 다른 트랙은 DAG 외 준비 작업(테스트 러너 구성, shadcn 초기화)만 한다.
 

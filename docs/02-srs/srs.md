@@ -4,7 +4,7 @@
 - **개정 버전:** 1.2 (AI-Native MVP 기술 스택 맞춤 개정본)
 - **날짜:** 2026-08-25
 - **표준:** ISO/IEC/IEEE 29148:2018
-- **입력 문서:** `finfriends-prd-v1_0.md` v1.0, `SRS_문서_핀프렌즈_v1.1_검토반영본.md` v1.1
+- **입력 문서:** `docs/01-prd/prd.md` v1.0, `SRS_문서_핀프렌즈_v1.1_검토반영본.md` v1.1
 - **적용 기술 스택:** Next.js (App Router 단일 풀스택) + Server Actions/Route Handlers + Prisma + Supabase PostgreSQL + Tailwind CSS & shadcn/ui + Vercel AI SDK & Google Gemini API + Vercel 배포 (월 $0 무료 인프라 자립형)
 
 > **문서 상태 및 목적:**
