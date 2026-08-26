@@ -29,6 +29,9 @@ assignees: []
 
 ## 📋 세부 구현 요구사항 (Implementation Requirements)
 
+<img width="1024" height="500" alt="ERD" src="https://github.com/user-attachments/assets/3b23d104-0218-41af-b8ba-5b4fe4c0f835" />
+
+
 1. **테이블 및 모델 정의 (11개 모델):**
    - `ParentAccount` (`parent_accounts`): `parentId`(UUID PK), `authSubject`(UQ), `consentStatus`(Enum: PENDING/COMPLETED/WITHDRAWN), `consentedAt`, `notificationWindow`
    - `ChildAccount` (`child_accounts`): `childId`(UUID PK), `parentId`(FK Cascade), `nickname`, `birthYear`, `status`(Enum: PENDING/ACTIVE/INACTIVE), `lastSessionAt`
