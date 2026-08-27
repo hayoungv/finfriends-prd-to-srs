@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { StarHUD } from "@/components/child/StarHUD";
 import {
   WardrobeAvatar,
   type SpeciesId,
@@ -49,6 +50,9 @@ export function WardrobePicker({
 
   return (
     <>
+      {/* HUD 를 이 컴포넌트가 소유한다 — 옷을 사면 상단 별 개수가 즉시 줄어야 한다 */}
+      <StarHUD balance={balance} />
+
       <section className="flex flex-col items-center gap-1 p-gap">
         <div className="ff-fade" key={`${wearingSpecies}-${wearingOutfit}`}>
           <WardrobeAvatar
@@ -61,9 +65,6 @@ export function WardrobePicker({
         <p className="text-ink-soft">
           {species.find((s) => s.id === wearingSpecies)?.name} ·{" "}
           {outfits.find((o) => o.id === wearingOutfit)?.name}
-        </p>
-        <p className="tabular-nums" style={{ color: "var(--ff-star)" }}>
-          ★ {balance}
         </p>
       </section>
 

@@ -27,9 +27,12 @@ export const items: readonly WardrobeItem[] = [
   { id: "basic", name: "기본 옷", price: 0, owned: true },
   { id: "raincoat", name: "노란 비옷", price: 4, owned: true },
   { id: "explorer", name: "탐험가 조끼", price: 6, owned: false },
-  { id: "chef", name: "요리사 옷", price: 9, owned: false },
+  { id: "chef", name: "요리사 옷", price: 14, owned: false },
 ];
 
-export const balance = 5;
+// 전 화면 공통 잔액이다. ledger.fixture.ts 의 이력 합계(노란 비옷 -4 포함)와 일치한다.
+// 이 값에서 탐험가 조끼(6)는 살 수 있고 요리사 옷(14)은 막힌다 —
+// "살 수 있는 상태"와 "별이 모자라 막힌 상태"가 첫 화면에 함께 보여야 한다.
+export const balance = 12;
 export const wearingSpecies: WardrobeSpecies["id"] = "rabbit";
 export const wearingOutfit: WardrobeItem["id"] = "raincoat";

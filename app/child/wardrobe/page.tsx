@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { StarHUD } from "@/components/child/StarHUD";
 import { WardrobePicker } from "@/components/child/WardrobePicker";
 import {
   species,
@@ -16,8 +15,6 @@ export const metadata = { title: "옷장 · 핀프렌즈" };
 export default function ChildWardrobePage() {
   return (
     <>
-      <StarHUD balance={balance} />
-
       <WardrobePicker
         species={species}
         outfits={items}

@@ -15,7 +15,6 @@ export type Mission = {
   readonly note?: string;
 };
 
-
 export const missions: readonly Mission[] = [
   { id: "m1", title: "빨래 개기", reward: 2, status: "CREATED" },
   { id: "m2", title: "신발 정리하기", reward: 1, status: "CREATED" },

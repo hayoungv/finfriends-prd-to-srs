@@ -112,3 +112,28 @@ ROUND 1 지적 4건 **전부 해소 확인** → K·S 축이 `C` → `P` 로 올
 | **A** | `/child/learn` 의 '불리기' 카드가 `<div>` 라 클릭 불가. 그런데 안내 문구는 "이야기와 퀴즈만 있어요"라 **자기모순**이다. SRS §6.3 AC1 은 "'불리기' 영역은 학습 및 퀴즈만 개통", `TASK-206` 은 "학습 완료만 기록"이라 **주제를 막으라는 뜻이 아니었다.** `quiz.fixture.ts` 에 grow 콘텐츠가 완비돼 있는데 도달 경로가 0건 | 4개 카드 전부 `Link` 로 통일. 잠긴 것은 **상품이지 학습이 아니다** — 필드명을 `locked` → `productLocked` 로 바꾸고 배지를 「🔒 상품 가입 없음」으로 한정. 차단 경계는 **퀴즈 보상 화면**에 `productNotice` 로 명시 (REG-004 가 실제로 작동하는 지점에 표시) |
 | **T** | 무반응 CTA 4건 — `/child/missions` "다 했어요", `/child/wardrobe` 종·의상 교체. SRS §6.4 AC1 (`CREATED → PENDING_APPROVAL`) 이 클릭으로 시연되지 않는다 | `MissionReport` · `WardrobePicker` 클라이언트 컴포넌트 신설. 미션은 상태 전이 + 안내 문구, 옷장은 종·의상 교체와 **구매 시 별 차감**까지 실제로 동작 |
 | K(선택) | `SPECIES`·`OUTFITS` 외부 참조 0 | `export` 제거. `mission.fixture.ts` 의 `STATUS_LABEL` 도 표현이므로 컴포넌트로 이관 |
+
+### ROUND 3 — 2026-08-27
+
+```
+ROUND: 3
+VERDICT: GO
+SCORECARD: A:P Z:P T:C K:C S:P
+TOP_FIX: app/child/wardrobe/wardrobe.fixture.ts:33 의 balance = 5 를 다른 전 화면과 같은 12 로
+         올리고, page.tsx:19 의 StarHUD 를 WardrobePicker 내부 실시간 잔액으로 렌더하라.
+```
+
+ROUND 2 지적 2건 해소 확인 → **A 축 `C` → `P`.** 남은 2건은 원인이 하나다.
+
+| 축 | 지적 | 조치 |
+|:--:|---|---|
+| **T** | 별 잔액이 전 화면 12(퀴즈·회고는 지급 전 11)인데 **옷장만 5**. `ledger.fixture.ts` 의 "노란 비옷 -4 / 잔액 12" 이력과도 모순이라 화면을 옮기면 HUD 가 ★12 → ★5 로 튄다 | 옷장 잔액을 **12** 로 통일. 별 이력 합계와 일치한다 |
+| **K** | 그 잔액 탓에 `WardrobePicker` 의 구매 버튼과 차감 로직이 **도달 불가능한 죽은 분기**였다 | 잔액 12 + 요리사 옷 9→**14** 로 조정. 첫 화면에서 「탐험가 조끼 구매 가능」과 「요리사 옷 별 2개 부족」이 **동시에** 보이고, 사면 잔액이 6으로 줄어 차단 상태가 갱신된다 |
+| K(경미) | `mission.fixture.ts` 의 `STATUS_LABEL` 이관 후 빈 줄 잔여 | 정리 |
+
+**HUD 소유권 이동** — `StarHUD` 를 페이지가 아니라 `WardrobePicker` 가 렌더한다. 서버 컴포넌트가 고정값을 그리면 구매해도 상단 별이 안 줄어든다. 잔액을 소유한 쪽이 HUD 를 그려야 "별을 써서 샀다"가 성립한다.
+
+| 화면 | 잔액 | 근거 |
+|---|:--:|---|
+| tree · learn · missions · plan · stars · wardrobe · wishlist | 12 | `ledger.fixture.ts` 이력 합계 |
+| quiz · retro | 11 | 별 지급 **직전** 상태. 지급 후 12 가 된다 |
