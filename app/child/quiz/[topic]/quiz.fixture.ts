@@ -51,17 +51,17 @@ const CONTENT: Record<string, QuizContent> = {
     topicName: "모으기",
     lesson: {
       title: "지금 참으면 더 큰 걸",
-      body: "오늘 젤리를 사면 젤리가 남아요. 오늘 참으면 별이 남아요. 남은 별이 쌓이면 더 갖고 싶던 걸 살 수 있어요.",
+      body: "오늘 젤리를 사면 젤리가 남아요. 오늘 용돈을 아껴 모으면 더 갖고 싶던 걸 살 수 있어요.",
     },
     question: "3주 뒤에 로봇을 사고 싶어요. 오늘은?",
     choices: [
       { id: "a", text: "일단 젤리부터 사기" },
-      { id: "b", text: "별을 모아두기" },
+      { id: "b", text: "용돈을 모아두기" },
       { id: "c", text: "로봇을 미리 빌리기" },
       { id: "d", text: "안 사기로 마음 바꾸기" },
     ],
     answerId: "b",
-    why: "모아둔 별이 나중에 더 큰 걸 만들어줘요.",
+    why: "모아둔 용돈이 나중에 더 갖고 싶은 걸 만나게 해줘요.",
   },
   grow: {
     topicName: "불리기",

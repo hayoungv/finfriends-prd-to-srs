@@ -8,7 +8,7 @@
 - **적용 기술 스택:** Next.js (App Router 단일 풀스택) + Server Actions/Route Handlers + Prisma + Supabase PostgreSQL + Tailwind CSS & shadcn/ui + Vercel AI SDK & Google Gemini API + Vercel 배포 (월 $0 무료 인프라 자립형)
 
 > **문서 상태 및 목적:**
-> 본 문서는 ISO/IEC/IEEE 29148:2018 표준을 준수하며, 핀프렌즈의 핵심 가치(아동의 금융 실천 기록 및 보호자 증거 제공)와 엄격한 비즈니스 로직(별 원장 멱등성, 성장 나무 3조건, 승인 소급, 결제 대조)을 100% 보존하면서, **현대적인 AI-Native 단일 풀스택(Next.js + Prisma + Supabase + Vercel AI SDK + Gemini) 및 완전 무료 인프라 운영 환경에 최적화하여 전면 개정한 v1.2 최종 명세서**이다.
+> 본 문서는 ISO/IEC/IEEE 29148:2018 표준을 준수하며, 핀프렌즈의 핵심 가치(아동의 금융 실천 기록 및 보호자 증거 제공)와 엄격한 비즈니스 로직(별 원장 멱등성, **4영역 성장 나무**, 승인 소급, 결제 대조)을 100% 보존하면서, **현대적인 AI-Native 단일 풀스택(Next.js + Prisma + Supabase + Vercel AI SDK + Gemini) 및 완전 무료 인프라 운영 환경에 최적화하여 전면 개정한 v1.2 최종 명세서**이다.
 
 ---
 
@@ -61,7 +61,7 @@
 - **금융 학습 4대 주제 (벌기, 쓰기, 모으기, 불리기) 및 인터랙티브 퀴즈**
 - **실천 판정 및 별 원장 엔진 (Idempotent Star Ledger)**
 - **소비 계획 카드 작성 및 계획↔실제 결제 대조/회고 (Vercel AI SDK + Gemini)**
-- **성장 나무 (Growth Tree: 3조건 판정 및 14일 정체 감지)**
+- **성장 나무 (Growth Tree: 벌기·쓰기·모으기·불리기 4영역, 영역별 3조건 판정 및 14일 정체 감지)**
 - **월간 숲 (Monthly Forest Snapshot & 7개 핵심 지표)**
 - **아바타 옷장 (누적 별 기반 의상 구매 및 착용)**
 - **승인 지연 소급 지급 (Backfill Engine)**
@@ -70,7 +70,7 @@
 
 ### Out-of-Scope (MVP 제외 대상)
 - 외부 은행/카드사 실물 전용선 및 유료 본인인증(KYC) 상용망
-- 외부 현금 용돈 추적 및 모의 주식/코인 투자
+- 친척·세뱃돈 등 앱 밖 현금 추적 및 모의 주식/코인 투자
 - 친구 간 송금 및 소셜 랭킹 피드
 - 미션 사진 업로드 및 아동 얼굴 사진 수집 (REG-006)
 - GPS/위치정보 수집 및 위치 기반 실시간 개입 (REG-002)
@@ -202,7 +202,7 @@ flowchart LR
 | **UC-04 미션 승인** | 보호자, 아동 | REQ-FUNC-004, REQ-FUNC-011 | Server Action (`createMission`, `approveMission`) |
 | **UC-05 소비 계획** | 아동, 보호자 | REQ-FUNC-007 | Server Action (`createPlanCard`) |
 | **UC-06 결제 대조/회고** | 아동, Sandbox | REQ-FUNC-008 | Route Handler (`/pay`) + Server Action (`generateAIRetro`) |
-| **UC-07 위시리스트** | 아동 | REQ-FUNC-013 | Server Action (`saveWishlistAmount`, 마일스톤 별 지급) |
+| **UC-07 위시리스트 저축** | 아동, 보호자 | REQ-FUNC-013 | Server Action (`saveWishlistAmount`, 부모 용돈 저축액 반영 및 마일스톤 별 지급) |
 | **UC-08 별 사용** | 아동 | REQ-FUNC-002, REQ-FUNC-006 | Server Action (`purchaseWardrobeItem`, 잔액 차감 트랜잭션) |
 | **UC-09 성장 확인** | 보호자, 아동 | REQ-FUNC-005, REQ-FUNC-009 | React Server Component (RSC) 고속 렌더링 |
 | **UC-10 숲 스냅샷** | 시스템 | REQ-FUNC-009, REQ-FUNC-015 | Supabase `pg_cron` / On-demand Lazy Snapshot |
@@ -321,13 +321,14 @@ sequenceDiagram
 ## 6.5 REQ-FUNC-005: 성장 나무 (Growth Tree)
 
 ### 요구사항 정의
-아동의 금융 성장 상태를 '새싹(Stage 1) → 묘목(Stage 2) → 어린 나무(Stage 3) → 풍성한 나무(Stage 4)'의 4단계로 시각화하여 제공한다.
+아동의 금융 성장 상태를 **벌기·쓰기·모으기·불리기 4개 영역별 나무**로 나누고, 각 나무를 '새싹(Stage 1) → 묘목(Stage 2) → 어린 나무(Stage 3) → 풍성한 나무(Stage 4)'의 4단계로 시각화하여 제공한다.
 
 ### 핵심 승급 규칙
-$$\text{학습 완료} \ge 3 \quad \text{AND} \quad \text{퀴즈 정답} \ge 5 \quad \text{AND} \quad \text{실천 인정} \ge 1 \implies \text{승급(Stage Up)}$$
+$$\text{영역별 학습 완료} \ge 3 \quad \text{AND} \quad \text{영역별 퀴즈 정답} \ge 5 \quad \text{AND} \quad \text{해당 영역 실천 인정} \ge 1 \implies \text{해당 나무 승급(Stage Up)}$$
 
 ### Acceptance Criteria
-- **AC1:** 실천 인정 건수가 0건이면 학습/퀴즈 조건을 아무리 충족해도 승급되지 않는다.
+- **AC1:** 특정 영역의 실천 인정 건수가 0건이면 그 영역의 학습/퀴즈 조건을 아무리 충족해도 해당 나무는 승급되지 않는다.
+- **AC1-1:** 기본 성장 화면에는 벌기·쓰기·모으기·불리기 나무 4개가 동시에 표시되고, 각 나무의 영역별 실천 근거와 상태가 구별된다.
 - **AC2:** 새로운 사이클 시작 후 14일 미만에는 어떠한 정체(Stall) 판정도 내리지 않는다.
 - **AC3:** 14일 경과 후 미충족 조건이 있을 경우, 가장 적게 남은 조건을 UI 최상단에 넛지(Nudge) 메시지로 표시한다.
 
@@ -341,14 +342,14 @@ sequenceDiagram
     participant DB as Supabase PostgreSQL
 
     Child->>Client: 성장 나무 화면 진입
-    Client->>Action: getTreeState(childId)
-    Action->>Prisma: treeState.findUnique({ childId })
+    Client->>Action: getTreeStates(childId)
+    Action->>Prisma: treeState.findMany({ childId, slot })
     Prisma->>DB: SELECT * FROM tree_states WHERE child_id = $1
-    DB-->>Prisma: treeState
+    DB-->>Prisma: four tree states
     
     Action->>Action: evaluateGrowthConditions(treeState)
-    alt 3조건 모두 충족 (학습>=3, 퀴즈>=5, 실천>=1)
-        Action->>Prisma: treeState.update(stage = stage + 1, cycleStart = NOW())
+    alt 해당 영역의 3조건 모두 충족 (학습>=3, 퀴즈>=5, 실천>=1)
+        Action->>Prisma: treeState.update(slot별 stage = stage + 1, cycleStart = NOW())
         Prisma->>DB: UPDATE tree_states
     else 조건 미충족 & 14일 경과
         Action->>Action: calculateStallReason(treeState)
@@ -481,7 +482,7 @@ sequenceDiagram
 
 ## 6.13 ~ 6.18: 기타 기능 요구사항 (REQ-FUNC-013 ~ 018)
 
-- **REQ-FUNC-013 (위시리스트):** 저축 목표 설정 및 30%, 70%, 100% 달성 시마다 마일스톤 별 1개씩 지급 (중복 지급 금지).
+- **REQ-FUNC-013 (위시리스트 저축):** 부모가 준 용돈을 저축 기록으로 적립하는 목표를 설정하고, 저축액이 30%, 70%, 100%에 도달할 때마다 마일스톤 별 1개씩 지급한다(중복 지급 금지). 별은 저축액이나 구매대금으로 사용하지 않는다.
 - **REQ-FUNC-014 (소비 내역):** 업종별 지출 집계 및 전월 대비 증감 리포트 제공.
 - **REQ-FUNC-015 (예적금 가입 중개):** MVP 잠금 (Out of Scope / 법률 검토 완료 전 차단).
 - **REQ-FUNC-016 (Mock Sandbox 체험):** 카드 발급 없이 가상 잔액으로 전체 여정 시뮬레이션 지원.
@@ -557,7 +558,7 @@ classDiagram
 
     ParentAccount "1" --> "1..*" ChildAccount : manages
     ChildAccount "1" --> "0..*" StarLedgerEntry : owns
-    ChildAccount "1" --> "1" TreeState : has
+    ChildAccount "1" --> "4" TreeState : has one per growth area
     ChildAccount "1" --> "0..*" SpendingPlanCard : creates
     SpendingPlanCard "1" --> "0..1" SpendingRecord : reconciles
 ```
@@ -573,7 +574,7 @@ erDiagram
     child_accounts ||--o{ practice_credits : earns
     child_accounts ||--o{ star_ledger_entries : appends
     child_accounts ||--o| star_balances : has
-    child_accounts ||--o| tree_states : tracks
+    child_accounts ||--o{ tree_states : tracks four slots
     child_accounts ||--o{ monthly_forest_snapshots : archives
     child_accounts ||--o{ spending_plan_cards : plans
     spending_plan_cards ||--o| spending_records : matches
@@ -752,10 +753,11 @@ model ChildAccount {
   parent         ParentAccount @relation(fields: [parentId], references: [parentId], onDelete: Cascade)
   starLedger     StarLedgerEntry[]
   starBalance    StarBalance?
-  treeState      TreeState?
+  treeStates     TreeState[]
   planCards      SpendingPlanCard[]
   spendingRecords SpendingRecord[]
   wishlists      Wishlist[]
+  wishlistDeposits WishlistDeposit[]
 
   @@map("child_accounts")
 }
@@ -788,7 +790,8 @@ model StarBalance {
 
 model TreeState {
   treeStateId   String   @id @default(uuid()) @map("tree_state_id")
-  childId       String   @unique @map("child_id")
+  childId       String   @map("child_id")
+  slot          TreeSlot
   stage         Int      @default(1)
   learnCount    Int      @default(0) @map("learn_count")
   quizCount     Int      @default(0) @map("quiz_count")
@@ -798,6 +801,7 @@ model TreeState {
 
   child         ChildAccount @relation(fields: [childId], references: [childId], onDelete: Cascade)
 
+  @@unique([childId, slot])
   @@map("tree_states")
 }
 
@@ -847,8 +851,32 @@ model Wishlist {
   createdAt    DateTime  @default(now()) @map("created_at")
 
   child        ChildAccount @relation(fields: [childId], references: [childId], onDelete: Cascade)
+  deposits     WishlistDeposit[]
 
   @@map("wishlists")
+}
+
+model WishlistDeposit {
+  depositId     String   @id @default(uuid()) @map("deposit_id")
+  wishlistId    String   @map("wishlist_id")
+  childId       String   @map("child_id")
+  amount        Int
+  source        String   @default("PARENT_ALLOWANCE")
+  idempotencyKey String  @unique @map("idempotency_key")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  wishlist Wishlist    @relation(fields: [wishlistId], references: [wishlistId], onDelete: Cascade)
+  child    ChildAccount @relation(fields: [childId], references: [childId], onDelete: Cascade)
+
+  @@index([childId, createdAt])
+  @@map("wishlist_deposits")
+}
+
+enum TreeSlot {
+  EARN
+  SPEND_WELL
+  SAVE
+  GROW
 }
 ```
 
@@ -936,7 +964,7 @@ model Wishlist {
 flowchart TD
     E2E["E2E Test (Playwright: 온보딩 -> 퀴즈 -> 계획 -> 결제 대조 전체 여정)"]
     INT["Integration Test (Server Actions + Prisma + Supabase PG Local)"]
-    UNIT["Unit Test (Vitest: 별 원장 멱등성, 3조건 판정, 대조 알고리즘)"]
+    UNIT["Unit Test (Vitest: 별 원장 멱등성, 4영역 성장 판정, 대조 알고리즘)"]
     STATIC["Static Scan (ESLint, TypeScript Strict, Geolocation 차단 정적 검사)"]
 
     STATIC --> UNIT

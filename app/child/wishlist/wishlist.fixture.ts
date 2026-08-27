@@ -13,18 +13,20 @@ export type Wish = {
   readonly goal: number;
   readonly saved: number;
   readonly milestones: readonly Milestone[];
+  readonly depositSource: "parent_allowance";
 };
 
 export const wish: Wish = {
   id: "w1",
   name: "변신 로봇",
-  goal: 20,
-  saved: 12,
+  goal: 20000,
+  saved: 12000,
   milestones: [
     { pct: 30, label: "시작이 좋아요", awarded: true },
     { pct: 70, label: "거의 다 왔어요", awarded: false },
     { pct: 100, label: "드디어 도착!", awarded: false },
   ],
+  depositSource: "parent_allowance",
 };
 
-export const balance = 12;
+export const starBalance = 12;

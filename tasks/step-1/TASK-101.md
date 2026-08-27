@@ -44,16 +44,17 @@ assignees: []
 <img width="1024" height="500" alt="ERD" src="https://github.com/user-attachments/assets/3b23d104-0218-41af-b8ba-5b4fe4c0f835" />
 
 
-1. **테이블 및 모델 정의 (11개 모델):**
+1. **테이블 및 모델 정의 (12개 모델):**
    - `ParentAccount` (`parent_accounts`): `parentId`(UUID PK), `authSubject`(UQ), `consentStatus`(Enum: PENDING/COMPLETED/WITHDRAWN), `consentedAt`, `notificationWindow`
    - `ChildAccount` (`child_accounts`): `childId`(UUID PK), `parentId`(FK Cascade), `nickname`, `birthYear`, `status`(Enum: PENDING/ACTIVE/INACTIVE), `lastSessionAt`
    - `StarLedgerEntry` (`star_ledger_entries`): `ledgerEntryId`(UUID PK), `childId`(FK), `delta`, `balanceAfter`, `triggerCode`, `sourceId`, `idempotencyKey`(UQ), `createdAt`
    - `StarBalance` (`star_balances`): `childId`(PK FK), `balance`, `updatedAt`
-   - `TreeState` (`tree_states`): `treeStateId`(UUID PK), `childId`(UQ FK), `stage`(1~4), `learnCount`, `quizCount`, `practiceCount`, `cycleStartAt`, `stallDays`
+   - `TreeState` (`tree_states`): `treeStateId`(UUID PK), `childId`(FK), `slot`(Enum: EARN/SPEND_WELL/SAVE/GROW), `stage`(1~4), `learnCount`, `quizCount`, `practiceCount`, `cycleStartAt`, `stallDays`, `@@unique([childId, slot])`
    - `MonthlyForestSnapshot` (`monthly_forest_snapshots`): `snapshotId`(UUID PK), `childId`(FK), `yearMonth`, `earnStage`, `spendWellStage`, `saveStage`, `growStage`, `practiceCount`, `spendingDelta`, `totalEarnedStars`, `snapshotJson`
    - `SpendingPlanCard` (`spending_plan_cards`): `planCardId`(UUID PK), `childId`(FK), `placeText`, `categoryCode`, `plannedAmount`, `itemText`, `status`(Enum: PENDING/MATCHED/EXPIRED), `expiresAt`
    - `SpendingRecord` (`spending_records`): `spendingRecordId`(UUID PK), `childId`(FK), `planCardId`(UQ FK nullable), `actualAmount`, `merchantName`, `categoryCode`, `planMet`, `aiFeedback`
    - `Wishlist` (`wishlists`): `wishlistId`(UUID PK), `childId`(FK), `itemName`, `targetAmount`, `savedAmount`, `paid30`, `paid70`, `paid100`
+   - `WishlistDeposit` (`wishlist_deposits`): `depositId`(UUID PK), `wishlistId`(FK), `childId`(FK), `amount`(Int, 원), `source`(`PARENT_ALLOWANCE`), `idempotencyKey`(UQ), `createdAt`
    - `LearningCompletion` (`learning_completions`): `completionId`(UUID PK), `childId`(FK), `topicId`, `quizCorrectCount`, `cycleId`
    - `PracticeCredit` (`practice_credits`): `creditId`(UUID PK), `childId`(FK), `practicePath`, `sourceId`, `creditedAt`, `cycleId`, `idempotencyKey`(UQ)
 

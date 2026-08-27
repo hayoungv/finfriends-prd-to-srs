@@ -1,7 +1,7 @@
 ---
 name: Feature Task (AI Agent Spec)
 about: AI 코딩 에이전트가 구현할 수 있는 명확한 명세 기반의 개발 태스크
-title: "[TASK-302] [STEP-3] [Unit] 성장 나무 3조건 및 정체 판정 Vitest 단위 테스트"
+title: "[TASK-302] [STEP-3] [Unit] 4영역 성장 나무 3조건 및 정체 판정 Vitest 단위 테스트"
 labels: ["enhancement", "ai-ready", "step-3", "test", "unit"]
 assignees: []
 ---
@@ -16,7 +16,7 @@ assignees: []
 ---
 
 ## 🎯 작업 목적 및 배경 (Objective & Context)
-성장 나무의 승급 3조건(`학습>=3 AND 퀴즈>=5 AND 실천>=1`), 실천 0회 시 승급 불가 규칙, 14일 미만 정체 판정 방지 규칙의 논리적 정확성을 검증합니다.
+4개 성장 나무 각각의 승급 3조건(`영역별 학습>=3 AND 영역별 퀴즈>=5 AND 영역별 실천>=1`), 해당 영역 실천 0회 시 승급 불가 규칙, 14일 미만 정체 판정 방지 규칙의 논리적 정확성을 검증합니다.
 
 ---
 

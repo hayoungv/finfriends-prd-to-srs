@@ -189,7 +189,7 @@ flowchart TB
 
 | # | 라우트 | 모드 | Task | SRS 근거 | 시각 검증 포인트 |
 |:--:|---|:--:|:--:|---|---|
-| 1 | `/child/tree` | Fun | `212` `403` | REQ-FUNC-005 | 4단계 나무 형상 전이, 3조건 카운터(학습≥3·퀴즈≥5·실천≥1), **최상단 넛지 배너**(AC3), 스켈레톤 → Fade-in |
+| 1 | `/child/tree` | Fun | `212` `403` | REQ-FUNC-005 | **4영역 나무 캐러셀**(벌기·쓰기·모으기·불리기), 각 영역 4단계 형상·학습/퀴즈/실천 근거, **최상단 넛지 배너**(AC3), 스켈레톤 → Fade-in |
 | 2 | `/child/learn` | Fun | `206` | REQ-FUNC-003 | 4주제 카드(벌기/쓰기/모으기/불리기), **'불리기' 잠금 표시**(AC1 · ADR-006 · REG-004) |
 | 3 | `/child/quiz/[topic]` | Fun | `206` | REQ-FUNC-003 AC2 | 정답 제출 → **별 1개 즉시 지급 피드백** |
 | 4 | `/child/missions` | Fun | `207` | REQ-FUNC-004 | 미션 상태 전이 시각화 (`CREATED → PENDING_APPROVAL → APPROVED/REJECTED`) |
@@ -197,7 +197,7 @@ flowchart TB
 | 6 | `/child/retro/[recordId]` | Fun | `211` | REQ-FUNC-008 | **3상태** — AI칭찬(별 지급) / AI격려(별 미지급) / 룰Fallback |
 | 7 | `/child/stars` + `StarHUD` | Fun | `205` | REQ-FUNC-002 | 잔액 카운터, 획득 이력 페이징. **별↔현금 전환 UI 부재**(REG-005c) |
 | 8 | `/child/wardrobe` | Fun | `214` | REQ-FUNC-006 | 아바타 2종·의상 4종 그리드, 잔액 부족 시 구매 차단 상태, **얼굴 업로드 UI 부재**(AC3 · REG-006) |
-| 9 | `/child/wishlist` | Fun | `215` | REQ-FUNC-013 | 30/70/100% 마일스톤 게이지 (중복 지급 금지 표시) |
+| 9 | `/child/wishlist` | Fun | `215` | REQ-FUNC-013 | 부모 용돈 저축액 기준 30/70/100% 마일스톤 게이지 (별은 별도 보상, 중복 지급 금지 표시) |
 | 10 | `/parent/onboarding` | Clean | `201` | REQ-FUNC-001 AC1 | 5단계 스텝 인디케이터, **중간 이탈 후 재개** 상태 |
 | 11 | `/consent` | Clean | `202` `203` | REG-001 | 동의 폼 + 아동 프로필 생성. 미동의 시 리다이렉트 착지점 |
 | 12 | `/parent/forest` | Clean | `213` `403` `404` | REQ-FUNC-009 | **7대 지표** 리포트, 최상단 미접속 배너, 스켈레톤 |

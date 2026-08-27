@@ -54,6 +54,9 @@ Desktop.ini
 ~$*
 scratch/
 
+# Local design audit memory
+.hallmark/
+
 # Next.js scaffold
 next-env.d.ts
 .vercel

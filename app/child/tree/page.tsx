@@ -2,7 +2,7 @@ import Link from "next/link";
 import { StarHUD } from "@/components/child/StarHUD";
 import { TreeArt, TREE_STAGES, type TreeStage } from "@/components/child/TreeArt";
 import { WardrobeAvatar } from "@/components/child/WardrobeAvatar";
-import { tree, starBalance, type GrowthCondition } from "./tree.fixture";
+import { trees, starBalance, type GrowthCondition, type GrowthTree } from "./tree.fixture";
 
 // TASK-212 · TASK-205 · REQ-FUNC-005 — Fun 메인
 export const metadata = { title: "내 나무 · 핀프렌즈" };
@@ -31,39 +31,76 @@ function Gauge({ c }: { c: GrowthCondition }) {
   );
 }
 
+function TreeCard({ tree }: { tree: GrowthTree }) {
+  return (
+    <article className="rounded-card bg-surface p-3">
+      <div className="flex items-center gap-2">
+        <TreeArt stage={tree.stage} size={76} />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-baseline justify-between gap-2">
+            <h2 className="font-bold">{tree.label}</h2>
+            <span className="text-sm text-ink-soft">{TREE_STAGES[tree.stage]}</span>
+          </div>
+          <p className="mt-1 text-sm text-ink-soft">
+            {tree.locked ? "학습만 먼저 열려 있어요" : `이번 사이클 ${tree.cycleDays}일째`}
+          </p>
+        </div>
+      </div>
+      <ul className="mt-2 grid gap-1.5">
+        {tree.conditions.map((c) => <Gauge key={c.label} c={c} />)}
+      </ul>
+      {tree.nudge && (
+        <p className="mt-2 rounded-card bg-ink-soft/10 px-2 py-1.5 text-sm font-bold">
+          {tree.nudge}
+        </p>
+      )}
+    </article>
+  );
+}
+
 export default function ChildTreePage() {
+  const activeTree = trees.find((tree) => tree.nudge) ?? trees[0];
+
   return (
     <>
       <StarHUD balance={starBalance} />
 
       {/* AC3 — 넛지는 최상단이다 */}
-      {tree.nudge && (
+      {activeTree.nudge && (
         <p
           className="mx-gap mt-gap rounded-card px-gap py-3 font-bold"
           style={{ background: "var(--ff-star-glow)" }}
         >
-          🌱 {tree.nudge}
+          🌱 {activeTree.nudge}
         </p>
       )}
 
       <section className="flex flex-col items-center gap-2 p-gap">
         <div className="flex items-end gap-3">
-          <TreeArt stage={tree.stage} />
+          <TreeArt stage={activeTree.stage} />
           <WardrobeAvatar />
         </div>
-        <h1 className="text-title font-bold">{TREE_STAGES[tree.stage]}</h1>
-        <p className="text-ink-soft">이번 사이클 {tree.cycleDays}일째</p>
+        <h1 className="text-title font-bold">내 금융 나무 4그루</h1>
+        <p className="text-ink-soft">벌기 · 쓰기 · 모으기 · 불리기</p>
       </section>
 
       <section className="px-gap">
-        <h2 className="mb-2 font-bold">다음 단계까지</h2>
-        <ul className="grid gap-2">
-          {tree.conditions.map((c) => (
-            <Gauge key={c.label} c={c} />
+        <h2 className="mb-2 font-bold">내 나무 4그루</h2>
+        <ul
+          aria-label="금융 나무 둘러보기"
+          className="flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2"
+        >
+          {trees.map((tree) => (
+            <li key={tree.id} className="min-w-[88%] snap-center">
+              <TreeCard tree={tree} />
+            </li>
           ))}
         </ul>
+        <p className="mt-1 text-center text-sm text-ink-soft">
+          옆으로 밀어서 다른 나무도 만나보세요 · ● ● ● ●
+        </p>
         <p className="mt-2 text-ink-soft">
-          세 가지를 모두 채워야 나무가 자라요. 하나라도 비어 있으면 기다려요.
+          각 나무는 그 영역의 배움과 실천이 함께 쌓일 때 자라요.
         </p>
       </section>
 
@@ -72,10 +109,10 @@ export default function ChildTreePage() {
         <ol className="flex items-end justify-between rounded-card bg-surface p-3">
           {TREE_STAGES.map((name, i) => (
             <li key={name} className="flex flex-col items-center gap-1">
-              <div style={{ opacity: i === tree.stage ? 1 : 0.32 }}>
+              <div style={{ opacity: i === activeTree.stage ? 1 : 0.32 }}>
                 <TreeArt stage={i as TreeStage} size={62} />
               </div>
-              <span className={i === tree.stage ? "font-bold" : "text-ink-soft"}>
+              <span className={i === activeTree.stage ? "font-bold" : "text-ink-soft"}>
                 {name}
               </span>
             </li>

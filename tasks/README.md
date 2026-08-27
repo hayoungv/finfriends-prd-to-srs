@@ -48,10 +48,10 @@
 | `TASK-209` | [`step-2/TASK-209.md`](step-2/TASK-209.md) | [Write] 소비 계획 카드 생성 및 72h 만료 관리 Action | P0 |
 | `TASK-210` | [`step-2/TASK-210.md`](step-2/TASK-210.md) | [Write] 결제 3단계 대조 알고리즘 Action | P0 |
 | `TASK-211` | [`step-2/TASK-211.md`](step-2/TASK-211.md) | [Write] Vercel AI SDK + Gemini AI 회고 생성 파이프라인 | P0 |
-| `TASK-212` | [`step-2/TASK-212.md`](step-2/TASK-212.md) | [Read/Write] 성장 나무 3조건 판정 및 14일 정체 평가 Action | P0 |
+| `TASK-212` | [`step-2/TASK-212.md`](step-2/TASK-212.md) | [Read/Write] 4영역 성장 나무 영역별 3조건 판정 및 14일 정체 평가 Action | P0 |
 | `TASK-213` | [`step-2/TASK-213.md`](step-2/TASK-213.md) | [Read/Write] 월간 숲 7대 지표 스냅샷 생성 및 리포트 조회 Action | P0 |
 | `TASK-214` | [`step-2/TASK-214.md`](step-2/TASK-214.md) | [Write] 아바타 별 옷장 아이템 구매 Action | P1 |
-| `TASK-215` | [`step-2/TASK-215.md`](step-2/TASK-215.md) | [Write] 위시리스트 목표 등록 및 마일스톤 별 지급 Action | P1 |
+| `TASK-215` | [`step-2/TASK-215.md`](step-2/TASK-215.md) | [Write] 부모 용돈 위시리스트 저축 및 마일스톤 별 지급 Action | P1 |
 
 ---
 
@@ -59,7 +59,7 @@
 | Task ID | 명세서 파일 | 작업 명칭 | 우선순위 |
 |---|---|---|:---:|
 | `TASK-301` | [`step-3/TASK-301.md`](step-3/TASK-301.md) | [Unit] 별 원장 멱등성 및 잔액 불변식 Vitest 단위 테스트 | P0 |
-| `TASK-302` | [`step-3/TASK-302.md`](step-3/TASK-302.md) | [Unit] 성장 나무 3조건 및 정체 판정 Vitest 단위 테스트 | P0 |
+| `TASK-302` | [`step-3/TASK-302.md`](step-3/TASK-302.md) | [Unit] 4영역 성장 나무 3조건 및 정체 판정 Vitest 단위 테스트 | P0 |
 | `TASK-303` | [`step-3/TASK-303.md`](step-3/TASK-303.md) | [Unit] 소비 계획 3단계 대조 및 판정 Vitest 단위 테스트 | P0 |
 | `TASK-304` | [`step-3/TASK-304.md`](step-3/TASK-304.md) | [Integration] 미션 소급 정산 및 스냅샷 보정 통합 테스트 | P0 |
 | `TASK-305` | [`step-3/TASK-305.md`](step-3/TASK-305.md) | [E2E] 동의 미완료 아동 차단 및 온보딩 Playwright E2E 테스트 | P0 |

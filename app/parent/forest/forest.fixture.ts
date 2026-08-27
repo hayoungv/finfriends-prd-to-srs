@@ -21,20 +21,45 @@ export const metrics: readonly Metric[] = [
   { key: "wpa", label: "월간 WPA 기여도", value: "2.3", delta: +0.4, unit: "회/주" },
 ];
 
-/** 현재 성장 나무 — 아이 화면과 같은 데이터를 다른 언어로 읽힌다 */
-export const currentTree = {
-  stage: 1 as const,
-  stageName: "묘목",
-  cycleDays: 16,
-  conditions: [
-    { label: "학습", current: 3, required: 3 },
-    { label: "퀴즈", current: 5, required: 5 },
-    { label: "실천", current: 0, required: 1 },
-  ],
-  /** 14일 경과 + 승급 미충족 → 정체 원인을 짚는다 (TASK-212 정체 평가) */
-  stallReason:
-    "학습·퀴즈는 채웠으나 실천이 0회입니다. 승급 조건상 실천 1회가 없으면 단계가 오르지 않습니다.",
-} as const;
+/** 현재 성장 나무 4그루 — 아이 화면과 같은 데이터를 보호자 언어로 읽힌다 */
+export const currentTrees = [
+  {
+    id: "earn",
+    label: "벌기",
+    stage: 1 as const,
+    stageName: "묘목",
+    cycleDays: 16,
+    conditions: [{ label: "미션 실천", current: 1, required: 1 }],
+    stallReason: "이번 사이클 미션 실천 1회를 인정받아 자라고 있어요.",
+  },
+  {
+    id: "spendWell",
+    label: "쓰기",
+    stage: 1 as const,
+    stageName: "묘목",
+    cycleDays: 16,
+    conditions: [{ label: "계획 지키기", current: 0, required: 1 }],
+    stallReason: "계획 지키기 실천이 1회 남아 있어요.",
+  },
+  {
+    id: "save",
+    label: "모으기",
+    stage: 0 as const,
+    stageName: "새싹",
+    cycleDays: 8,
+    conditions: [{ label: "용돈 저축", current: 1, required: 1 }],
+    stallReason: "부모님께 받은 용돈 저축 기록이 쌓이면 자라요.",
+  },
+  {
+    id: "grow",
+    label: "불리기",
+    stage: 0 as const,
+    stageName: "새싹",
+    cycleDays: 0,
+    conditions: [{ label: "실천", current: 0, required: 1 }],
+    stallReason: "불리기는 학습 콘텐츠부터 열려 있어요. 실천은 다음 단계에서 지원해요.",
+  },
+] as const;
 
 /** TASK-404 AC2 — 미접속 넛지. 최상단에 둔다 */
 export const inactivity = {
