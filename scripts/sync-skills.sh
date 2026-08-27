@@ -23,12 +23,12 @@ if [ "${1:-}" = "--check" ]; then
     echo "  → bash scripts/sync-skills.sh 를 실행하라."
     exit 1
   fi
-  if diff -r "$SRC" "$DST" > /dev/null 2>&1; then
+  if diff -r --strip-trailing-cr "$SRC" "$DST" > /dev/null 2>&1; then
     echo "OK: .claude/skills == .cursor/skills"
     exit 0
   fi
   echo "DRIFT: 원본과 파생본이 다르다."
-  diff -r "$SRC" "$DST" || true
+  diff -r --strip-trailing-cr "$SRC" "$DST" || true
   echo "  → 원본(.claude/skills)을 수정한 뒤 bash scripts/sync-skills.sh 를 실행하라."
   exit 1
 fi
