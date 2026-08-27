@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────────
+   FinFriends 듀얼 테마 토큰
+   근거: docs/00-plan/prototype-execution-plan.md §5
+
+   두 모드가 "같은 토큰 이름을 다른 값으로" 갖는다.
+   컴포넌트는 자기가 어느 테마인지 알지 못한다 — 조상 [data-mode] 가 결정한다.
+   ──────────────────────────────────────────────────────────────── */
+
+/* 모드 무관 원시값 */
+:root {
+  --ff-frame: 390px; /* 모바일 폭 1종 */
+  --ff-touch: 44px; /* 아동 터치 타깃 하한 */
+}
+
+/* Fun — 아동. 재미·즉각 보상·성장 실감 */
+[data-mode="fun"] {
+  --ff-canvas: #fff9f0;
+  --ff-surface: #ffffff;
+  --ff-primary: #2fa84f;
+  --ff-star: #ffc53d;
+  --ff-star-glow: #ffe9a8;
+  --ff-ink: #2b2118;
+  --ff-ink-soft: #6b5c4d;
+  --ff-miss: #ff8a65;
+  --ff-radius: 20px;
+  --ff-text-body: 18px;
+  --ff-text-title: 28px;
+  --ff-space: 20px;
+  --ff-motion: 360ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ff-star-anim: star-pop;
+}
+
+/* Clean — 보호자. 증거 제시·판단 지원 */
+[data-mode="clean"] {
+  --ff-canvas: #f7f8f9;
+  --ff-surface: #ffffff;
+  --ff-primary: #1e7a38;
+  --ff-star: #b8860b;
+  --ff-star-glow: transparent;
+  --ff-ink: #1a1d21;
+  --ff-ink-soft: #6b7280;
+  --ff-miss: #dc2626;
+  --ff-radius: 8px;
+  --ff-text-body: 15px;
+  --ff-text-title: 20px;
+  --ff-space: 14px;
+  --ff-motion: 150ms ease;
+  /* Clean 은 페이드만. 스케일·바운스 금지 — 컴포넌트를 고치지 않고 토큰으로 가른다 */
+  --ff-star-anim: ff-fade-in;
+}
+
+/* 토큰 → Tailwind 유틸리티.
+   inline 이라 런타임에 [data-mode] 가 바뀌면 유틸리티도 따라 바뀐다. */
+@theme inline {
+  --color-canvas: var(--ff-canvas);
+  --color-surface: var(--ff-surface);
+  --color-primary: var(--ff-primary);
+  --color-star: var(--ff-star);
+  --color-star-glow: var(--ff-star-glow);
+  --color-ink: var(--ff-ink);
+  --color-ink-soft: var(--ff-ink-soft);
+  --color-miss: var(--ff-miss);
+
+  --radius-card: var(--ff-radius);
+  --text-body: var(--ff-text-body);
+  --text-title: var(--ff-text-title);
+
+  --spacing-gap: var(--ff-space);
+  --spacing-frame: var(--ff-frame);
+  --spacing-touch: var(--ff-touch);
+}
+
+@custom-variant fun (&:where([data-mode="fun"], [data-mode="fun"] *));
+@custom-variant clean (&:where([data-mode="clean"], [data-mode="clean"] *));
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  /* 모드 밖 영역. 각 세그먼트 래퍼가 canvas 로 덮는다 */
+  background: #eceff1;
+  font-family:
+    "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui,
+    -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   모션 — CSS 전용 (실행 지시서 §5.1)
+   Lottie·GSAP 을 설치하지 않는다. $0 제약(REQ-NF-012)과 번들 크기.
+   ──────────────────────────────────────────────────────────────── */
+
+@keyframes star-pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 어느 모드인지 컴포넌트는 알지 못한다. 토큰이 어떤 키프레임을 쓸지 결정한다. */
+.star-earn {
+  animation: var(--ff-star-anim) var(--ff-motion);
+}
+
+@keyframes ff-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ff-fade {
+  animation: ff-fade-in var(--ff-motion);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .star-earn,
+  .ff-fade {
+    animation: none;
+  }
+}

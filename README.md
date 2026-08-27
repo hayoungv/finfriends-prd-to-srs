@@ -5,6 +5,51 @@
 
 ---
 
+## ⚡ 빠르게 훑어보기
+
+```bash
+npm install
+npm run dev     # http://localhost:3000 — 화면 색인이 뜬다
+```
+
+| 명령 | 하는 일 |
+|---|---|
+| `npm run dev` | 개발 서버 |
+| `npm run build` | 프로덕션 빌드 |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm run lint` | ESLint |
+| `npm run compliance` | 금지 식별자 정적 검사 (`TASK-405` 산출 전 임시본) |
+
+> **요구 런타임** — Node.js `v24.20.0` LTS · npm `11.19.0`
+
+### 저장소를 처음 여는 사람이 볼 순서
+
+| 무엇을 알고 싶은가 | 어디를 보는가 |
+|---|---|
+| 이 서비스가 무엇인가 | 아래 「제품 핵심 가치」 → [`docs/01-prd/prd.md`](docs/01-prd/prd.md) |
+| 지금 무엇이 만들어져 있나 | [`docs/00-plan/prototype-review-log.md`](docs/00-plan/prototype-review-log.md) |
+| 무엇을 어떤 순서로 만드나 | [`docs/00-plan/prototype-execution-plan.md`](docs/00-plan/prototype-execution-plan.md) |
+| 왜 그렇게 정했나 | [`docs/00-plan/grill-ledger.md`](docs/00-plan/grill-ledger.md) |
+| 에이전트가 지켜야 할 규칙 | [`AGENTS.md`](AGENTS.md) |
+
+### 화면 13건 (확정 라우트 · `AGENTS.md` §3.2)
+
+| 아동 뷰 — Fun Mode | 보호자 뷰 — Clean Mode |
+|---|---|
+| `/child/tree` 성장 나무 | `/parent/onboarding` 보호자 온보딩 |
+| `/child/learn` 학습 주제 | `/consent` 법정대리인 동의 |
+| `/child/quiz/[topic]` 퀴즈 | `/parent/forest` 월간 숲 대시보드 |
+| `/child/missions` 미션 보고 | `/parent/missions` 승인·반려 |
+| `/child/plan/new` 소비 계획 카드 | |
+| `/child/retro/[recordId]` AI 회고 | |
+| `/child/stars` 별 잔액·이력 | |
+| `/child/wardrobe` 아바타 옷장 | |
+| `/child/wishlist` 위시리스트 | |
+
+**라우트를 신설하지 않는다.** 필요하면 `AGENTS.md` §3.2 를 먼저 고친다.
+
+---
+
 ## 🛠️ 핵심 기술 스택 (AI-Native Single Fullstack)
 
 핀프렌즈 MVP는 복잡한 다중 서버 아키텍처를 탈피하여 **단일 풀스택 및 완전 무료 인프라($0/월)** 환경에서 완벽히 자립 구동되도록 설계되었습니다.

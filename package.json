@@ -1,0 +1,28 @@
+{
+  "name": "finfriends",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "compliance": "node -e \"const{readdirSync,statSync,readFileSync}=require('fs');const P=/geolocation|getCurrentPosition|watchPosition|latitude|longitude|convertStarToCash|starToBalance|withdrawStar/;const h=[];const w=d=>{let e;try{e=readdirSync(d)}catch{return}for(const f of e){const p=d+'/'+f;if(statSync(p).isDirectory())w(p);else if(/[.](ts|tsx|css)$/.test(f))readFileSync(p,'utf8').split('\\n').forEach((l,i)=>{if(P.test(l))h.push(p+':'+(i+1)+': '+l.trim())})}};['app','components','lib','actions','services','types'].forEach(w);h.forEach(x=>console.log(x));console.log(h.length?'COMPLIANCE FAIL':'COMPLIANCE PASS');process.exit(h.length?1:0)\""
+  },
+  "dependencies": {
+    "next": "16.3.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "20.19.9",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.1",
+    "eslint": "9.39.1",
+    "eslint-config-next": "16.3.3",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3"
+  }
+}
