@@ -30,8 +30,7 @@
 |:---:|---|:---:|---|
 | **`docs/00-plan/`**<br>총괄 계획 | [`dag-roadmap.md`](docs/00-plan/dag-roadmap.md) | `v2.0` | **개발 총괄 실행 계획서 (Execution Master Plan) — 실행 SSOT**<br>• 태스크 30건 DAG · 7개 위상 웨이브 · CPM 임계경로 5.5 MD (4트랙 총 20.5 MD)<br>• 파일 배타 소유권 맵, 교차 계약 8건, 릴리즈 게이트 프로토콜 |
 | | [`prototype-suggestion.md`](docs/00-plan/prototype-suggestion.md) | `v1.1` | **시각 프로토타이핑 선별안 (부분 승인)**<br>• 30건 중 UI 표면 소유 태스크 선별(Tier 1 9건 / Tier 2 5건), 13 라우트 화면 맵, fixture 승격 규약<br>• 라우트·소유권은 확정되어 `AGENTS.md` §3.2·§6 반영. 실행 계획 P0~P3는 미착수 |
-| | [`visual-prototype-scope.md`](docs/00-plan/visual-prototype-scope.md) | `v1.0` | **경량 시각 프로토타입 범위**<br>• 위 14건을 **Node 없이 그릴 수 있는 범위**로 재추림 → §3.1a 에서 **6화면 15프레임**으로 확정<br>• 산출물은 화면이 아니라 **듀얼 테마 토큰** — P0의 토큰 정의를 선투자로 대체 |
-| | [`visual-prototype-spec.md`](docs/00-plan/visual-prototype-spec.md) | `v1.0` | **경량 시각 프로토타입 개발 지침서 — 실행 지시서**<br>• 6화면 15프레임 명세 · 확정 토큰 12종 × 2테마 · CSS 모션 규칙 · 완료 판정 6문항<br>• 선행 조건 없음. 이 문서만 읽고 착수 |
+| | [`prototype-execution-plan.md`](docs/00-plan/prototype-execution-plan.md) | `v1.0` | **프로토타입 실행 지시서 (Node 확정판) — 착수 SSOT**<br>• 확정 런타임 Node v24.20.0 LTS · 스택 버전 후보와 함정 2건 · P0~P3 2.5 MD<br>• 라우트 13건 화면별 상세 명세 · 듀얼 테마 토큰 13종 × 2모드 · CSS 모션 · 완료 판정 9문항<br>• 이 문서 하나만 읽고 착수한다 |
 | | [`grill-ledger.md`](docs/00-plan/grill-ledger.md) | — | **UI/UX 결정 원장 (6/6 RESOLVED)**<br>• 나무 소유 뷰 · 화면 범위 · 모드 접근 · 모션 수준 · 토큰 · 아바타 표현<br>• 각 결정의 근거와 반영 위치를 추적 |
 | **`docs/01-prd/`**<br>기획 | [`prd.md`](docs/01-prd/prd.md) | `v1.0` | **제품 요구사항 정의서 (PRD)**<br>• 북극성 지표(WPA), 8대 사용자 스토리, 기능/비기능 요구사항, 선불업 경계 ADR 8건 |
 | **`docs/02-srs/`**<br>요구사항 | [`srs.md`](docs/02-srs/srs.md) | `v1.2` | **소프트웨어 요구사항 명세서 (SRS)**<br>• REQ-FUNC 18건, NFR 24건, REG 9건, Server Actions 및 Prisma 스키마, ADR 13건 |

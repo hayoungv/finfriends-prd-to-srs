@@ -16,7 +16,7 @@ description: Tailwind + shadcn/ui 아동·보호자 듀얼 테마 UI 규칙 (ADR
 
 **같은 컴포넌트를 두 화면에 그대로 쓰지 않는다.** `components/child/**` 와 `components/parent/**` 를 분리하고, `components/ui/**`(shadcn 원시 컴포넌트)만 공유한다.
 
-## 확정 토큰 (2026-08-27 · `docs/00-plan/visual-prototype-spec.md` §4 가 SSOT)
+## 확정 토큰 (2026-08-27 · `docs/00-plan/prototype-execution-plan.md` §5 가 SSOT)
 
 두 테마가 **같은 토큰 이름을 다른 값으로** 갖는다. 컴포넌트는 테마를 알지 못한다.
 

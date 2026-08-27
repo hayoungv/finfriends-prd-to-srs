@@ -299,8 +299,7 @@ Server Action 에서 Prisma 를 직접 호출하지 않는다. 반드시 `servic
 | [`docs/03-tds/`](docs/03-tds/) | ERD · 시퀀스 · 알고리즘 · 무결성 규칙 |
 | [`docs/00-plan/dag-roadmap.md`](docs/00-plan/dag-roadmap.md) | 트랙·웨이브·임계경로·게이트 |
 | [`docs/00-plan/prototype-suggestion.md`](docs/00-plan/prototype-suggestion.md) | 시각 프로토타이핑 선별안 — 라우트 13건·화면 소유권 확정 근거 |
-| [`docs/00-plan/visual-prototype-scope.md`](docs/00-plan/visual-prototype-scope.md) | 경량 시각 프로토타입 범위 — 6화면 15프레임 선별 근거 |
-| [`docs/00-plan/visual-prototype-spec.md`](docs/00-plan/visual-prototype-spec.md) | **경량 프로토타입 개발 지침서 — 실행 SSOT.** 프레임 명세·토큰·모션·완료 판정 |
+| [`docs/00-plan/prototype-execution-plan.md`](docs/00-plan/prototype-execution-plan.md) | **프로토타입 실행 지시서 (Node 확정판) — 실행 SSOT.** 라우트 13건 화면 명세·듀얼 테마 토큰·모션·완료 판정 |
 | [`docs/00-plan/grill-ledger.md`](docs/00-plan/grill-ledger.md) | UI/UX 결정 원장 — 각 결정의 근거와 반영 위치 |
 | [`tasks/`](tasks/) | 태스크 30건 구현 명세 (SSOT) |
 | [`.claude/skills/README.md`](.claude/skills/README.md) | 도메인 스킬 12건 색인 · 적용 시점 |

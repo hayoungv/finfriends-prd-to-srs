@@ -1,10 +1,10 @@
 # Grill Ledger — 시각 프로토타입 UI/UX 결정 원장
 
 - **세션 개시:** 2026-08-27
-- **참조 범위:** [`visual-prototype-scope.md`](visual-prototype-scope.md) · [`../01-prd/prd.md`](../01-prd/prd.md) · [`../02-srs/srs.md`](../02-srs/srs.md)
+- **참조 범위:** `visual-prototype-scope.md`(폐기·삭제) · [`../01-prd/prd.md`](../01-prd/prd.md) · [`../02-srs/srs.md`](../02-srs/srs.md)
 - **관심 방향:** 경량 시각 프로토타입 화면의 UI/UX 의사결정 — 화면 범위 · 모드 전환 · 모션 표현 · 테마 토큰
 - **완료 조건:** 아래 토픽 전부 RESOLVED
-- **OUTPUT:** [`visual-prototype-spec.md`](visual-prototype-spec.md) + 하네스(`AGENTS.md` · `.claude/skills/306-shadcn-dual-theme-rules`)
+- **OUTPUT:** `visual-prototype-spec.md`(폐기·삭제) + 하네스(`AGENTS.md` · `.claude/skills/306-shadcn-dual-theme-rules`)
 
 ---
 
@@ -62,7 +62,7 @@ RESOLVED: 6 / TOTAL: 6  — ALL_RESOLVED
 
 ## 세션 종료 — STOP: ALL_RESOLVED (2026-08-27)
 
-**산출물** — [`visual-prototype-spec.md`](visual-prototype-spec.md) 개발 지침서
+**산출물** — `visual-prototype-spec.md`(폐기·삭제) 개발 지침서
 
 **반영된 하네스·문서**
 
