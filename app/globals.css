@@ -29,6 +29,7 @@
   --ff-text-title: 28px;
   --ff-space: 20px;
   --ff-motion: 360ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ff-star-anim: star-pop;
 }
 
 /* Clean — 보호자. 증거 제시·판단 지원 */
@@ -46,6 +47,8 @@
   --ff-text-title: 20px;
   --ff-space: 14px;
   --ff-motion: 150ms ease;
+  /* Clean 은 페이드만. 스케일·바운스 금지 — 컴포넌트를 고치지 않고 토큰으로 가른다 */
+  --ff-star-anim: ff-fade-in;
 }
 
 /* 토큰 → Tailwind 유틸리티.
@@ -103,8 +106,9 @@ body {
   }
 }
 
+/* 어느 모드인지 컴포넌트는 알지 못한다. 토큰이 어떤 키프레임을 쓸지 결정한다. */
 .star-earn {
-  animation: star-pop var(--ff-motion);
+  animation: var(--ff-star-anim) var(--ff-motion);
 }
 
 @keyframes ff-fade-in {
@@ -117,11 +121,6 @@ body {
 }
 
 .ff-fade {
-  animation: ff-fade-in var(--ff-motion);
-}
-
-/* Clean 은 페이드만. 스케일·바운스 금지 */
-[data-mode="clean"] .star-earn {
   animation: ff-fade-in var(--ff-motion);
 }
 

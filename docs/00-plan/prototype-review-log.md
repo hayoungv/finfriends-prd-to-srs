@@ -14,9 +14,9 @@
 |:--:|---|:--:|---|
 | **P0** | 스캐폴딩 · 듀얼 테마 토큰 · 세그먼트 레이아웃 | ✅ 완료 | `c9c8bb2` |
 | **P1** | 아동 화면 7건 + `StarHUD` | ✅ 완료 | — |
-| **P2** | 보호자 화면 4건 + `InactivityBanner` | ⏳ 대기 | — |
-| **P3** | 루프 연결 · `loading.tsx` ×2 · 나머지 2건 | ⏳ 대기 | — |
-| **EVAL** | aztks-agent 평가 라운드 | ⏳ 대기 | — |
+| **P2** | 보호자 화면 4건 + `InactivityBanner` | ✅ 완료 | — |
+| **P3** | 루프 연결 · `loading.tsx` ×2 · 나머지 2건 | ✅ 완료 | — |
+| **EVAL** | aztks-agent 평가 라운드 | 🔄 진행 | — |
 
 ### 라우트 13건 진척
 
@@ -29,12 +29,12 @@
 | 5 | `/child/plan/new` | `209` | C | P1 | ✅ |
 | 6 | `/child/retro/[recordId]` | `211` | C | P1 | ✅ |
 | 7 | `/child/stars` | `205` | B | P1 | ✅ |
-| 8 | `/child/wardrobe` | `214` | D | P3 | ⏳ |
-| 9 | `/child/wishlist` | `215` | D | P3 | ⏳ |
-| 10 | `/parent/onboarding` | `201` | A | P2 | ⏳ |
-| 11 | `/consent` | `202` | A | P2 | ⏳ |
-| 12 | `/parent/forest` | `213` | D | P2 | ⏳ |
-| 13 | `/parent/missions` | `207` `208` | B | P2 | ⏳ |
+| 8 | `/child/wardrobe` | `214` | D | P3 | ✅ |
+| 9 | `/child/wishlist` | `215` | D | P3 | ✅ |
+| 10 | `/parent/onboarding` | `201` | A | P2 | ✅ |
+| 11 | `/consent` | `202` | A | P2 | ✅ |
+| 12 | `/parent/forest` | `213` | D | P2 | ✅ |
+| 13 | `/parent/missions` | `207` `208` | B | P2 | ✅ |
 
 ---
 
