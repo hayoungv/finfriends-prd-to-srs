@@ -62,7 +62,7 @@ components/     # ui/**(shadcn), parent/**, child/**
 prisma/         # schema.prisma, migrations/**, seed.ts
 data/           # curriculum.json, wardrobe_items.json — Seed 원본
 tests/          # unit/**, integration/**, e2e/**
-scripts/        # verify-compliance.ts, sync-skills.sh
+scripts/        # verify-compliance.ts, sync-skills.sh, check-links.sh
 ```
 
 **레이어 호출 방향** — `app → actions → services → lib/prisma`. 역방향 호출 금지.
@@ -203,11 +203,37 @@ Server Action 에서 Prisma 를 직접 호출하지 않는다. 반드시 `servic
 - 구현 태스크와 검증 태스크는 **페어**다 (`204↔301`, `212↔302`, `210↔303`). 페어가 통과하기 전 다음 태스크로 넘어가지 않는다.
 
 ### Git 워크플로우
-- 브랜치: `feat/TASK-XXX-<slug>` · `fix/…` · `docs/…` · `refactor/…` · `test/…`
+
+작업을 **두 부류로 나눠 적용한다.** 브랜치·PR 규약은 여러 트랙이 동시에 같은 저장소를 고칠 때의
+충돌 방지 장치이므로, 그 전제가 없는 작업까지 묶으면 규칙만 무겁고 지켜지지 않는다.
+
+#### A. 태스크 구현 (`TASK-101` ~ `TASK-405`) — 브랜치 + PR 필수
+
+4트랙이 병렬로 도는 구간이다. 아래를 예외 없이 따른다.
+
+- 브랜치: `feat/TASK-XXX-<slug>` · `fix/…` · `refactor/…` · `test/…`
 - 커밋: Conventional Commits + **태스크 ID 필수** — `feat(ledger): 멱등 지급 엔진 구현 (TASK-204)`
 - PR 본문에 `Closes #<이슈번호>` 를 넣어 이슈를 자동 종료한다.
-- `main` 직접 푸시 금지. force push · `reset --hard` 는 사용자 확인 없이 실행하지 않는다.
+- **`main` 직접 푸시 금지.**
 - 커밋 전 필수: `npx tsc --noEmit && npm run lint && npm run compliance`
+
+#### B. 문서 · 하네스 · 저장소 유지보수 — `main` 직접
+
+단일 작업자이고 대응하는 태스크 ID가 없다. A의 전제가 성립하지 않으므로 브랜치를 만들지 않는다.
+
+- 대상: `docs/**`, `tasks/**`, `AGENTS.md`, `CLAUDE.md`, `README.md`, `.claude/**`, `.cursor/**`, `scripts/**`
+- 커밋: Conventional Commits, **태스크 ID 없이** — `docs:` · `chore:` · `fix(scripts):`
+- **의미있는 작업 단위가 끝나면 확인을 묻지 말고 커밋·푸시까지 진행한다.**
+  단위는 "하나의 논리적 변경이 검증까지 끝난 시점"이며 파일 하나 고칠 때마다가 아니다.
+- 푸시 전 게이트: `bash scripts/sync-skills.sh --check` · `bash scripts/check-links.sh` · 해당 작업의 검증 명령어
+- 원격에 새 커밋이 있으면 `git rebase origin/main` 후 푸시한다.
+
+#### 양쪽 공통 — 확인 없이 실행하지 않는 것
+
+`force push` · `reset --hard` · 추적 파일 대량 삭제. 되돌리기 어려운 조작은 사용자 확인을 받는다.
+
+> ⚠️ **A가 시작되면 B의 범위는 그대로 두되 애플리케이션 코드에는 적용하지 않는다.**
+> `app/**`·`actions/**`·`services/**`·`lib/**`·`prisma/**`·`tests/**` 는 항상 A다.
 
 ---
 

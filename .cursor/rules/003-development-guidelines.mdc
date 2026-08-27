@@ -41,8 +41,23 @@ app/  actions/  services/  lib/  types/  components/  prisma/  data/  tests/  sc
 - 테스트는 **실패를 먼저 재현**한 뒤 고친다. 통과시키려고 단언을 약화시키지 않는다.
 
 ## Git 워크플로우
-- 브랜치: `feat/TASK-XXX-<slug>` · `fix/` · `docs/` · `refactor/` · `test/`
+
+작업을 **두 부류로 나눠 적용한다.** 원본은 `AGENTS.md` §5.
+
+### A. 태스크 구현 (`TASK-101`~`TASK-405`) — 브랜치 + PR 필수
+4트랙 병렬 구간. `app/**`·`actions/**`·`services/**`·`lib/**`·`prisma/**`·`tests/**` 는 항상 여기다.
+- 브랜치: `feat/TASK-XXX-<slug>` · `fix/` · `refactor/` · `test/`
 - 커밋: Conventional Commits + **태스크 ID** — `feat(ledger): 멱등 지급 엔진 구현 (TASK-204)`
-- PR 본문에 `Closes #<이슈번호>`.
-- `main` 직접 푸시 금지. force push · `reset --hard` 는 사용자 확인 없이 실행하지 않는다.
+- PR 본문에 `Closes #<이슈번호>`. **`main` 직접 푸시 금지.**
 - 커밋 전: `npx tsc --noEmit && npm run lint && npm run compliance`
+
+### B. 문서·하네스·저장소 유지보수 — `main` 직접
+`docs/**`·`tasks/**`·`AGENTS.md`·`CLAUDE.md`·`README.md`·`.claude/**`·`.cursor/**`·`scripts/**`
+- 단일 작업자이고 태스크 ID가 없어 A의 전제가 성립하지 않는다. 브랜치를 만들지 않는다.
+- 커밋: Conventional Commits, 태스크 ID 없이 — `docs:` · `chore:` · `fix(scripts):`
+- **의미있는 작업 단위가 끝나면 확인 없이 커밋·푸시까지 진행한다.**
+- 푸시 전 게이트: `bash scripts/sync-skills.sh --check` · `bash scripts/check-links.sh`
+- 원격에 새 커밋이 있으면 `git rebase origin/main` 후 푸시.
+
+### 양쪽 공통
+`force push` · `reset --hard` · 추적 파일 대량 삭제는 사용자 확인 없이 실행하지 않는다.
