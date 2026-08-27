@@ -1,5 +1,3 @@
-/goal
-
 ## 1) 작업 핵심 목표 및 범위
 
 - **목표:** [`docs/00-plan/prototype-execution-plan.md`](../00-plan/prototype-execution-plan.md) 의 **P0~P3** 를 수행해 `AGENTS.md` §3.2 확정 라우트 **13건**을 fixture 기반으로 렌더 가능한 Next.js 프로토타입으로 완성하고, aztks-agent EVALUATE 가 `VERDICT: GO` 이면서 `SCORECARD: A:P Z:P T:P K:P S:P` (5축 전원 PASS) 를 반환하는 상태에 도달한다.

@@ -24,6 +24,16 @@ assignees: []
 - `[NEW]` `actions/practice.ts` (실천/미션 Server Actions)
 - `[NEW]` `services/mission.service.ts`
 
+### 🎨 [PROTO] 화면 선작성 (grill T7 · 안 A)
+
+이 태스크가 **화면도 만든다.** 서버 로직보다 먼저 fixture 기반 화면을 세우고, 구현 완료 시 fixture import 를 Server Action 호출로 치환한다 (`docs/00-plan/prototype-execution-plan.md` §4·§6).
+
+- `[NEW]` `app/child/missions/page.tsx` — 미션 보고 (Fun)
+- `[NEW]` `app/parent/missions/page.tsx` — 승인·반려 (Clean)
+- `[NEW]` `app/parent/missions/mission.fixture.ts` — fixture
+
+> fixture 첫 줄에 `// PROTO-DATA: TASK-207` 마커를 넣는다. 구현 완료 시 파일을 삭제하고 `grep -rn "PROTO-DATA: TASK-207"` 가 0건임을 확인한다.
+
 ---
 
 ## 📋 세부 구현 요구사항 (Implementation Requirements)

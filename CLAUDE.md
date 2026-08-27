@@ -15,6 +15,8 @@
 
 **이 저장소에는 아직 코드가 없다.** 첫 스캐폴딩은 `TASK-101` 담당(Track A)이 수행하며, 그 전까지 다른 트랙은 DAG 외 준비 작업(테스트 러너 구성, shadcn 초기화)만 한다.
 
+**화면은 별도 태스크가 아니다 (2026-08-27 확정).** `app/**` 페이지 13건은 `AGENTS.md` §6 에서 그 화면을 소유한 트랙의 **기존 태스크가 서버 로직보다 먼저** fixture 기반으로 세운다. 담당 태스크 명세의 `### 🎨 [PROTO] 화면 선작성` 절을 확인한다. 절차는 [`docs/00-plan/prototype-execution-plan.md`](docs/00-plan/prototype-execution-plan.md) 가 SSOT다.
+
 ---
 
 ## 2. 절대 규칙 (요약 — 상세는 AGENTS.md §4)

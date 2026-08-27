@@ -24,6 +24,15 @@ assignees: []
 - `[MODIFY]` `actions/onboarding.ts`
 - `[NEW]` `services/account.service.ts`
 
+### 🎨 [PROTO] 화면 선작성 (grill T7 · 안 A)
+
+이 태스크가 **화면도 만든다.** 서버 로직보다 먼저 fixture 기반 화면을 세우고, 구현 완료 시 fixture import 를 Server Action 호출로 치환한다 (`docs/00-plan/prototype-execution-plan.md` §4·§6).
+
+- `[NEW]` `app/consent/page.tsx` — 법정대리인 동의 (Clean)
+- `[NEW]` `app/consent/consent.fixture.ts` — fixture
+
+> fixture 첫 줄에 `// PROTO-DATA: TASK-202` 마커를 넣는다. 구현 완료 시 파일을 삭제하고 `grep -rn "PROTO-DATA: TASK-202"` 가 0건임을 확인한다.
+
 ---
 
 ## 📋 세부 구현 요구사항 (Implementation Requirements)

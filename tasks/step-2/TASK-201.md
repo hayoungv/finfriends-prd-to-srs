@@ -24,6 +24,15 @@ assignees: []
 - `[NEW]` `actions/onboarding.ts` (온보딩 Server Actions)
 - `[NEW]` `lib/auth/mock-kyc.ts` (가상 OTP 생성 및 검증 모듈)
 
+### 🎨 [PROTO] 화면 선작성 (grill T7 · 안 A)
+
+이 태스크가 **화면도 만든다.** 서버 로직보다 먼저 fixture 기반 화면을 세우고, 구현 완료 시 fixture import 를 Server Action 호출로 치환한다 (`docs/00-plan/prototype-execution-plan.md` §4·§6).
+
+- `[NEW]` `app/parent/onboarding/page.tsx` — 5단계 온보딩 (Clean)
+- `[NEW]` `app/parent/onboarding/onboarding.fixture.ts` — fixture
+
+> fixture 첫 줄에 `// PROTO-DATA: TASK-201` 마커를 넣는다. 구현 완료 시 파일을 삭제하고 `grep -rn "PROTO-DATA: TASK-201"` 가 0건임을 확인한다.
+
 ---
 
 ## 📋 세부 구현 요구사항 (Implementation Requirements)

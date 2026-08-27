@@ -272,6 +272,14 @@ Server Action 에서 Prisma 를 직접 호출하지 않는다. 반드시 `servic
 > 항상 한 트랙 안에 있으므로 `[MODIFY]` 인계가 트랙을 넘지 않는다.
 > `app/parent/missions/**` 만 예외적으로 B 가 갖는다 — `actions/practice.ts`(B) 의 승인·일괄승인 화면이다.
 
+**화면 생성 책임 (2026-08-27 확정)** — 소유권은 "누가 편집하는가"이고, 아래는 "누가 만드는가"다.
+
+- `app/**` 페이지를 만드는 **별도 태스크를 두지 않는다.** 각 화면은 위 표에서 그 화면을 소유한 트랙의 태스크가 **서버 로직보다 먼저** fixture 기반으로 세운다.
+- 해당 12개 태스크 명세에 `### 🎨 [PROTO] 화면 선작성` 절이 삽입돼 있다 — `101` `201` `202` `205` `206` `207` `209` `211` `212` `213` `214` `215`.
+- 최초 스캐폴딩(`package.json`·`app/layout.tsx`·`app/globals.css`)은 `TASK-101` 이 소유한다.
+- fixture 는 화면과 co-located 하고 첫 줄에 `// PROTO-DATA: TASK-XXX` 마커를 넣는다. 구현 완료 시 삭제하고 `grep` 으로 0건을 확인한다.
+- 근거·절차는 [`docs/00-plan/prototype-execution-plan.md`](docs/00-plan/prototype-execution-plan.md) §4·§6 이 SSOT다.
+
 **공유 파일 프로토콜** — `package.json`, `prisma/schema.prisma`, `app/layout.tsx`, `app/globals.css`,
 `tailwind.config.ts` 는 유일한 충돌 지점이다.
 의존성 추가나 공유 파일 변경이 필요하면 **직접 편집하지 말고** 이슈에 코멘트로 요청한 뒤 Track A 가 일괄 반영한다.

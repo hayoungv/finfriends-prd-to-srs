@@ -25,6 +25,15 @@ assignees: []
 - `[NEW]` `lib/ai/gemini-client.ts` (Vercel AI SDK + Gemini 연동)
 - `[NEW]` `lib/ai/fallback-templates.ts` (결정론적 룰 기반 Fallback 엔진)
 
+### 🎨 [PROTO] 화면 선작성 (grill T7 · 안 A)
+
+이 태스크가 **화면도 만든다.** 서버 로직보다 먼저 fixture 기반 화면을 세우고, 구현 완료 시 fixture import 를 Server Action 호출로 치환한다 (`docs/00-plan/prototype-execution-plan.md` §4·§6).
+
+- `[NEW]` `app/child/retro/[recordId]/page.tsx` — AI 회고 3상태 (Fun)
+- `[NEW]` `app/child/retro/[recordId]/retro.fixture.ts` — fixture
+
+> fixture 첫 줄에 `// PROTO-DATA: TASK-211` 마커를 넣는다. 구현 완료 시 파일을 삭제하고 `grep -rn "PROTO-DATA: TASK-211"` 가 0건임을 확인한다.
+
 ---
 
 ## 📋 세부 구현 요구사항 (Implementation Requirements)

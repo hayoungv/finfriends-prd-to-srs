@@ -79,3 +79,43 @@ RESOLVED: 6 / TOTAL: 6  — ALL_RESOLVED
 |---|---|
 | 아바타 실제 에셋 형식 (2D 벡터 vs 사전 제작 3D) — PRD↔SRS 충돌 | `TASK-214` 착수 전 |
 | 아바타 종수·벌수 (PRD ADR-007 5×8 vs SRS AC1 2종·4벌) | `TASK-214` 착수 전 |
+
+---
+
+# 세션 2 — 프로토타입 실행 착수 (2026-08-27)
+
+- **참조 범위:** [`prototype-execution-plan.md`](prototype-execution-plan.md) · [`prototype-suggestion.md`](prototype-suggestion.md) · [`../../AGENTS.md`](../../AGENTS.md) · [`../../CLAUDE.md`](../../CLAUDE.md) · [`../goals/prototype-node-aztks-gate.md`](../goals/prototype-node-aztks-gate.md)
+- **관심 방향:** **Node 설치(R-P7 해소)로도 남아 있는 착수 차단·모호 지점**
+- **완료 조건:** 아래 토픽 전부 RESOLVED
+- **OUTPUT:** `prototype-execution-plan.md` · `AGENTS.md` · `CLAUDE.md` · `.claude/skills/**` · `docs/goals/prototype-node-aztks-gate.md`
+
+```
+RESOLVED: 1 / TOTAL: 8  (CORE 5 / MINOR 3)
+- [x] T7  | CORE  | 화면 생성 책임 소재 — R-P1                                | depends:-    | status:RESOLVED
+      decision: 안 A — 별도 티켓을 만들지 않는다. app/** 화면 13건을 AGENTS.md §6 소유 트랙의
+                기존 태스크가 서버 로직보다 먼저 fixture 기반으로 세운다. P0 스캐폴딩은 TASK-101 흡수.
+                DAG 30건 불변, 신규 티켓 0건. 소유권(누가 편집)과 생성 책임(누가 만든다)을 분리해 명시.
+      applied:  tasks/step-1/TASK-101.md + tasks/step-2/TASK-2XX.md 11건 ([PROTO] 절 삽입 · 총 12건)
+                AGENTS.md §6 (화면 생성 책임 규약) · CLAUDE.md §1 (화면은 별도 태스크가 아니다)
+                prototype-execution-plan.md §9 R-P1 해소 · prototype-suggestion.md §7 R-P1 · 미결정 1번 해소
+- [ ] T8  | CORE  | Tailwind 메이저 — v4 CSS-first vs v3 config              | depends:-    | status:UNRESOLVED
+- [ ] T9  | CORE  | TypeScript 메이저 — 7.0.x vs 5.9.x                       | depends:-    | status:UNRESOLVED
+- [ ] T10 | CORE  | 프로토타입 범위에 Prisma 를 포함할 것인가 — R-P8          | depends:-    | status:UNRESOLVED
+- [ ] T11 | CORE  | fixture 타입의 소재 — R-P4 (types/domain.ts 선취 vs 로컬) | depends:T7   | status:UNRESOLVED
+- [ ] T12 | MINOR | data-mode 부여 지점 — 단일 layout vs 세그먼트 레이아웃     | depends:T8   | status:UNRESOLVED
+- [ ] T13 | MINOR | npm run compliance 임시 스크립트를 P0 에 넣을 것인가       | depends:-    | status:UNRESOLVED
+- [ ] T14 | MINOR | 아바타 스펙 PRD↔SRS 충돌 2건 — 세션 1 T6 이 넘긴 잔여      | depends:-    | status:UNRESOLVED
+```
+
+## 토픽 근거 — 왜 Node 설치로 해소되지 않았는가
+
+| ID | 근거 |
+|:--:|---|
+| **T7** | R-P7(툴체인)은 **실행 가능성**의 문제였고 R-P1 은 **책임 소재**의 문제다. `prototype-suggestion.md` §5.1 "P0 는 `TASK-101` 불필요" 와 `CLAUDE.md` §1 "첫 스캐폴딩은 `TASK-101`(Track A)" 이 정면 충돌한다. DAG 30건 어디에도 `app/**` 페이지를 만드는 태스크가 없다 |
+| **T8** | `AGENTS.md` §2 는 "Tailwind + shadcn/ui" 만 확정하고 메이저를 열어 뒀다. v4 는 CSS-first 라 `tailwind.config.ts` 가 생기지 않는데, `AGENTS.md` §6 공유 파일 목록과 `prototype-suggestion.md` §5.4 가 그 파일의 존재를 전제한다 |
+| **T9** | `typescript-eslint@8.68.0` 의 peer 가 `typescript >=4.8.4 <6.1.0` 이다. **TS 7.0.2 는 범위 밖**이라 `npm run lint` 가 성립하지 않는다 — `/goal` 종료 조건 2번이 이 명령의 exit 0 을 요구한다 |
+| **T10** | `prisma` 의 npm `latest` 태그가 RC(8.0.0-rc.12)를 가리킨다(R-P8). 프로토타입은 DB 를 쓰지 않으므로 설치 자체를 생략할 수 있으나, `TASK-101` 이 `package.json` 을 확정하는 태스크라 여기서 빼면 나중에 다시 확정해야 한다 |
+| **T11** | fixture 가 참조할 타입을 `types/domain.ts` 에 선취하면 `AGENTS.md` §6 의 **Track A 배타 소유**를 침범한다. 화면 로컬 타입으로 두면 `TASK-102` 완료 시 전수 치환이 필요하다 |
+| **T12** | `app/layout.tsx` 는 `AGENTS.md` §6 공유 파일이다. 단일 레이아웃에서 `data-mode` 를 분기하면 아동·보호자 트랙이 같은 파일을 건드린다 |
+| **T13** | `AGENTS.md` §5-A 는 커밋 전 필수로 `npm run compliance` 를 요구하는데, 그 스크립트를 만드는 `TASK-405` 는 Step 4 다. 프로토타입 전 구간에서 이 명령이 없다 |
+| **T14** | 세션 1 T6 이 "`TASK-214` 착수 전 별도 해소"로 미뤄 뒀으나, P3 가 `/child/wardrobe` 를 그리면서 **지금** 걸린다. 에셋 형식(3D↔2D)과 종수·벌수(5×8↔2종·4벌) 둘 다 PRD↔SRS 충돌이다 |

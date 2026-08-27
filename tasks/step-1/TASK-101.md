@@ -25,6 +25,18 @@ assignees: []
 - `[NEW]` `prisma/migrations/0_init/migration.sql`
 - `[NEW]` `lib/prisma.ts` (PrismaClient 글로벌 싱글톤 인스턴스)
 
+### 🎨 [PROTO] P0 스캐폴딩 흡수 (grill T7 · 안 A)
+
+이 태스크가 **저장소 최초 스캐폴딩과 듀얼 테마 토대**를 함께 만든다 (`CLAUDE.md` §1 · `docs/00-plan/prototype-execution-plan.md` §3 P0).
+
+- `[NEW]` `package.json` · `tsconfig.json` · `next.config.ts` · `eslint.config.mjs` · `postcss.config.mjs`
+- `[NEW]` `app/layout.tsx` — 공통 셸 (공유 파일. P0 확정 후 동결)
+- `[NEW]` `app/globals.css` — `@theme` + `@custom-variant` 듀얼 테마 토큰 (공유 파일)
+- `[NEW]` `app/child/layout.tsx` · `app/parent/layout.tsx` · `app/consent/layout.tsx` — 세그먼트별 `data-mode` 부여
+- `[NEW]` `components/ui/**` — shadcn/ui 원시 컴포넌트
+
+> 버전 확정 시 `AGENTS.md` §2 표를 갱신한다. Tailwind v4 를 채택하면 `tailwind.config.ts` 가 생성되지 않으므로 `AGENTS.md` §6 공유 파일 목록에서도 제거한다 (실행 지시서 §5 · R-P9).
+
 ---
 
 ## 📋 세부 구현 요구사항 (Implementation Requirements)
