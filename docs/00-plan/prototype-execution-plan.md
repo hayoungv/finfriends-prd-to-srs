@@ -5,7 +5,7 @@
 - **작성일:** 2026-08-27
 - **상위 문서:** [`prototype-suggestion.md`](prototype-suggestion.md) — 선별 기준 · 라우트 13건 · 소유권 배정의 SSOT
 - **대체 대상:** `visual-prototype-scope.md`(폐기·삭제) (전제 소멸) · `visual-prototype-spec.md`(폐기·삭제) (프레임 명세는 §4 로 승계)
-- **성격:** 실행 지시서. **차단 없음.** 착수 결정 8건은 2026-08-27 grill 세션 2 에서 전부 해소됐다 (§9).
+- **성격:** 실행 지시서. **P0~P3 실행 완료.** 착수 결정 8건은 2026-08-27 grill 세션 2 에서 전부 해소됐다 (§9). 최종 게이트는 [`prototype-review-log.md`](prototype-review-log.md) Round 4에 기록돼 있다.
 
 ---
 

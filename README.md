@@ -1,229 +1,108 @@
-# 핀프렌즈 (FinFriends) — AI-Native 금융교육 플랫폼
+# FinFriends
 
-> **"만 8~9세 아동의 금융 행동 실천을 기록하고, 그 변화를 보호자에게 시각적 증거로 증명합니다."**  
-> 본 저장소는 **PRD(기획) ➔ SRS(요구사항) ➔ TDS(기술설계) ➔ Task List(개발태스크)** 로 이어지는 1:1 역방향/정방향 추적성을 갖춘 통합 개발 명세 및 다중 에이전트(Multi-Agent) Harness 저장소입니다.
+초등 저학년 아동이 **벌기 · 잘 쓰기 · 모으기 · 불리기**를 실천으로 배우고, 보호자가 그 성장을 확인하는 금융교육 서비스입니다.
 
----
+> 현재 저장소는 **fixture 기반 Next.js UI 프로토타입** 단계입니다. 실제 인증·DB·Server Action·외부 연동은 30개 태스크에 따라 후속 구현합니다.
 
-## ⚡ 빠르게 훑어보기
+## 지금 바로 실행하기
+
+요구 런타임은 Node.js `v24.20.0` LTS와 npm `11.19.0`입니다.
 
 ```bash
 npm install
-npm run dev     # http://localhost:3000 — 화면 색인이 뜬다
+npm run dev
 ```
 
-| 명령 | 하는 일 |
+개발 서버: <http://localhost:3000>
+
+| 명령 | 목적 |
 |---|---|
-| `npm run dev` | 개발 서버 |
-| `npm run build` | 프로덕션 빌드 |
-| `npm run typecheck` | `tsc --noEmit` |
-| `npm run lint` | ESLint |
-| `npm run compliance` | 금지 식별자 정적 검사 (`TASK-405` 산출 전 임시본) |
+| `npm run dev` | 개발 서버 실행 |
+| `npm run build` | 프로덕션 빌드 검증 |
+| `npm run typecheck` | TypeScript strict 검사 |
+| `npm run lint` | ESLint 검사 |
+| `npm run compliance` | 위치·현금성 전환·얼굴 업로드 금지 식별자 검사 |
 
-> **요구 런타임** — Node.js `v24.20.0` LTS · npm `11.19.0`
+## 프로토타입 화면
 
-### 저장소를 처음 여는 사람이 볼 순서
+루트(`/`)는 보호자 온보딩으로 이동합니다. 모든 화면은 [확정 라우트 표](AGENTS.md#32-라우트-규약-13건-확정-신설-금지)를 따릅니다.
 
-| 무엇을 알고 싶은가 | 어디를 보는가 |
+| 모드 | 화면 |
 |---|---|
-| 이 서비스가 무엇인가 | 아래 「제품 핵심 가치」 → [`docs/01-prd/prd.md`](docs/01-prd/prd.md) |
-| 지금 무엇이 만들어져 있나 | [`docs/00-plan/prototype-review-log.md`](docs/00-plan/prototype-review-log.md) |
-| 무엇을 어떤 순서로 만드나 | [`docs/00-plan/prototype-execution-plan.md`](docs/00-plan/prototype-execution-plan.md) |
-| 왜 그렇게 정했나 | [`docs/00-plan/grill-ledger.md`](docs/00-plan/grill-ledger.md) |
-| 에이전트가 지켜야 할 규칙 | [`AGENTS.md`](AGENTS.md) |
+| Fun · 아동 | [`/child/tree`](http://localhost:3000/child/tree) · [`/child/learn`](http://localhost:3000/child/learn) · [`/child/quiz/[topic]`](http://localhost:3000/child/quiz/earn) |
+| Fun · 아동 | [`/child/missions`](http://localhost:3000/child/missions) · [`/child/plan/new`](http://localhost:3000/child/plan/new) · [`/child/retro/[recordId]`](http://localhost:3000/child/retro/demo) |
+| Fun · 아동 | [`/child/stars`](http://localhost:3000/child/stars) · [`/child/wardrobe`](http://localhost:3000/child/wardrobe) · [`/child/wishlist`](http://localhost:3000/child/wishlist) |
+| Clean · 보호자 | [`/parent/onboarding`](http://localhost:3000/parent/onboarding) · [`/consent`](http://localhost:3000/consent) |
+| Clean · 보호자 | [`/parent/forest`](http://localhost:3000/parent/forest) · [`/parent/missions`](http://localhost:3000/parent/missions) |
 
-### 화면 13건 (확정 라우트 · `AGENTS.md` §3.2)
+주요 시연 흐름은 **퀴즈 정답 → 별 지급**, **계획 입력 → 회고 3상태**, **미션 보고 → 보호자 승인/반려**, **옷장 구매 → 별 차감**입니다.
 
-| 아동 뷰 — Fun Mode | 보호자 뷰 — Clean Mode |
-|---|---|
-| `/child/tree` 성장 나무 | `/parent/onboarding` 보호자 온보딩 |
-| `/child/learn` 학습 주제 | `/consent` 법정대리인 동의 |
-| `/child/quiz/[topic]` 퀴즈 | `/parent/forest` 월간 숲 대시보드 |
-| `/child/missions` 미션 보고 | `/parent/missions` 승인·반려 |
-| `/child/plan/new` 소비 계획 카드 | |
-| `/child/retro/[recordId]` AI 회고 | |
-| `/child/stars` 별 잔액·이력 | |
-| `/child/wardrobe` 아바타 옷장 | |
-| `/child/wishlist` 위시리스트 | |
+## 저장소 구조
 
-**라우트를 신설하지 않는다.** 필요하면 `AGENTS.md` §3.2 를 먼저 고친다.
+각 최상위 디렉토리는 하나의 책임만 갖습니다. 상세 배치와 트랙별 파일 소유권은 [`AGENTS.md`](AGENTS.md) §3·§6을 기준으로 합니다.
 
----
-
-## 🛠️ 핵심 기술 스택 (AI-Native Single Fullstack)
-
-핀프렌즈 MVP는 복잡한 다중 서버 아키텍처를 탈피하여 **단일 풀스택 및 완전 무료 인프라($0/월)** 환경에서 완벽히 자립 구동되도록 설계되었습니다.
-
-- **프레임워크:** [Next.js](https://nextjs.org/) (App Router 기반 단일 풀스택)
-- **서버 로직:** Next.js Server Actions & Route Handlers (별도 백엔드 서버 없음)
-- **데이터베이스:** [Prisma ORM](https://www.prisma.io/) + [Supabase PostgreSQL](https://supabase.com/) (pgbouncer 6543 / direct 5432 분리)
-- **UI / 스타일링:** [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/) (아동 Fun / 보호자 Clean 듀얼 테마)
-- **AI 회고 엔진:** [Vercel AI SDK](https://sdk.vercel.ai/) + [Google Gemini 1.5 Flash API](https://ai.google.dev/) (2.5s 타임아웃 + 룰 템플릿 Fallback)
-- **외부 결제 연동:** 내장 Mock Partner Sandbox (실 결제망 미연동 가상 Route Handler)
-- **테스트:** [Vitest](https://vitest.dev/) (Unit/Integration) + [Playwright](https://playwright.dev/) (E2E)
-- **배포 & 인프라:** [Vercel](https://vercel.com/) (Git Push 무중단 배포, Hobby Free Tier $0 제약 준수)
-
----
-
-## 📚 핵심 문서 체계 (Deliverables Map)
-
-모든 기획과 설계는 **ISO/IEC/IEEE 29148:2018** 표준 및 규제(만 14세 미만 동의, 위치정보 수집 0건)를 엄격히 준수합니다.
-
-번호는 **디렉토리 번호 하나만** 씁니다. `tasks/` 는 명세가 아니라 실행 트리라 번호를 갖지 않습니다.
-
-| 디렉토리 | 산출물 문서 | 버전 | 주요 내용 |
-|:---:|---|:---:|---|
-| **`docs/00-plan/`**<br>총괄 계획 | [`dag-roadmap.md`](docs/00-plan/dag-roadmap.md) | `v2.0` | **개발 총괄 실행 계획서 (Execution Master Plan) — 실행 SSOT**<br>• 태스크 30건 DAG · 7개 위상 웨이브 · CPM 임계경로 5.5 MD (4트랙 총 20.5 MD)<br>• 파일 배타 소유권 맵, 교차 계약 8건, 릴리즈 게이트 프로토콜 |
-| | [`prototype-suggestion.md`](docs/00-plan/prototype-suggestion.md) | `v1.1` | **시각 프로토타이핑 선별안 (부분 승인)**<br>• 30건 중 UI 표면 소유 태스크 선별(Tier 1 9건 / Tier 2 5건), 13 라우트 화면 맵, fixture 승격 규약<br>• 라우트·소유권은 확정되어 `AGENTS.md` §3.2·§6 반영. 실행 계획 P0~P3는 미착수 |
-| | [`prototype-execution-plan.md`](docs/00-plan/prototype-execution-plan.md) | `v1.0` | **프로토타입 실행 지시서 (Node 확정판) — 착수 SSOT**<br>• 확정 런타임 Node v24.20.0 LTS · 스택 버전 후보와 함정 2건 · P0~P3 2.5 MD<br>• 라우트 13건 화면별 상세 명세 · 듀얼 테마 토큰 13종 × 2모드 · CSS 모션 · 완료 판정 9문항<br>• 이 문서 하나만 읽고 착수한다 |
-| | [`grill-ledger.md`](docs/00-plan/grill-ledger.md) | — | **UI/UX 결정 원장 (6/6 RESOLVED)**<br>• 나무 소유 뷰 · 화면 범위 · 모드 접근 · 모션 수준 · 토큰 · 아바타 표현<br>• 각 결정의 근거와 반영 위치를 추적 |
-| **`docs/01-prd/`**<br>기획 | [`prd.md`](docs/01-prd/prd.md) | `v1.0` | **제품 요구사항 정의서 (PRD)**<br>• 북극성 지표(WPA), 8대 사용자 스토리, 기능/비기능 요구사항, 선불업 경계 ADR 8건 |
-| **`docs/02-srs/`**<br>요구사항 | [`srs.md`](docs/02-srs/srs.md) | `v1.2` | **소프트웨어 요구사항 명세서 (SRS)**<br>• REQ-FUNC 18건, NFR 24건, REG 9건, Server Actions 및 Prisma 스키마, ADR 13건 |
-| **`docs/03-tds/`**<br>기술 설계 | [`tds.md`](docs/03-tds/tds.md) | `v1.0` | **기술 설계 문서 (TDS)**<br>• 도메인 모델, 별 원장 멱등성/불변식 설계, Mock Sandbox 3단계 대조 엔진 |
-| **[`tasks/`](tasks/)**<br>실행 | [`task-list.md`](tasks/task-list.md)<br>[`parallel-gantt.md`](tasks/parallel-gantt.md)<br>[`step-N/TASK-XXX.md`](tasks/) | `v1.2` | **개발 태스크 30건 — 개별 명세가 구현 SSOT**<br>• 4단계 원칙(Contract ➔ Logic ➔ Test ➔ NFR)·공수·REQ 매핑<br>• 태스크별 Target Files · GWT 인수조건 · 검증 명령어 |
-
-### 파일·디렉토리 명명 규칙
-
-| 대상 | 규칙 | 예 |
+| 경로 | 책임 | 원본/SSOT |
 |---|---|---|
-| 디렉토리 | 소문자 kebab-case. 정렬이 필요하면 숫자를 접두 또는 접미하며 자릿수는 디렉토리별로 일관되게 | `00-plan/` · `step-1/` · `100-error-fixing-process/` |
-| 문서 파일 | `kebab-case.md` — ASCII 소문자만. **한글·버전 표기 금지** | `dag-roadmap.md` · `srs.md` |
-| ID 파일 | ID 자체가 이름 | `TASK-101.md` |
-| 예외 | 도구·플랫폼이 이름을 고정하는 파일 | `README.md` · `SKILL.md` · `AGENTS.md` · `CLAUDE.md` |
+| `app/` | Next.js App Router와 13개 화면 | 화면별 `*.fixture.ts`는 후속 태스크에서 교체 |
+| `components/` | 공통 UI 및 아동·보호자 컴포넌트 | `components/ui` 포함 |
+| `actions/` | Server Actions | 태스크 구현 예정 |
+| `services/` | 순수 도메인 로직·트랜잭션 경계 | 태스크 구현 예정 |
+| `lib/` | Prisma·인증·AI·Sandbox·검증·알림 | 태스크 구현 예정 |
+| `prisma/` | 스키마·마이그레이션·시드 | 태스크 구현 예정 |
+| `types/` | 공통 DTO와 원장 타입 | 태스크 구현 예정 |
+| `tests/` | Vitest·Playwright 테스트 | 태스크 구현 예정 |
+| `data/` | Seed 원본 JSON | 태스크 구현 예정 |
+| `docs/` | 제품·요구사항·설계·실행 문서 | [`docs/README.md`](docs/README.md) |
+| `tasks/` | 30개 구현 태스크 명세 | [`tasks/README.md`](tasks/README.md) |
+| `scripts/` | 링크·스킬·컴플라이언스 자동 검사 | 스크립트 자체가 실행 규약 |
+| `.claude/` | Claude Code 원본 스킬·에이전트·커맨드 | `.claude/skills`가 스킬 원본 |
+| `.cursor/` | Cursor 규칙·스킬 파생본 | `scripts/sync-skills.sh`로 동기화 |
+| `.codex/` | Codex 트랙 에이전트 설정 | Codex 전용 |
+| `.github/` | GitHub 이슈 템플릿·협업 설정 | GitHub 전용 |
 
-> **버전을 파일명에 넣지 않는 이유** — 버전이 오를 때마다 인바운드 링크가 전부 깨진다.
-> 버전은 각 문서 헤더의 `**버전:**` 줄이 소유한다.
+## 문서 읽는 순서
 
----
+문서의 질문이 겹치지 않도록 다음 계층을 사용합니다.
 
-## 🎯 제품 핵심 가치 및 북극성 지표
+1. [`docs/01-prd/prd.md`](docs/01-prd/prd.md) — 왜 만드는가
+2. [`docs/02-srs/srs.md`](docs/02-srs/srs.md) — 무엇을 만족해야 하는가
+3. [`docs/03-tds/tds.md`](docs/03-tds/tds.md) — 어떻게 설계하는가
+4. [`docs/00-plan/dag-roadmap.md`](docs/00-plan/dag-roadmap.md) — 누가·언제·어떤 순서로 실행하는가
+5. [`tasks/step-*/TASK-XXX.md`](tasks/) — 개별 태스크를 어떻게 구현·검증하는가
+6. [`AGENTS.md`](AGENTS.md) — 모든 에이전트가 반드시 지키는 규칙
 
-```mermaid
-flowchart LR
-    A["아이의 금융 실천\n(미션 / 계획 소비 / 위시리스트)"] --> B["별 (Star)\n즉각적인 정량 보상"]
-    A --> C["성장 나무 (Growth Tree)\n이번 주기 질적 성장"]
-    A --> D["월간 숲 (Monthly Forest)\n장기 누적 변화 증거"]
+프로토타입 작업의 실행 기준은 [`docs/00-plan/prototype-execution-plan.md`](docs/00-plan/prototype-execution-plan.md), 완료 기록은 [`docs/00-plan/prototype-review-log.md`](docs/00-plan/prototype-review-log.md)입니다.
 
-    C --> E["보호자에게\n실천 근거 제공"]
-    D --> E
+## 제품 흐름과 기술 원칙
+
+```text
+계획 카드 → 결제 원장 → 3단계 대조 → AI 회고 → 실천 인정 → 별 지급 → 나무 갱신 → 월간 숲
 ```
 
-### 1. 2대 가치 선언
-1. **자녀 (실천 계층):** 금융을 재미있게 배우고, 계획적인 소비와 미션 실천을 통해 스스로 성장한다.
-2. **보호자 (증거 계층):** 얼마나 배웠는지가 아니라 **금융 행동이 어떻게 달라졌는지**를 시각적 데이터로 확인한다.
+- Next.js App Router 단일 풀스택, TypeScript strict
+- Prisma + Supabase PostgreSQL, Server Actions + Route Handlers
+- Tailwind CSS 듀얼 테마: 아동 Fun / 보호자 Clean
+- Gemini 회고는 2.5초 타임아웃과 결정론적 Fallback 필수
+- 별 원장은 멱등성과 `balance_after` 불변식을 보장
+- 위치정보·아동 얼굴 이미지·별의 현금성 전환은 지원하지 않음
+- Vercel Hobby + Supabase Free 기준 월 비용 `$0`
 
-### 2. 북극성 KPI (North Star Metric)
-- **WPA (Weekly Practicing Active-children, 주간 실천 인정 아동 비율)**
-  $$\text{WPA}(w) = \frac{\text{주간 실천(미션 승인/계획 준수 지출) 인정 아동 수}}{\text{주초 활성 아동 수}}$$
+## 개발 규칙
 
----
+- 모든 변경은 [`AGENTS.md`](AGENTS.md)를 먼저 읽고 담당 태스크의 SSOT를 따른다.
+- Server Action은 Zod 입력 검증과 `services/` 경계를 거친다.
+- 태스크 구현 순서는 Contract → Logic → Test → NFR이며, 태스크 본문의 GWT와 검증 명령을 준수한다.
+- `.claude/skills/`만 직접 수정하고 `.cursor/skills/`는 동기화 스크립트로 갱신한다.
+- `main` 직접 푸시는 금지하며, 태스크 구현은 `feat/TASK-XXX-<slug>` 브랜치와 PR을 사용한다.
 
-## 🏗️ 시스템 아키텍처 (Single Fullstack)
+## 현재 상태
 
-```mermaid
-flowchart TB
-    subgraph Browser["Client Browser (PWA / Responsive)"]
-        PV["보호자 뷰 (Clean Mode / 승인·대시보드)"]
-        CV["아이 뷰 (Fun Game Mode / 퀴즈·나무·옷장)"]
-        SHADCN["Tailwind CSS + shadcn/ui Component Kit"]
-    end
+| 영역 | 상태 |
+|---|---|
+| P0~P3 UI 프로토타입 13개 라우트 | ✅ 완료 |
+| 타입체크·Lint·Compliance·Build 게이트 | ✅ 통과 |
+| 실제 Prisma·인증·Server Actions | ⏳ `TASK-101`~ 구현 예정 |
+| Vitest·Playwright 테스트 | ⏳ `TASK-301`~ 구현 예정 |
+| Alpha/Beta/General Release | ⏳ 도메인 구현 후 진행 |
 
-    subgraph NextServer["Next.js App Router Platform (Vercel Serverless)"]
-        AUTH["Server Auth & Consent Guard (middleware.ts)"]
-        SA["Server Actions (/actions: onboarding, growth, ledger, retro)"]
-        RH["Route Handlers (/api/v1/sandbox/pay, events)"]
-        
-        subgraph AI_PIPELINE["AI Integration Pipeline"]
-            AI_SDK["Vercel AI SDK Core"]
-            FALLBACK["Deterministic Rule-based Fallback"]
-        end
-    end
-
-    subgraph Persistence["Persistence & Cloud (Supabase PostgreSQL)"]
-        PRISMA["Prisma ORM Client ($transaction)"]
-        PG["PostgreSQL Database (Tables & Constraints)"]
-        CRON["Supabase pg_cron (Daily Maintenance)"]
-    end
-
-    subgraph CloudAPIs["External Cloud APIs (Free Tier)"]
-        GEMINI["Google Gemini 1.5 Flash API"]
-    end
-
-    PV & CV --> SHADCN
-    SHADCN --> AUTH
-    AUTH --> SA & RH
-
-    SA --> PRISMA
-    RH --> PRISMA
-    PRISMA <--> PG
-    CRON --> PG
-
-    SA --> AI_SDK
-    AI_SDK <--> GEMINI
-    AI_SDK -. 429/Timeout .-> FALLBACK
-```
-
----
-
-## 🤖 AI Agent Harness 및 4트랙 병렬 개발
-
-Antigravity, Cursor, Claude Code, OpenAI Codex가 공통 SSOT 하에서 충돌 없이 개발할 수 있도록 Harness가 구성되어 있습니다.
-
-**원본은 한 곳뿐입니다.** 같은 내용이 두 경로에 있으면 한쪽은 반드시 기계 생성 파생본이며, 파생본을 직접 편집하면 다음 동기화에서 소실됩니다 ([`AGENTS.md`](AGENTS.md) §3.1).
-
-```
-├── AGENTS.md                # [원본] 모든 AI 에이전트 공통 행동 규칙 및 불변식
-├── CLAUDE.md                # [원본] Claude Code 전용 라우팅
-├── .claude/
-│   ├── skills/              # [원본] 도메인 스킬 12건 — Claude Code 가 로드
-│   ├── agents/              # [원본] 4트랙 서브에이전트
-│   └── commands/            # [원본] 슬래시 커맨드 3건
-├── .cursor/
-│   ├── rules/               # [파생] AGENTS.md 를 Cursor .mdc 형식으로 반영 (수동)
-│   └── skills/              # [파생] scripts/sync-skills.sh 가 생성 — 직접 편집 금지
-└── scripts/sync-skills.sh   # 스킬 동기화 및 드리프트 검사 (--check)
-```
-
-| 자산 | 원본 | 파생본 | 동기화 |
-|---|---|---|---|
-| 프로젝트 규칙 | `AGENTS.md` | `.cursor/rules/*.mdc` | 수동 |
-| 도메인 스킬 12건 | `.claude/skills/` | `.cursor/skills/` | `bash scripts/sync-skills.sh` |
-| 서브에이전트 · 커맨드 | `.claude/{agents,commands}/` | — | Claude Code 전용 |
-
-> Codex · Antigravity 용 `.agents/` 는 `.cursor/` 와 100% 중복이라 제거했습니다.
-> 되살리려면 파생본으로 추가하고 `sync-skills.sh` 에 등록하십시오.
-
-### 🎯 4개 병렬 트랙 소유권 분리
-- **Track A (Core · Auth · Consent):** `prisma/schema.prisma`, `lib/auth/**`, `actions/onboarding.ts`, `middleware.ts`, `scripts/verify-compliance.ts`
-- **Track B (Star Ledger · Practice):** `actions/ledger.ts`, `actions/learning.ts`, `actions/practice.ts`, `services/{ledger,quiz,mission,backfill}.service.ts`
-- **Track C (Spending · Sandbox · AI):** `app/api/v1/sandbox/**`, `lib/sandbox/**`, `actions/{plan,retro}.ts`, `services/{plan,reconciliation}.service.ts`, `lib/ai/**`
-- **Track D (Growth · Forest · Infra):** `prisma/seed.ts`, `actions/{growth,wardrobe,wishlist}.ts`, `services/{growth,forest,wardrobe,wishlist}.service.ts`
-
----
-
-## 🛡️ 핵심 컴플라이언스 및 불변 원칙
-
-1. **법정대리인 동의 게이트 (REG-001):** 만 14세 미만 아동의 서비스 이용 전 보호자 동의를 필수로 받으며, 미동의 상태 시 아동 진입을 서버 레벨에서 100% 차단합니다 (`middleware.ts`).
-2. **위치정보 수집 0건 (REG-002, REQ-NF-009):** Geolocation API 호출 및 GPS 좌표 저장을 원천 배제하며 정적 스캔(`npm run compliance`)으로 강제합니다.
-3. **얼굴 이미지 미수집 (REG-006, REQ-NF-010):** 아동 얼굴 사진 업로드를 금지하고 사전 렌더링된 2D 벡터 아바타만 제공합니다.
-4. **별 원장 불변식 (REG-005, REQ-FUNC-002):** 별(Star)은 인앱 포인트로만 기능하며 현금성 잔액과 완전 분리됩니다.
-   $$\text{balance\_after}_n = \text{balance\_after}_{n-1} + \text{delta}_n$$
-
----
-
-## 🚦 릴리즈 게이트 (Release Gates)
-
-| 단계 | 목표 | 주요 진입 조건 (Quality Gate) |
-|---|---|---|
-| **Alpha Gate** | 핵심 플로우 동작 & 보안/규제 100% | • REG 자동 테스트 100% 통과<br>• 별 원장 불변식 오차 0%<br>• 위치 권한 0건 검증<br>• Serverless Warm 응답 SLO 충족 (나무 ≤800ms, 별지급 ≤600ms) |
-| **Beta Gate** | 사용자 경험 및 AI 파이프라인 검증 | • 첫 실천 인정률 $\ge 60\%$<br>• 결제-계획 매칭 정확도 $\ge 90\%$<br>• Gemini AI 회고 피드백 및 Fallback 파이프라인 무결성 |
-| **General Release** | 상용 서비스 오픈 | • 2주 연속 WPA $\ge 55\%$<br>• 3일 미접속 알림 인지율 $\ge 90\%$<br>• 계획 카드 작성률 $\ge 50\%$ |
-
----
-
-## 🛠️ 변경 관리 및 추적성 규칙
-
-1. **단일 진실 공급원 (Single Source of Truth):**
-   - 모든 요구사항 변경은 **PRD §7-4 및 SRS §17 ADR**을 통해 결정 후 코드로 전파됩니다.
-2. **End-to-End 추적성 (Traceability):**
-   - `PRD User Story` ➔ `SRS REQ-FUNC` ➔ `Next.js Server Action / Prisma Model` ➔ `Task List` ➔ `Test Case` 추적 체계를 상시 유지합니다.
+프로토타입 최종 판정과 검증 근거는 [`prototype-review-log.md`](docs/00-plan/prototype-review-log.md)의 Round 4에 기록되어 있습니다.
