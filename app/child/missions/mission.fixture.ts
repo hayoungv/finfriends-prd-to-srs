@@ -15,12 +15,6 @@ export type Mission = {
   readonly note?: string;
 };
 
-export const STATUS_LABEL: Record<MissionStatus, string> = {
-  CREATED: "아직 안 했어요",
-  PENDING_APPROVAL: "확인 기다리는 중",
-  APPROVED: "칭찬받았어요",
-  REJECTED: "다시 해볼까?",
-};
 
 export const missions: readonly Mission[] = [
   { id: "m1", title: "빨래 개기", reward: 2, status: "CREATED" },

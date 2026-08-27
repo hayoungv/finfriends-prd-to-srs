@@ -7,12 +7,12 @@
 export type SpeciesId = "rabbit" | "squirrel";
 export type OutfitId = "basic" | "raincoat" | "explorer" | "chef";
 
-export const SPECIES: Record<SpeciesId, { name: string; fur: string; inner: string }> = {
+const SPECIES: Record<SpeciesId, { name: string; fur: string; inner: string }> = {
   rabbit: { name: "토끼", fur: "#F0E4DA", inner: "#F3B6C0" },
   squirrel: { name: "다람쥐", fur: "#C98A4B", inner: "#F0D2AE" },
 };
 
-export const OUTFITS: Record<OutfitId, { name: string; color: string }> = {
+const OUTFITS: Record<OutfitId, { name: string; color: string }> = {
   basic: { name: "기본 옷", color: "#7E9BD4" },
   raincoat: { name: "노란 비옷", color: "#F2B84B" },
   explorer: { name: "탐험가 조끼", color: "#5FA871" },

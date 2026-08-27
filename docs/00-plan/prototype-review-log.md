@@ -93,3 +93,22 @@ TOP_FIX: app/parent/forest/forest.fixture.ts:20 의 6번 지표를 `계획 대�
 - 규제 불변식 4건 — REG-002 지도·현재위치 0 / REG-005c 원화 환산 0 / REG-006 업로드 컨트롤 0 / 금지 식별자 0
 - 부모→아이 단방향 — `grep 'href="/parent' app/child` = 0
 - 코어 루프 클릭 완주 — 끊긴 링크 0
+
+### ROUND 2 — 2026-08-27
+
+```
+ROUND: 2
+VERDICT: GO
+SCORECARD: A:C Z:P T:C K:P S:P
+TOP_FIX: app/child/learn/page.tsx:51-60 의 '불리기' 카드를 클릭 가능한 Link(/child/quiz/grow)로
+         바꾸고, 잠금 배지 문구를 "금융상품 가입 차단"으로 한정하라.
+         검증: 4개 카드 전부 Link · /child/quiz/grow 도달 가능 · 학습/퀴즈는 열려 있음.
+```
+
+ROUND 1 지적 4건 **전부 해소 확인** → K·S 축이 `C` → `P` 로 올라왔다. 남은 2건을 조치한다.
+
+| 축 | 지적 | 조치 |
+|:--:|---|---|
+| **A** | `/child/learn` 의 '불리기' 카드가 `<div>` 라 클릭 불가. 그런데 안내 문구는 "이야기와 퀴즈만 있어요"라 **자기모순**이다. SRS §6.3 AC1 은 "'불리기' 영역은 학습 및 퀴즈만 개통", `TASK-206` 은 "학습 완료만 기록"이라 **주제를 막으라는 뜻이 아니었다.** `quiz.fixture.ts` 에 grow 콘텐츠가 완비돼 있는데 도달 경로가 0건 | 4개 카드 전부 `Link` 로 통일. 잠긴 것은 **상품이지 학습이 아니다** — 필드명을 `locked` → `productLocked` 로 바꾸고 배지를 「🔒 상품 가입 없음」으로 한정. 차단 경계는 **퀴즈 보상 화면**에 `productNotice` 로 명시 (REG-004 가 실제로 작동하는 지점에 표시) |
+| **T** | 무반응 CTA 4건 — `/child/missions` "다 했어요", `/child/wardrobe` 종·의상 교체. SRS §6.4 AC1 (`CREATED → PENDING_APPROVAL`) 이 클릭으로 시연되지 않는다 | `MissionReport` · `WardrobePicker` 클라이언트 컴포넌트 신설. 미션은 상태 전이 + 안내 문구, 옷장은 종·의상 교체와 **구매 시 별 차감**까지 실제로 동작 |
+| K(선택) | `SPECIES`·`OUTFITS` 외부 참조 0 | `export` 제거. `mission.fixture.ts` 의 `STATUS_LABEL` 도 표현이므로 컴포넌트로 이관 |

@@ -17,6 +17,8 @@ export type QuizContent = {
   readonly choices: readonly { readonly id: string; readonly text: string }[];
   readonly answerId: string;
   readonly why: string;
+  /** REG-004 — 금융상품 가입 경로가 없는 주제에서 그 경계를 보상 화면에 명시한다 */
+  readonly productNotice?: string;
 };
 
 export function QuizFlow({
@@ -130,6 +132,12 @@ export function QuizFlow({
             <p className="tabular-nums text-ink-soft">
               {startingBalance}개 → {startingBalance + 1}개
             </p>
+            {/* REG-004 — 상품 가입 경로가 없는 주제는 그 경계를 여기서 밝힌다 */}
+            {quiz.productNotice && (
+              <p className="mt-2 rounded-card bg-surface p-gap text-ink-soft">
+                🔒 {quiz.productNotice}
+              </p>
+            )}
             <div className="mt-gap grid w-full gap-2">
               <Link
                 href="/child/learn"

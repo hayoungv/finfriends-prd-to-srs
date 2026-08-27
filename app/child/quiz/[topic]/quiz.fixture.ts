@@ -10,6 +10,8 @@ export type QuizContent = {
   readonly choices: readonly QuizChoice[];
   readonly answerId: string;
   readonly why: string;
+  /** REG-004 — '불리기'는 학습·퀴즈만 개통한다. 상품 가입 경로가 없음을 여기서 못 박는다 */
+  readonly productNotice?: string;
 };
 
 const CONTENT: Record<string, QuizContent> = {
@@ -76,6 +78,8 @@ const CONTENT: Record<string, QuizContent> = {
     ],
     answerId: "a",
     why: "맡긴 값에 대한 고마움을 조금씩 돌려줘요.",
+    productNotice:
+      "불리기는 여기까지예요. 핀프렌즈에는 진짜 예금이나 펀드에 가입하는 곳이 없어요.",
   },
 };
 
