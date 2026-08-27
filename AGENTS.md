@@ -150,6 +150,21 @@ Server Action 에서 Prisma 를 직접 호출하지 않는다. 반드시 `servic
 | `app/parent/forest/` | Clean | `213` `403` `404` | D |
 | `app/parent/missions/` | Clean | `207` `208` | B |
 
+- **성장 나무는 아이·부모 양쪽에 노출한다. 같은 데이터, 다른 언어다.**
+  `app/child/tree/` 는 Fun — 나무 일러스트·별 카운터·다음 한 걸음 넛지.
+  `app/parent/forest/` 는 Clean **대시보드** — 현재 성장 나무(실천 근거·정체 원인) **+** 월간 숲 7대 지표를 한 화면에 담는다.
+  부모 화면이 월간 집계만 보여주면 이번 주기의 성장을 실시간으로 확인할 수 없다.
+  > PRD §4-1 `F5` 근거란의 *"나무는 부모 화면 전용"* 은 **지표의 귀속**(ADR-002 3층 분리 — 별=아이 동기층 / 나무=부모 확인층)을
+  > 말한 것이지 아이의 화면 접근을 막는 뜻이 아니다. SRS §6.5 시퀀스(`Child→Client: 성장 나무 화면 진입`)와
+  > AC3(*"UI 최상단 넛지"* — 행동할 아이가 봐야 의미가 있다)이 아이 노출을 전제한다. 2026-08-27 확정.
+- **모드 접근은 계정 분리 + 부모→아이 단방향이다. 모드 토글을 만들지 않는다.**
+  아이 계정 세션 — `app/child/**` 만. **`app/parent/**` 로 가는 링크·버튼·리다이렉트를 두지 않는다.**
+  부모 계정 세션 — `app/parent/**` 기본. 여기서 **아이 화면 열람과 대행 입력**이 가능하다
+  (`👁 아이 화면 보기` · `✎ 대신 계획 적기`). 이때도 Fun 테마로 렌더한다.
+  > 근거 — PRD §6 데이터 개요: *"기기 유형은 참고 정보다. 기능 대상 판정에 쓰지 않는다 —
+  > **계획 카드는 부모 폰에서도 작성 가능**"*. ADR-003 맥락: *"선별 인물 둘 다 전용폰 없음"*.
+  > H2(키즈워치)는 아이가 앱을 쓸 기기가 없으므로 부모 대행 경로가 없으면 `F8a`(Must)가 동작하지 않는다.
+  > 방향이 단방향이라 REG-001(미동의 아동 진입 차단)과 충돌하지 않는다. 2026-08-27 확정.
 - `/consent` 는 **루트에 둔다.** REG-001 미동의 리다이렉트 대상이 `/consent` 로 명시돼 있다.
 - `app/layout.tsx` · `app/globals.css` · `tailwind.config.ts` 는 **공유 파일**이다.
   최초 스캐폴딩에서 확정한 뒤 동결하며, 변경은 `package.json` 과 동일 프로토콜(§6)을 따른다.
@@ -279,6 +294,8 @@ Server Action 에서 Prisma 를 직접 호출하지 않는다. 반드시 `servic
 | [`docs/03-tds/`](docs/03-tds/) | ERD · 시퀀스 · 알고리즘 · 무결성 규칙 |
 | [`docs/00-plan/dag-roadmap.md`](docs/00-plan/dag-roadmap.md) | 트랙·웨이브·임계경로·게이트 |
 | [`docs/00-plan/prototype-suggestion.md`](docs/00-plan/prototype-suggestion.md) | 시각 프로토타이핑 선별안 — 라우트 13건·화면 소유권 확정 근거 |
-| [`docs/00-plan/visual-prototype-scope.md`](docs/00-plan/visual-prototype-scope.md) | 경량 시각 프로토타입 범위 — Node 없이 착수 가능한 4화면·듀얼 테마 토큰 |
+| [`docs/00-plan/visual-prototype-scope.md`](docs/00-plan/visual-prototype-scope.md) | 경량 시각 프로토타입 범위 — 6화면 15프레임 선별 근거 |
+| [`docs/00-plan/visual-prototype-spec.md`](docs/00-plan/visual-prototype-spec.md) | **경량 프로토타입 개발 지침서 — 실행 SSOT.** 프레임 명세·토큰·모션·완료 판정 |
+| [`docs/00-plan/grill-ledger.md`](docs/00-plan/grill-ledger.md) | UI/UX 결정 원장 — 각 결정의 근거와 반영 위치 |
 | [`tasks/`](tasks/) | 태스크 30건 구현 명세 (SSOT) |
 | [`.claude/skills/README.md`](.claude/skills/README.md) | 도메인 스킬 12건 색인 · 적용 시점 |
