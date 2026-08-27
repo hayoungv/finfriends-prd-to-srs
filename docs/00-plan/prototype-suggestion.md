@@ -6,6 +6,8 @@
 - **기준 문서:** [`docs/00-plan/dag-roadmap.md`](dag-roadmap.md) · [`tasks/task-list.md`](../../tasks/task-list.md) · [`docs/02-srs/srs.md`](../02-srs/srs.md) · [`AGENTS.md`](../../AGENTS.md)
 - **성격:** **부분 승인.** §4 라우트 13건과 §5.4 소유권 배정은 확정되어 `AGENTS.md` §3.2·§6 에 반영됐다.
   §5 실행 계획(P0~P3)은 **미착수** — 선행 조건 2건이 남아 있다 (§7 R-P1 · R-P7).
+- **선행 차수:** [`visual-prototype-scope.md`](visual-prototype-scope.md) — 본 문서의 14건을 **Node 없이 지금 착수 가능한 4화면**으로
+  추린 경량 범위. P0 의 "듀얼 테마 토큰 정의"를 선투자로 끝내며, 선행 조건이 없다.
 
 ---
 

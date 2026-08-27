@@ -29,7 +29,8 @@
 | 디렉토리 | 산출물 문서 | 버전 | 주요 내용 |
 |:---:|---|:---:|---|
 | **`docs/00-plan/`**<br>총괄 계획 | [`dag-roadmap.md`](docs/00-plan/dag-roadmap.md) | `v2.0` | **개발 총괄 실행 계획서 (Execution Master Plan) — 실행 SSOT**<br>• 태스크 30건 DAG · 7개 위상 웨이브 · CPM 임계경로 5.5 MD (4트랙 총 20.5 MD)<br>• 파일 배타 소유권 맵, 교차 계약 8건, 릴리즈 게이트 프로토콜 |
-| | [`prototype-suggestion.md`](docs/00-plan/prototype-suggestion.md) | `v1.0` | **시각 프로토타이핑 선별안 (제안 · 미승인)**<br>• 30건 중 UI 표면 소유 태스크 선별(Tier 1 9건 / Tier 2 5건), 13 라우트 화면 맵, fixture 승격 규약 |
+| | [`prototype-suggestion.md`](docs/00-plan/prototype-suggestion.md) | `v1.1` | **시각 프로토타이핑 선별안 (부분 승인)**<br>• 30건 중 UI 표면 소유 태스크 선별(Tier 1 9건 / Tier 2 5건), 13 라우트 화면 맵, fixture 승격 규약<br>• 라우트·소유권은 확정되어 `AGENTS.md` §3.2·§6 반영. 실행 계획 P0~P3는 미착수 |
+| | [`visual-prototype-scope.md`](docs/00-plan/visual-prototype-scope.md) | `v1.0` | **경량 시각 프로토타입 범위 (착수 가능)**<br>• 위 14건을 **Node 없이 지금 그릴 수 있는 4화면**으로 재추림 (약 5시간)<br>• 산출물은 화면이 아니라 **듀얼 테마 토큰** — P0의 토큰 정의를 선투자로 대체 |
 | **`docs/01-prd/`**<br>기획 | [`prd.md`](docs/01-prd/prd.md) | `v1.0` | **제품 요구사항 정의서 (PRD)**<br>• 북극성 지표(WPA), 8대 사용자 스토리, 기능/비기능 요구사항, 선불업 경계 ADR 8건 |
 | **`docs/02-srs/`**<br>요구사항 | [`srs.md`](docs/02-srs/srs.md) | `v1.2` | **소프트웨어 요구사항 명세서 (SRS)**<br>• REQ-FUNC 18건, NFR 24건, REG 9건, Server Actions 및 Prisma 스키마, ADR 13건 |
 | **`docs/03-tds/`**<br>기술 설계 | [`tds.md`](docs/03-tds/tds.md) | `v1.0` | **기술 설계 문서 (TDS)**<br>• 도메인 모델, 별 원장 멱등성/불변식 설계, Mock Sandbox 3단계 대조 엔진 |
