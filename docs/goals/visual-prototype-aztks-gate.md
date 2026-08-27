@@ -1,3 +1,13 @@
+> ⚠️ **2026-08-27 대체됨 — 실행하지 마라.**
+> 이 프롬프트는 "로컬에 Node 가 없다"(R-P7)를 전제로 정적 HTML 목업을 만드는 계획이었다.
+> Node v24.20.0 LTS 가 설치되어 전제가 소멸했다.
+> **Node 판:** [`prototype-node-aztks-gate.md`](prototype-node-aztks-gate.md)
+> **근거 지시서:** [`../00-plan/prototype-execution-plan.md`](../00-plan/prototype-execution-plan.md)
+>
+> 아래 원문은 판정 기준의 이력으로만 남긴다.
+
+---
+
 /goal
 
 ## 1) 작업 핵심 목표 및 범위

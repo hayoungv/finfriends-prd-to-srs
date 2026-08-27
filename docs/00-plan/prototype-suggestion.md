@@ -5,9 +5,10 @@
 - **작성일:** 2026-08-27
 - **기준 문서:** [`docs/00-plan/dag-roadmap.md`](dag-roadmap.md) · [`tasks/task-list.md`](../../tasks/task-list.md) · [`docs/02-srs/srs.md`](../02-srs/srs.md) · [`AGENTS.md`](../../AGENTS.md)
 - **성격:** **부분 승인.** §4 라우트 13건과 §5.4 소유권 배정은 확정되어 `AGENTS.md` §3.2·§6 에 반영됐다.
-  §5 실행 계획(P0~P3)은 **미착수** — 선행 조건 2건이 남아 있다 (§7 R-P1 · R-P7).
-- **선행 차수:** [`visual-prototype-scope.md`](visual-prototype-scope.md) — 본 문서의 14건을 **Node 없이 지금 착수 가능한 4화면**으로
-  추린 경량 범위. P0 의 "듀얼 테마 토큰 정의"를 선투자로 끝내며, 선행 조건이 없다.
+  §5 실행 계획(P0~P3)은 **미착수** — 선행 조건 **1건**이 남아 있다 (§7 R-P1). **R-P7 은 2026-08-27 해소됐다.**
+- **실행 지시서:** [`prototype-execution-plan.md`](prototype-execution-plan.md) — 본 문서 §5 P0~P3 를 Node 확정판으로
+  옮긴 착수 문서. 런타임·스택 버전·토큰 승격 경로가 실행 가능한 형태로 확정돼 있다.
+- ~~**선행 차수:** `visual-prototype-scope.md` — Node 없이 착수 가능한 4화면 경량 범위~~ **→ 폐기.** R-P7 해소로 전제가 소멸했다.
 
 ---
 
@@ -331,7 +332,9 @@ grep -rnE "geolocation|getCurrentPosition|watchPosition|latitude|longitude|conve
 | **R-P2** | `app/**`·`components/child/**` **소유권 미배정** — 4트랙 병렬 시 충돌 | 높음 | ✅ **해소** | §5.4 배정안을 [`AGENTS.md`](../../AGENTS.md) §6 · 로드맵 [§2.3](dag-roadmap.md#23-파일-소유권-맵-병렬-충돌-방지) 에 반영 완료 |
 | **R-P3** | 라우트 11건이 어느 문서에도 없음 | 중 | ✅ **해소** | 라우트 13건을 [`AGENTS.md`](../../AGENTS.md) §3.2 에 **확정·신설 금지**로 성문화. `/consent` 는 루트 배치 |
 | **R-P1** | **DAG에 화면 생성 태스크가 없다** — `305`·`306` E2E가 존재하지 않는 화면을 대상으로 착수 | 치명 | ⏳ **잔존** | 소유권·라우트는 확정됐으나 **화면을 만드는 태스크가 여전히 DAG에 없다.** 티켓화 여부는 아래 미결정 1번 |
-| **R-P7** | **로컬에 Node.js 툴체인이 없다** — `node`·`npm`·`npx`·`pnpm`·`yarn` 전부 부재 | 치명 | ⏳ **잔존** | P0 스캐폴딩(`create-next-app`·shadcn init)과 모든 검증 명령어가 실행 불가. **Node LTS 설치가 P0의 선행 조건** |
+| **R-P7** | **로컬에 Node.js 툴체인이 없다** — `node`·`npm`·`npx`·`pnpm`·`yarn` 전부 부재 | 치명 | ✅ **해소** | 2026-08-27 **Node v24.20.0 LTS** 사용자 전역 설치 (`%LOCALAPPDATA%\Programs\nodejs`, npm 11.19.0). 상세는 [`prototype-execution-plan.md`](prototype-execution-plan.md) §1 |
+| **R-P8** | `prisma` 의 npm `latest` 태그가 **RC**(8.0.0-rc.12)를 가리킨다 | 높음 | 🆕 신규 | `npm i prisma` 를 그대로 실행하면 RC 가 들어온다. `prisma@7.10.0` + `@prisma/client@7.10.0` **명시 고정** — 실행 지시서 §2 |
+| **R-P9** | Tailwind v4 는 CSS-first — `tailwind.config.ts` 가 생성되지 않는다 | 중 | 🆕 신규 | §5.4 공유 파일 목록과 `AGENTS.md` §6 이 이 파일을 전제한다. `TASK-101` 이 버전 확정 시 함께 갱신 — 실행 지시서 §5 |
 | **R-P4** | 프로토타입 fixture 타입이 `TASK-102` DTO와 불일치 | 중 | ⏳ 잔존 | fixture는 SRS §10·§11 기준으로 **선취 정의**하고, `102` 완료 시 `types/domain.ts`로 역흡수 |
 | **R-P5** | 프로토타입 2.5 MD가 임계 경로(6.0 MD)에 순증 | 중 | ⏳ 잔존 | P0~P1(1.5 MD)을 Wave 0 유휴에 흡수(§5.1·§5.2). 실질 순증 **약 1.0 MD** |
 | **R-P6** | 화면 존재가 REG-001 통과로 오인 | 높음 | ⏳ 잔존 | §5.5 명시. Alpha Gate 판정은 `TASK-203`+`TASK-305` 완료 시에만 유효 |
@@ -340,9 +343,9 @@ grep -rnE "geolocation|getCurrentPosition|watchPosition|latitude|longitude|conve
 
 1. **본 계획을 별도 태스크(`TASK-100` 등)로 티켓화할 것인가**, 아니면 Wave 0 준비 작업으로만 둘 것인가
    → 티켓화하지 않으면 R-P1이 열린 채로 남는다. 화면 생성 책임이 어느 태스크에도 없기 때문이다.
-2. **Node.js 설치 시점** (R-P7) — 설치 전까지 P0 착수 불가.
-   `AGENTS.md` §2 가 "버전 확정 전까지 임의 버전을 가정하고 코드를 쓰지 않는다"를 명시하므로,
-   `.tsx` 를 손으로 미리 써 넣는 우회도 규칙 위반이다.
+2. ~~**Node.js 설치 시점** (R-P7)~~ → ✅ **해소 (2026-08-27).** v24.20.0 LTS 사용자 전역 설치 완료.
+   라이브러리 버전은 여전히 `AGENTS.md` §2 대로 `TASK-101` 이 `package.json` 에 확정한다 —
+   실행 지시서 §2 가 설치 시점 registry 조회 결과를 **근거로만** 남겨 뒀다.
 
 > **확정 완료 (2026-08-27)** — §5.4 소유권 배정안과 §4.1 라우트 13건은 승인되어 SSOT에 반영됐다.
 > 라우트는 이제 이 아니라 **확정**이며, 신설하려면 `AGENTS.md` §3.2 를 먼저 고쳐야 한다.

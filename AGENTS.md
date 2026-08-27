@@ -30,10 +30,15 @@
 
 ## 2. Technical Stack
 
-> ⚠️ **버전은 아직 고정되지 않았다 `[OPEN]`.** 최초 스캐폴딩 태스크(`TASK-101` 담당 에이전트)가 `package.json` 에 확정하고 본 문서를 갱신한다. 확정 전까지 임의 버전을 가정하고 코드를 쓰지 않는다.
+> ⚠️ **라이브러리 버전은 아직 고정되지 않았다 `[OPEN]`.** 최초 스캐폴딩 태스크(`TASK-101` 담당 에이전트)가 `package.json` 에 확정하고 본 문서를 갱신한다. 확정 전까지 임의 버전을 가정하고 코드를 쓰지 않는다.
+>
+> ✅ **런타임은 확정됐다 (2026-08-27).** `node v24.20.0` LTS · `npm 11.19.0` — `%LOCALAPPDATA%\Programs\nodejs` 사용자 전역 설치.
+> 버전 후보 조사 결과와 함정 2건(`prisma@latest` 가 RC · Tailwind v4 는 `tailwind.config.ts` 미생성)은
+> [`docs/00-plan/prototype-execution-plan.md`](docs/00-plan/prototype-execution-plan.md) §2 참조.
 
 | 레이어 | 선택 | 근거 |
 |---|---|---|
+| 런타임 | **Node.js v24.20.0 LTS** (npm 11.19.0) — 확정 | 2026-08-27 설치 |
 | 프레임워크 | **Next.js App Router 단일 풀스택** (RSC + Server Actions) | ADR-009 |
 | 언어 | TypeScript (strict) | — |
 | ORM / DB | **Prisma + Supabase PostgreSQL** (pgbouncer 6543 / direct 5432 분리) | ADR-009 |
