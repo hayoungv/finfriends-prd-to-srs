@@ -15,9 +15,3 @@ export const expiryHours = 72;
 
 export const starBalance = 12;
 
-/** 아이가 이미 적어둔 예시 — 폼 위에 참고로 보여준다 */
-export const recentPlan = {
-  place: "학교 앞 문구점",
-  kindId: "stationery",
-  amount: 3000,
-} as const;

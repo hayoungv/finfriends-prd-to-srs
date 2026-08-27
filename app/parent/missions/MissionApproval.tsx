@@ -1,11 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import type { PendingMission } from "./mission.fixture";
 
 // TASK-207 · TASK-208 · REQ-FUNC-011 — 승인·반려·일괄승인
 // 정적 목업에서 프레임 3장으로 나눠야 했던 대기/승인후/반려후가 여기서는 실제 전이다.
 type Decision = "approved" | "rejected";
+
+// 이 컴포넌트가 요구하는 계약이다. fixture 에서 import 하지 않는다 —
+// 승격 시 fixture 가 삭제돼도 이 파일은 그대로 남아야 한다.
+export type PendingMission = {
+  readonly id: string;
+  readonly title: string;
+  readonly reward: number;
+  readonly reportedAt: string;
+  readonly childNote?: string;
+};
 
 export function MissionApproval({
   missions,

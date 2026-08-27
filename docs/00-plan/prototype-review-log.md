@@ -66,3 +66,30 @@
 ```
 (ROUND 기록은 여기에 append 된다)
 ```
+
+### ROUND 1 — 2026-08-27
+
+```
+ROUND: 1
+VERDICT: GO
+SCORECARD: A:C Z:P T:C K:C S:C
+TOP_FIX: app/parent/forest/forest.fixture.ts:20 의 6번 지표를 `계획 대비 지출` → SSOT 표기인
+         전월 대비 소비 증감액으로 교체하라. 검증: 7개 label 이 docs/02-srs/srs.md:439-446
+         목록과 1:1 대응.
+```
+
+**GO 이나 완수는 아니다** — 이 목표의 기준은 `VERDICT: GO` **+ 5축 전원 `P`** 다. `C` 4건이 남아 있다.
+
+| 축 | 지적 | 조치 |
+|:--:|---|---|
+| **A** | `/child/wardrobe` 가 아바타 **1종**(사람)·의상 4종. SRS §6.6 AC1 은 **동물 2종(토끼·다람쥐)** 을 요구하고 fixture 주석은 "2종·4벌"이라 코드와 어긋난다 | `WardrobeAvatar` 를 `species` × `outfit` 2축으로 재작성. 토끼·다람쥐를 귀·꼬리 실루엣으로 구별. 화면에 「친구 고르기」 절 신설 |
+| **T** | 월간 숲 7대 지표 라벨이 SRS §6.9 SSOT 와 어긋남 | 7개 전부 SSOT 표기로 교체 — `4영역 단계 현황` · `총 실천 인정 횟수` · `사려다 멈춘 횟수` · `계획 준수율` · `총 획득 별 개수` · `전월 대비 소비 증감액` · `월간 WPA 기여도` |
+| **K** | 참조 0인 죽은 export 2건 — `plan.fixture.ts:19 recentPlan`, `WardrobeAvatar.tsx:36 OUTFIT_LABELS` | 삭제 |
+| **S** | `QuizFlow` · `PlanForm` · `MissionApproval` 이 fixture 에서 `import type`. 승격 4-d(fixture 삭제) 시 3파일이 깨진다 | 세 타입을 각 컴포넌트로 이관. **컴포넌트 → fixture 참조 0건** |
+
+통과 확인된 것 (재검증 불필요)
+
+- **Z:P** — 완료 판정 9항 전부. `typecheck`·`lint`·`build`·`compliance` exit 0, 라우트 13건 = §3.2 목록, 신설 0
+- 규제 불변식 4건 — REG-002 지도·현재위치 0 / REG-005c 원화 환산 0 / REG-006 업로드 컨트롤 0 / 금지 식별자 0
+- 부모→아이 단방향 — `grep 'href="/parent' app/child` = 0
+- 코어 루프 클릭 완주 — 끊긴 링크 0

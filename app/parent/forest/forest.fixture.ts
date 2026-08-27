@@ -12,13 +12,13 @@ export type Metric = {
 
 /** REQ-FUNC-009 — 월간 숲 7대 지표. 스크롤 없이 한 화면에 들어와야 한다 */
 export const metrics: readonly Metric[] = [
-  { key: "stage", label: "4영역 단계", value: "벌기 3 · 쓰기 2 · 모으기 2 · 불리기 1", delta: null },
-  { key: "practice", label: "실천 횟수", value: "9", delta: +2, unit: "회" },
+  { key: "stage", label: "4영역 단계 현황", value: "벌기 3 · 쓰기 2 · 모으기 2 · 불리기 1", delta: null },
+  { key: "practice", label: "총 실천 인정 횟수", value: "9", delta: +2, unit: "회" },
   { key: "paused", label: "사려다 멈춘 횟수", value: "4", delta: +1, unit: "회" },
   { key: "adherence", label: "계획 준수율", value: "71", delta: -6, unit: "%" },
-  { key: "stars", label: "총 획득 별", value: "23", delta: +5, unit: "개" },
-  { key: "spend", label: "계획 대비 지출", value: "-3,400", delta: +900, unit: "원" },
-  { key: "wpa", label: "WPA 기여도", value: "2.3", delta: +0.4, unit: "회/주" },
+  { key: "stars", label: "총 획득 별 개수", value: "23", delta: +5, unit: "개" },
+  { key: "spend", label: "전월 대비 소비 증감액", value: "-3,400", delta: null, unit: "원" },
+  { key: "wpa", label: "월간 WPA 기여도", value: "2.3", delta: +0.4, unit: "회/주" },
 ];
 
 /** 현재 성장 나무 — 아이 화면과 같은 데이터를 다른 언어로 읽힌다 */

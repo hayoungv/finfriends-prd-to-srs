@@ -3,11 +3,21 @@
 import Link from "next/link";
 import { useState } from "react";
 import { StarHUD } from "@/components/child/StarHUD";
-import type { QuizContent } from "@/app/child/quiz/[topic]/quiz.fixture";
 
 // TASK-206 · REQ-FUNC-003 — 학습 카드 → 문제 → 정답/오답 → 별 보상
 // 정적 목업에서는 프레임을 나란히 놓아야 했던 5단계가 여기서는 실제 클릭 전이다.
 type Step = "lesson" | "question" | "correct" | "reward" | "wrong";
+
+// 이 컴포넌트가 요구하는 계약이다. fixture 에서 import 하지 않는다 —
+// 승격 시 fixture 가 삭제돼도(승격 규약 4-d) 이 파일은 그대로 남아야 한다.
+export type QuizContent = {
+  readonly topicName: string;
+  readonly lesson: { readonly title: string; readonly body: string };
+  readonly question: string;
+  readonly choices: readonly { readonly id: string; readonly text: string }[];
+  readonly answerId: string;
+  readonly why: string;
+};
 
 export function QuizFlow({
   quiz,

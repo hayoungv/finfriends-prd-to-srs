@@ -2,10 +2,17 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import type { MerchantKind } from "@/app/child/plan/new/plan.fixture";
 
 // TASK-209 · REQ-FUNC-007 — 아동 폼의 원형. 이후 모든 아동 입력 화면이 이 레이아웃을 따른다.
 // AC2: GPS·카메라 권한을 요구하지 않는다. 지도도 "현재 위치" 버튼도 주변 가맹점 목록도 없다.
+
+// 이 컴포넌트가 요구하는 계약이다. fixture 에서 import 하지 않는다 —
+// 승격 시 fixture 가 삭제돼도 이 파일은 그대로 남아야 한다.
+export type MerchantKind = {
+  readonly id: string;
+  readonly label: string;
+  readonly emoji: string;
+};
 export function PlanForm({
   kinds,
   expiryHours,
