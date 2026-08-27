@@ -117,6 +117,22 @@ flowchart LR
 | **C** | `app/api/v1/sandbox/**`, `lib/sandbox/simulator.ts`, `actions/plan.ts`, `actions/retro.ts`, `services/plan.service.ts`, `services/reconciliation.service.ts`, `lib/ai/**`, `tests/unit/reconciliation.test.ts`, `tests/e2e/spending-loop.spec.ts` |
 | **D** | `prisma/seed.ts`, `data/**`, `actions/growth.ts`, `actions/wardrobe.ts`, `actions/wishlist.ts`, `services/growth.service.ts`, `services/forest.service.ts`, `services/wardrobe.service.ts`, `services/wishlist.service.ts`, `tests/unit/growth.test.ts`, `prisma/migrations/procedures/`, `lib/db/cron-setup.sql`, `app/child/tree/loading.tsx`, `app/parent/forest/loading.tsx`, `components/ui/skeleton.tsx` |
 
+**화면 소유권 (`AGENTS.md` §3.2 라우트 13건 기준):**
+
+30개 태스크 본문의 `변경 대상 파일`에는 `app/child/**`·`app/parent/**` 페이지가 **한 건도 없습니다** (§6 카탈로그 참조).
+화면을 만드는 태스크가 DAG에 없어 `305`·`306` E2E가 존재하지 않는 화면을 대상으로 착수하는 구조였습니다.
+아래는 그 공백을 메우는 배정이며, **화면을 해당 Server Action 소유 트랙에 정렬**했습니다.
+
+| 트랙 | 배타 소유 화면 |
+|:---:|---|
+| **A** | `app/parent/onboarding/**`, `app/consent/**`, `components/parent/**` |
+| **B** | `app/child/{learn,quiz,missions,stars}/**`, `app/parent/missions/**`, `components/child/{Quiz,Mission,Star}*` |
+| **C** | `app/child/{plan,retro}/**`, `components/child/{Plan,Retro}*` |
+| **D** | `app/child/{tree,wardrobe,wishlist}/**`, `app/parent/forest/**`, `components/ui/**`, `components/child/{Tree,Wardrobe,Wish}*` |
+| **공유** | `app/layout.tsx`, `app/globals.css`, `tailwind.config.ts` — `package.json` 과 동일 프로토콜(§2.4) |
+
+근거 및 화면별 명세: [`prototype-suggestion.md`](prototype-suggestion.md) §4·§5.4
+
 **트랙 내부 `[MODIFY]` 인계 (동일 트랙이므로 안전):**
 
 | 파일 | `[NEW]` 생성 태스크 | `[MODIFY]` 수정 태스크 | 트랙 |

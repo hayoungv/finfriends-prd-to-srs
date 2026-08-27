@@ -53,7 +53,7 @@
 ## 3. 디렉토리 규약 (변경 금지)
 
 ```
-app/            # App Router — app/parent/**, app/child/**, app/api/v1/sandbox/**
+app/            # App Router — app/parent/**, app/child/**, app/api/v1/sandbox/** (라우트 전수는 §3.2)
 actions/        # Server Actions — 도메인당 1파일 (ledger, practice, plan, retro, growth …)
 services/       # 순수 도메인 로직 — *.service.ts, DB 트랜잭션 경계
 lib/            # prisma.ts, auth/**, ai/**, sandbox/**, validations/**, db/**, notification/**
@@ -129,6 +129,35 @@ Server Action 에서 Prisma 를 직접 호출하지 않는다. 반드시 `servic
 
 ---
 
+## 3.2 라우트 규약 (13건 확정 — 신설 금지)
+
+아동 뷰는 Fun Mode, 보호자 뷰는 Clean Mode 로 렌더한다. **아래 13건 외의 라우트를 임의로 만들지 않는다.**
+근거 — [`docs/00-plan/prototype-suggestion.md`](docs/00-plan/prototype-suggestion.md) §4.
+
+| 라우트 | 모드 | 담당 Task | 소유 트랙 |
+|---|:--:|:--:|:--:|
+| `app/child/tree/` | Fun | `212` `403` | D |
+| `app/child/learn/` | Fun | `206` | B |
+| `app/child/quiz/[topic]/` | Fun | `206` | B |
+| `app/child/missions/` | Fun | `207` | B |
+| `app/child/stars/` | Fun | `205` | B |
+| `app/child/plan/new/` | Fun | `209` | C |
+| `app/child/retro/[recordId]/` | Fun | `211` `402` | C |
+| `app/child/wardrobe/` | Fun | `214` | D |
+| `app/child/wishlist/` | Fun | `215` | D |
+| `app/parent/onboarding/` | Clean | `201` | A |
+| `app/consent/` | Clean | `202` `203` | A |
+| `app/parent/forest/` | Clean | `213` `403` `404` | D |
+| `app/parent/missions/` | Clean | `207` `208` | B |
+
+- `/consent` 는 **루트에 둔다.** REG-001 미동의 리다이렉트 대상이 `/consent` 로 명시돼 있다.
+- `app/layout.tsx` · `app/globals.css` · `tailwind.config.ts` 는 **공유 파일**이다.
+  최초 스캐폴딩에서 확정한 뒤 동결하며, 변경은 `package.json` 과 동일 프로토콜(§6)을 따른다.
+- 화면 컴포넌트의 mock 데이터는 **최상위 디렉토리를 신설하지 않고** 화면과 co-located 한
+  `*.fixture.ts` 로 둔다. 첫 줄에 `// PROTO-DATA: TASK-XXX` 마커를 넣어 승격 시 grep 으로 전수 특정한다.
+
+---
+
 ## 4. 절대 불변식 (Non-Negotiable Invariants)
 
 > 아래 6건은 **규제·정합성 요구사항**이며 위반 시 릴리즈 게이트에서 빌드가 차단된다.
@@ -186,15 +215,20 @@ Server Action 에서 Prisma 를 직접 호출하지 않는다. 반드시 `servic
 
 4개 에이전트가 동시에 작업한다. **타 트랙 소유 파일을 편집하지 않는다.**
 
-| 트랙 | 배타 소유 |
-|:-:|---|
-| **A** Core·Auth·Consent | `prisma/schema.prisma`, `lib/prisma.ts`, `types/domain.ts`, `lib/validations/**`, `actions/onboarding.ts`, `lib/auth/**`, `services/account.service.ts`, `middleware.ts`, `lib/notification/**`, `scripts/verify-compliance.ts` |
-| **B** Ledger·Practice | `actions/ledger.ts`, `actions/learning.ts`, `actions/practice.ts`, `types/ledger.ts`, `services/{ledger,quiz,mission,backfill}.service.ts` |
-| **C** Spending·AI | `app/api/v1/sandbox/**`, `lib/sandbox/**`, `actions/{plan,retro}.ts`, `services/{plan,reconciliation}.service.ts`, `lib/ai/**` |
-| **D** Growth·Infra | `prisma/seed.ts`, `data/**`, `actions/{growth,wardrobe,wishlist}.ts`, `services/{growth,forest,wardrobe,wishlist}.service.ts`, `lib/db/**`, `components/ui/skeleton.tsx` |
+| 트랙 | 배타 소유 — 서버·데이터 | 배타 소유 — 화면 (§3.2) |
+|:-:|---|---|
+| **A** Core·Auth·Consent | `prisma/schema.prisma`, `lib/prisma.ts`, `types/domain.ts`, `lib/validations/**`, `actions/onboarding.ts`, `lib/auth/**`, `services/account.service.ts`, `middleware.ts`, `lib/notification/**`, `scripts/verify-compliance.ts` | `app/parent/onboarding/**`, `app/consent/**`, `components/parent/**` |
+| **B** Ledger·Practice | `actions/ledger.ts`, `actions/learning.ts`, `actions/practice.ts`, `types/ledger.ts`, `services/{ledger,quiz,mission,backfill}.service.ts` | `app/child/{learn,quiz,missions,stars}/**`, `app/parent/missions/**`, `components/child/{Quiz,Mission,Star}*` |
+| **C** Spending·AI | `app/api/v1/sandbox/**`, `lib/sandbox/**`, `actions/{plan,retro}.ts`, `services/{plan,reconciliation}.service.ts`, `lib/ai/**` | `app/child/{plan,retro}/**`, `components/child/{Plan,Retro}*` |
+| **D** Growth·Infra | `prisma/seed.ts`, `data/**`, `actions/{growth,wardrobe,wishlist}.ts`, `services/{growth,forest,wardrobe,wishlist}.service.ts`, `lib/db/**` | `app/child/{tree,wardrobe,wishlist}/**`, `app/parent/forest/**`, `components/ui/**`, `components/child/{Tree,Wardrobe,Wish}*` |
 
-**공유 파일 프로토콜** — `package.json` 과 `prisma/schema.prisma` 는 유일한 충돌 지점이다.
-의존성 추가가 필요하면 **직접 편집하지 말고** 이슈에 코멘트로 요청한 뒤 Track A 가 일괄 반영한다.
+> 화면 소유권은 **해당 Server Action 을 소유한 트랙에 정렬**했다. 같은 도메인의 액션과 화면이
+> 항상 한 트랙 안에 있으므로 `[MODIFY]` 인계가 트랙을 넘지 않는다.
+> `app/parent/missions/**` 만 예외적으로 B 가 갖는다 — `actions/practice.ts`(B) 의 승인·일괄승인 화면이다.
+
+**공유 파일 프로토콜** — `package.json`, `prisma/schema.prisma`, `app/layout.tsx`, `app/globals.css`,
+`tailwind.config.ts` 는 유일한 충돌 지점이다.
+의존성 추가나 공유 파일 변경이 필요하면 **직접 편집하지 말고** 이슈에 코멘트로 요청한 뒤 Track A 가 일괄 반영한다.
 
 ---
 
